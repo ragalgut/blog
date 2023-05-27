@@ -1,0 +1,45 @@
+<!-- begin hero -->
+<section class="hero">
+  <div class="container">
+    <div class="row">
+      <div class="col col-6 col-d-12">
+        <div class="footer__author">
+          <center>
+          <div class="footer__author-avatar">
+            <img class="lazy" data-src="{{site.author.author__avatar}}" alt="{{site.author.author__name}}">
+          </div>
+          </center>
+          <h3 class="footer__author-name">{{site.author.author__name}}</h3>
+          <p class="footer__author-bio">{{site.author.author__bio}}</p>
+          {% if site.social %}
+          <div class="social">
+            <ul class="social__list list-reset">
+              {% for social in site.social %}
+              <li class="social__item">
+                <a class="social__link" href="{{social.link}}" target="_blank" rel="noopener"
+                  aria-label="{{social.label}} link"><i class="ion {{social.icon}}"></i></a>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+          {% endif %}
+          <!--{% if site.mailchimp == "enable" %}
+          <div class="hero__subscribe">
+            <form class="subscribe-form validate"
+              action="{% if site.mailchimp__identifier %}//{{site.mailchimp__identifier}}{% else %}#{% endif %}" method="POST" id="membedded-subscribe-form" name="membedded-subscribe-form" target="_blank" novalidate>
+              <label class="screen-reader-text" for="mce-EMAIL">Email address</label>
+              <input class="subscribe-email required email" id="mce-EMAIL" type="text" name="EMAIL"
+                placeholder="{% if site.mailchimp__input__text %}{{ site.mailchimp__input__text }}{% else %}Email address{% endif %}">
+              <button class="button button--primary subscribe-button" id="membedded-subscribe" type="submit" name="subscribe">{{ site.mailchimp__button__text }}</button>
+            </form>
+          </div>
+          {% endif %}
+        -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</section>
+<!-- end hero -->

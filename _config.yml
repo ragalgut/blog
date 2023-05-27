@@ -1,0 +1,71 @@
+#-------------------------------
+# Site Settings
+title: Ragalgut
+logo: # You can add own logo. For example '/images/logo.png'.
+description: Un espacio para compartir conocimientos técnicos relacionados con la tecnología.
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "ragalgut.github.io" # the base hostname & protocol for your site, e.g. http://example.com
+color_scheme: auto # You can choose three modes auto, light, and dark. By default, the auto mode is set, which means the user can choose the light or dark mode themself.
+
+
+#-------------------------------
+# Author Settings
+author:
+  author__name: Rafael Galante Gutiérrez
+  author__bio: Azure Engineer at Kyndryl
+  author__avatar: '/images/rafa-avatar.webp'
+
+social:
+#- {icon: "ion-logo-twitter", link: "https://twitter.com"}
+#- {icon: "ion-logo-facebook", link: "https://facebook.com"}
+#- {icon: "ion-logo-instagram", link: "https://instagram.com"}
+#- {icon: "ion-logo-pinterest", link: "https://pinterest.com"}
+#- {icon: "ion-logo-youtube", link: "https://youtube.com"}
+- {icon: "ion-logo-github", link: "https://github.com/ragalgut"}
+- {icon: "ion-logo-linkedin", link: "https://www.linkedin.com/in/ragalgut/"}
+
+
+#-------------------------------
+# Newsletter
+mailchimp: enable # To enable the mailchimp form, use the value 'enable'. To disable the form, leave the field blank.
+mailchimp__identifier: ragagu.us11.list-manage.com/subscribe/post?u=5c523592f5bda733710584659&amp;id=148ee2d2d1 # Add your MailChimp form identifier. For example - frnla.us6.list-manage.com/subscribe/post?u=6314d69a3f315af7ce3fb00a0&amp;id=3038727cc3
+mailchimp__input__text: Suscríbete aquí
+mailchimp__button__text: Enviar
+
+
+#-------------------------------
+# Comment Section (Disqus)
+disqus-identifier: ragalgut # Add your shortname for Disqus Comment. For example demo-menca
+
+
+#-------------------------------
+# Google Analytics
+google-analytics:  # Add your GA Tracking Id
+
+
+#-------------------------------
+# Build Settings
+markdown: kramdown
+permalink: /:title
+plugins:
+  - jekyll-paginate
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+paginate: 9
+paginate_path: "/page/:num"
+
+# Pages Path
+defaults:
+  - scope:
+      path: '_pages'
+    values:
+      permalink: /:basename:output_ext
+
+
+include:
+  - _pages
+
+sass:
+  sass_dir: _sass
+  style: compressed

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
-<loc>http://localhost:4000/activar-desactivar-autenticacion-smtp-cuentas-exchange-online</loc>
+<loc>http://localhost:4000/configurar-la-autenticacion-smtp-en-cuentas-de-microsoft-365</loc>
 <lastmod>2023-05-24T14:01:35+02:00</lastmod>
 </url>
 <url>

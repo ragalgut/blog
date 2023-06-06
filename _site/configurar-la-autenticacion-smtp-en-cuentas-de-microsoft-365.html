@@ -246,9 +246,9 @@
   <article class="post">
 
     <div class="post__content">
-      <p>SMTP es un protocolo usado para el envío y recepción de correos presente en aplicaciones, servidores de correos, impresoras multifuncionales, formularios webs, clientes POP3 e IMAP4, etc. El puerto que utiliza es TCP 587.</p>
+      <p><strong>SMTP</strong> es un protocolo usado para el envío y recepción de correos presente en aplicaciones, servidores de correos, impresoras multifuncionales, formularios webs, clientes <strong>POP3</strong> e <strong>IMAP4</strong>, etc. El puerto que utiliza es <strong>TCP 587</strong>.</p>
 
-<p>Las cuentas de Microsoft 365 que disponen de una licencia para Exchange Online permiten habilitar la autenticación SMTP (AUTH SMTP), pero, solo se recomienda hacerlo en cuentas que lo requieran porque por defecto hacen uso de una autenticación más moderna y segura.</p>
+<p>Las cuentas de <strong>Microsoft 365</strong> que disponen de una licencia para <strong>Exchange Online</strong> permiten habilitar la autenticación <strong>SMTP (AUTH SMTP)</strong>, pero, solo se recomienda hacerlo en cuentas que lo requieran porque por defecto hacen uso de una autenticación más moderna y segura.</p>
 
 <blockquote>
   <p>Si tiene habilitado los valores predeterminados de seguridad en el tenant de su empresa, AUTH SMTP está por defecto deshabilitado en todas las cuentas de Microsoft 365.</p>
@@ -264,7 +264,7 @@
 </code></pre></div>    </div>
   </li>
   <li>
-    <p>Tener instalado el módulo de PowerShell Exchange Online.</p>
+    <p>Tener instalado el módulo de <strong>PowerShell Exchange Online</strong>.</p>
 
     <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Install-Module -Name ExchangeOnlineManagement -RequiredVersion 3.1.0
 </code></pre></div>    </div>
@@ -276,7 +276,7 @@
 </code></pre></div>    </div>
   </li>
   <li>
-    <p>Para establecer una conexión como administrador con Exchange Online ejecutamos el siguiente comando, donde admin@contoso.com es la cuenta de administrador.</p>
+    <p>Para establecer una conexión como administrador con <strong>Exchange Online</strong> ejecutamos el siguiente comando, donde <em>admin@contoso.com</em> es la cuenta de administrador.</p>
 
     <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Connect-ExchangeOnline -UserPrincipalName admin@contoso.com
 </code></pre></div>    </div>
@@ -285,24 +285,24 @@
 
 <h2 id="deshabilitar-autenticación-smtp-globalmente">Deshabilitar autenticación SMTP globalmente</h2>
 
-<p>Para deshabilitar SMTP globalmente en la empresa, ejecutamos el siguiente comando.</p>
+<p>Para deshabilitar <strong>SMTP</strong> globalmente en la empresa, ejecutamos el siguiente comando.</p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Set-TransportConfig -SmtpClientAuthenticationDisabled $true
 </code></pre></div></div>
 
-<p>Para comprobar que se ha deshabilitado la autenticación SMTP ejecutamos el siguiente comando y comprobamos que el valor de la propiedad SmtpClientAuthenticationDisablede sea True.</p>
+<p>Para comprobar que se ha deshabilitado la autenticación <strong>SMTP</strong> ejecutamos el siguiente comando y comprobamos que el valor de la propiedad <em>SmtpClientAuthenticationDisablede</em> sea <em>True</em>.</p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Get-TransportConfig | Format-List SmtpClientAuthenticationDisabled
 </code></pre></div></div>
 
 <h2 id="habilitar-autenticación-smtp-en-cuentas-específicas">Habilitar autenticación SMTP en cuentas específicas</h2>
 
-<p>Para comprobar la configuración actual de la cuenta de usuario ejecutamos el siguientes comando, donde usuario@contoso.com introducimos la cuenta de usuario a revisar.</p>
+<p>Para comprobar la configuración actual de la cuenta de usuario ejecutamos el siguientes comando, donde <em>usuario@contoso.com</em> introducimos la cuenta de usuario a revisar.</p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Get-CASMailbox -Identity Usuario@contoso.com | Format-List SmtpClientAuthenticationDisabled
 </code></pre></div></div>
 
-<p>Si nos carga el usuario con el valor en blanco o $True ejecutamos el siguiente comando para habilitar la autenticación SMTP.</p>
+<p>Si nos carga el usuario con el valor en blanco o <em>$True</em> ejecutamos el siguiente comando para habilitar la autenticación <strong>SMTP</strong>.</p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Set-CASMailbox -Identity sean@contoso.com -SmtpClientAuthenticationDisabled $false 
 </code></pre></div></div>

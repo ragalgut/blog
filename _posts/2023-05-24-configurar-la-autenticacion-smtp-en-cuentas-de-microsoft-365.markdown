@@ -7,9 +7,9 @@ image:  '/images/activar-desactivar-smtp.webp'
 tags:   [Microsoft 365, Exchange Online]
 ---
 
-SMTP es un protocolo usado para el envío y recepción de correos presente en aplicaciones, servidores de correos, impresoras multifuncionales, formularios webs, clientes POP3 e IMAP4, etc. El puerto que utiliza es TCP 587.
+**SMTP** es un protocolo usado para el envío y recepción de correos presente en aplicaciones, servidores de correos, impresoras multifuncionales, formularios webs, clientes **POP3** e **IMAP4**, etc. El puerto que utiliza es **TCP 587**.
 
-Las cuentas de Microsoft 365 que disponen de una licencia para Exchange Online permiten habilitar la autenticación SMTP (AUTH SMTP), pero, solo se recomienda hacerlo en cuentas que lo requieran porque por defecto hacen uso de una autenticación más moderna y segura.
+Las cuentas de **Microsoft 365** que disponen de una licencia para **Exchange Online** permiten habilitar la autenticación **SMTP (AUTH SMTP)**, pero, solo se recomienda hacerlo en cuentas que lo requieran porque por defecto hacen uso de una autenticación más moderna y segura.
 
 > Si tiene habilitado los valores predeterminados de seguridad en el tenant de su empresa, AUTH SMTP está por defecto deshabilitado en todas las cuentas de Microsoft 365.
 
@@ -21,7 +21,7 @@ Las cuentas de Microsoft 365 que disponen de una licencia para Exchange Online p
    Set-ExecutionPolicy RemoteSigned
    ```
 
-2. Tener instalado el módulo de PowerShell Exchange Online.
+2. Tener instalado el módulo de **PowerShell Exchange Online**.
 
    ```
    Install-Module -Name ExchangeOnlineManagement -RequiredVersion 3.1.0
@@ -31,7 +31,7 @@ Las cuentas de Microsoft 365 que disponen de una licencia para Exchange Online p
    ```
    Import-Module ExchangeOnlineManagement
    ```
-4. Para establecer una conexión como administrador con Exchange Online ejecutamos el siguiente comando, donde admin@contoso.com es la cuenta de administrador.
+4. Para establecer una conexión como administrador con **Exchange Online** ejecutamos el siguiente comando, donde *admin@contoso.com* es la cuenta de administrador.
 
    ```
    Connect-ExchangeOnline -UserPrincipalName admin@contoso.com
@@ -40,13 +40,13 @@ Las cuentas de Microsoft 365 que disponen de una licencia para Exchange Online p
 
 ## Deshabilitar autenticación SMTP globalmente
 
-Para deshabilitar SMTP globalmente en la empresa, ejecutamos el siguiente comando.
+Para deshabilitar **SMTP** globalmente en la empresa, ejecutamos el siguiente comando.
 
 ```
 Set-TransportConfig -SmtpClientAuthenticationDisabled $true
 ```
 
-Para comprobar que se ha deshabilitado la autenticación SMTP ejecutamos el siguiente comando y comprobamos que el valor de la propiedad SmtpClientAuthenticationDisablede sea True.
+Para comprobar que se ha deshabilitado la autenticación **SMTP** ejecutamos el siguiente comando y comprobamos que el valor de la propiedad *SmtpClientAuthenticationDisablede* sea *True*.
 
 ```
 Get-TransportConfig | Format-List SmtpClientAuthenticationDisabled
@@ -54,13 +54,13 @@ Get-TransportConfig | Format-List SmtpClientAuthenticationDisabled
 
 ## Habilitar autenticación SMTP en cuentas específicas
 
-Para comprobar la configuración actual de la cuenta de usuario ejecutamos el siguientes comando, donde usuario@contoso.com introducimos la cuenta de usuario a revisar.
+Para comprobar la configuración actual de la cuenta de usuario ejecutamos el siguientes comando, donde *usuario@contoso.com* introducimos la cuenta de usuario a revisar.
 
 ```
 Get-CASMailbox -Identity Usuario@contoso.com | Format-List SmtpClientAuthenticationDisabled
 ```
 
-Si nos carga el usuario con el valor en blanco o $True ejecutamos el siguiente comando para habilitar la autenticación SMTP.
+Si nos carga el usuario con el valor en blanco o *$True* ejecutamos el siguiente comando para habilitar la autenticación **SMTP**.
 
 
 ```

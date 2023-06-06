@@ -5,9 +5,209 @@
         <description>Un espacio para compartir conocimientos técnicos relacionados con la tecnología.</description>
         <link>http://localhost:4000/</link>
         <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-        <pubDate>Wed, 31 May 2023 23:32:41 +0200</pubDate>
-        <lastBuildDate>Wed, 31 May 2023 23:32:41 +0200</lastBuildDate>
+        <pubDate>Tue, 06 Jun 2023 02:50:04 +0200</pubDate>
+        <lastBuildDate>Tue, 06 Jun 2023 02:50:04 +0200</lastBuildDate>
         <generator>Jekyll v4.3.2</generator>
+        
+            <item>
+                <title>Creando un sitio web estático con Jekyll y GitHub</title>
+                <description>&lt;p&gt;En este artículo voy a mostrar paso a paso como crear un sitio web estático con &lt;strong&gt;Jekyll&lt;/strong&gt; desde un equipo con &lt;strong&gt;Windows 11&lt;/strong&gt; y como alojarlo en un repositorio de &lt;strong&gt;GitHub&lt;/strong&gt;. No me voy a extender mucho en el uso de &lt;strong&gt;Jekyll&lt;/strong&gt;, para ello he adjuntado unos enlaces de interés a la documentación oficial, me centraré en la creación del sitio y el correspondiente despliegue en &lt;strong&gt;GitHub&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;tabla-de-contenidos&quot;&gt;Tabla de contenidos&lt;/h2&gt;
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;#arquitectura-como-trabajar-con-jekyll-y-github&quot;&gt;Arquitectura, como trabajar con Jekyll y GitHub&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#prerequisitos&quot;&gt;Prerequisitos&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#instalar-jekyll&quot;&gt;Instalar Jekyll&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#enlaces-de-interés-jekyll&quot;&gt;Enlaces de interés Jekyll&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#publicar-sitio-en-github&quot;&gt;Publicar sitio en GitHub&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#desplegar-sitio-en-github-pages&quot;&gt;Desplegar sitio en GitHub Pages&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#configurar-un-dominio-personalizado&quot;&gt;Configurar un dominio personalizado&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;arquitectura-como-trabajar-con-jekyll-y-github&quot;&gt;Arquitectura, como trabajar con Jekyll y GitHub&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/arquitectura-jekyll-github-pages.svg&quot; alt=&quot;Sitio validado y publicado&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Jekyll&lt;/strong&gt; permite ejecutar nuestro sitio estático en un servidor local &lt;em&gt;http://localhost:4000&lt;/em&gt;. Esto nos permite revisar los cambios que aplicamos en el repositorio local en nuestro equipo antes de aplicar un commit o un push al repositorio público.&lt;/p&gt;
+
+&lt;p&gt;Por lo tanto el repositorio local lo trato como entorno de desarrollo y el público como producción.&lt;/p&gt;
+
+&lt;p&gt;Una vez realizado un push al repositorio público se ejecuta automáticamente un workflow de &lt;strong&gt;GitHub Actions&lt;/strong&gt; que despliega el sitio de &lt;strong&gt;Jekyll&lt;/strong&gt; en &lt;strong&gt;GitHub Pages&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;prerequisitos&quot;&gt;Prerequisitos&lt;/h2&gt;
+
+&lt;p&gt;Es necesario descargar e instala la última versión de &lt;strong&gt;Ruby+Devkit&lt;/strong&gt; desde el siguiente &lt;a href=&quot;https://rubyinstaller.org/downloads/&quot;&gt;enlace&lt;/a&gt;. Este conjunto de herramientas instala el lenguaje &lt;strong&gt;Ruby&lt;/strong&gt; y un entorno de ejecución.&lt;/p&gt;
+
+&lt;p&gt;Durante la instalación nos aseguramos tener marcadas las siguientes dos opciones:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Add Ruby executables to your PATH.&lt;/li&gt;
+  &lt;li&gt;Associate .rb and .rbw files with this Ruby installation.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/install-ruby-devkit1.webp&quot; alt=&quot;Instalación Ruby+Devkit&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Y también los siguientes componentes para la instalación:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Ruby-3.2.2 base files.&lt;/li&gt;
+  &lt;li&gt;Ruby RI and HTML documentation.&lt;/li&gt;
+  &lt;li&gt;MSYS2 development toolchain 2023-04-01.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/install-ruby-devkit2.webp&quot; alt=&quot;Instalación Ruby+Devkit&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Tras finalizar la instalación dejamos marcado “&lt;em&gt;Run ridk install&lt;/em&gt;” para que arranque la instalación de &lt;em&gt;MSYS2 y las herramientas de desarrollo&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/install-ruby-devkit3.webp&quot; alt=&quot;Instalación Ruby+Devkit&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Por último tenemos que instalar el componente &lt;em&gt;3 - MSYS2 and MINGW development toochain&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/install-ruby-devkit4.webp&quot; alt=&quot;Instalación Ruby+Devkit&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;instalar-jekyll&quot;&gt;Instalar Jekyll&lt;/h2&gt;
+
+&lt;p&gt;Los comandos que facilito a continuación se ejecutan &lt;strong&gt;desde una consola CMD&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Lo primero que tenemos que hacer es &lt;strong&gt;instalar Jekyll&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;gem install jekyll bundler
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;El siguiente comando sirve para comprobar la &lt;strong&gt;versión de Jekyll&lt;/strong&gt; instalada:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;jekyll -v command
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Para &lt;strong&gt;crear&lt;/strong&gt; un nuevo blog o &lt;strong&gt;sitio estático&lt;/strong&gt; ejecutamos el siguiente comando:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;jekyll new myblog
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Para &lt;strong&gt;arrancar el servidor local de Jekyll&lt;/strong&gt; y visualizar el blog accedemos a la carpeta myblog y ejecutamos:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cd myblog
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bundle exec jekyll serve
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Abrimos en el navegador la siguiente URL &lt;em&gt;http://localhost:4000&lt;/em&gt; y podremos visualizar el blog.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/myblog.webp&quot; alt=&quot;Visualizar sitio estático desde servidor local de Jekyll&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;enlaces-de-interés-jekyll&quot;&gt;Enlaces de interés Jekyll&lt;/h2&gt;
+
+&lt;p&gt;Para que podáis ampliar conocimientos sobre el uso de &lt;strong&gt;Jekyll&lt;/strong&gt; os facilito una serie de recursos de la documentación oficial que os ayudará a entender la estructura de directorios, creación de contenido, plugins y temas, entre otros.&lt;/p&gt;
+
+&lt;h3 id=&quot;contenido&quot;&gt;Contenido&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;https://jekyllrb.com/docs/pages/&quot;&gt;Pages&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://jekyllrb.com/docs/posts/&quot;&gt;Post&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://jekyllrb.com/docs/front-matter/&quot;&gt;Front Matter&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://jekyllrb.com/docs/collections/&quot;&gt;Collections&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://jekyllrb.com/docs/datafiles/&quot;&gt;Data Files&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://jekyllrb.com/docs/assets/&quot;&gt;Assets&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://jekyllrb.com/docs/static-files/&quot;&gt;Static Files&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://jekyllrb.com/docs/plugins/&quot;&gt;Plugins&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;estructura-del-sitio&quot;&gt;Estructura del sitio&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;https://jekyllrb.com/docs/structure/&quot;&gt;Structure&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://jekyllrb.com/docs/liquid/&quot;&gt;Liquid&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://jekyllrb.com/docs/variables/&quot;&gt;Variables&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://jekyllrb.com/docs/includes/&quot;&gt;Includes&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://jekyllrb.com/docs/layouts/&quot;&gt;Layouts&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://jekyllrb.com/docs/permalinks/&quot;&gt;Permalinks&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://jekyllrb.com/docs/themes/&quot;&gt;Themes&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://jekyllrb.com/docs/pagination/&quot;&gt;Pagination&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;publicar-sitio-en-github&quot;&gt;Publicar sitio en GitHub&lt;/h2&gt;
+
+&lt;p&gt;Para publicar nuestro sitio estático en &lt;strong&gt;GitHub&lt;/strong&gt; seguimos los siguientes pasos:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Crear un repositorio en GitHub&lt;/strong&gt;.&lt;/p&gt;
+
+    &lt;p&gt;&lt;img src=&quot;/images/create-new-public-repository-github.webp&quot; alt=&quot;Crear repositorio público en GitHub&quot; /&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Clonamos nuestro repositorio&lt;/strong&gt; en un directorio local de nuestro equipo. Yo hago uso de &lt;a href=&quot;https://code.visualstudio.com/&quot;&gt;Visual Studio Code&lt;/a&gt;, pero también existen otras herramientas que facilitan la gestión de repositorios de &lt;strong&gt;GitHub&lt;/strong&gt; como &lt;a href=&quot;create-new-public-repository-github.png&quot;&gt;GitHub Desktop&lt;/a&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Copiamos el contenido&lt;/strong&gt; de nuestro sitio al repositorio clonado.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Hacemos commit de todos los cambios&lt;/strong&gt; y posteriormente un &lt;strong&gt;push&lt;/strong&gt; para que se suba el contenido al repositorio público.&lt;/p&gt;
+
+    &lt;p&gt;&lt;img src=&quot;/images/push-myblog-jekyll.webp&quot; alt=&quot;Contenido del sitio en repositorio público&quot; /&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;desplegar-sitio-en-github-pages&quot;&gt;Desplegar sitio en GitHub Pages&lt;/h2&gt;
+
+&lt;p&gt;Una vez tenemos nuestro sitio público en &lt;strong&gt;GitHub&lt;/strong&gt; tenemos que configurar &lt;strong&gt;GitHub Pages&lt;/strong&gt; para que muestre el sitio web en un dominio de &lt;strong&gt;GitHub&lt;/strong&gt;. Para ello vamos a &lt;em&gt;Settings &amp;gt; Pages&lt;/em&gt; desde el repositorio público.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/settings-github-pages.webp&quot; alt=&quot;Configurar GitHub Pages&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;En &lt;em&gt;source&lt;/em&gt; seleccionamos &lt;strong&gt;GitHub Actions&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/source-github-pages.webp&quot; alt=&quot;Configurar GitHub Pages&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Seleccionamos configurar &lt;strong&gt;Jekyll&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/configure-jekyll-github-pages.webp&quot; alt=&quot;Desplegar Jekyll en GitHub Pages&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Por último hacemos &lt;em&gt;commit&lt;/em&gt; para aplicar el workflow que &lt;strong&gt;GitHub Actions&lt;/strong&gt; nos facilita para el despliegue del sitio de &lt;strong&gt;Jekyll&lt;/strong&gt; en &lt;strong&gt;GitHub Pages&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/commit-actions-github-pages.webp&quot; alt=&quot;Desplegar Jekyll en GitHub Pages&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;configurar-un-dominio-personalizado&quot;&gt;Configurar un dominio personalizado&lt;/h2&gt;
+
+&lt;p&gt;El dominio que viene por defecto para &lt;strong&gt;GitHub Pages&lt;/strong&gt; tiene el siguiente formato [usuarioGitHub].github.io.
+   Si queremos agregar nuestro propio dominio, en mi caso ragalgut.me, tenemos que agregar los siguientes registros en la configuración DNS de nuestro proveedor de dominio.&lt;/p&gt;
+
+&lt;p&gt;Crear los siguientes &lt;strong&gt;registros A&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   185.199.108.153
+   185.199.109.153
+   185.199.110.153
+   185.199.111.153
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Crear los siguientes &lt;strong&gt;registros AAA&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   72606:50c0:8000::153
+   2606:50c0:8001::153
+   2606:50c0:8002::153
+   2606:50c0:8003::153
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Crear un &lt;strong&gt;registro CNAME&lt;/strong&gt; en la que el subdominio sea &lt;strong&gt;www&lt;/strong&gt; y el destino &lt;strong&gt;[usuarioGitHub].github.io&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/config-dns-zone-github-pages.webp&quot; alt=&quot;Configurar zona DNS en proveedor de dominio&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Configuramos el dominio personalizado en &lt;em&gt;Settings &amp;gt; Pages&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/custom-domain-github-pages.webp&quot; alt=&quot;Configurar dominio personalizado GitHub Pages&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Tras validar el dominio personalizado el sitio web estará live.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/github-pages-live.webp&quot; alt=&quot;Sitio validado y publicado&quot; /&gt;&lt;/p&gt;
+</description>
+                <pubDate>Mon, 05 Jun 2023 14:01:35 +0200</pubDate>
+                <link>http://localhost:4000/creando-un-sitio-web-estatico-con-jekyll-y-github-pages</link>
+                <guid isPermaLink="true">http://localhost:4000/creando-un-sitio-web-estatico-con-jekyll-y-github-pages</guid>
+                
+                <category>Jekyll</category>
+                
+                <category>GitHub</category>
+                
+                <category>Windows 11</category>
+                
+                
+            </item>
         
             <item>
                 <title>Configurar la autenticación SMTP en cuentas de Microsoft 365</title>

@@ -4,7 +4,7 @@ title:  Creando un sitio web estático con Jekyll y GitHub
 description: Te detallo como puedes crear un sitio web estático con Jekyll y alojarlo de forma gratuita en GitHub.
 date:   2023-06-05 15:01:35 +0300
 image:  '/images/jekyll-github.svg'
-tags:   [Jekyll, GitHub, Windows 11]
+tags:   [Jekyll, GitHub]
 ---
 
 En este artículo voy a mostrar paso a paso como crear un sitio web estático con **Jekyll** desde un equipo con **Windows 11** y como alojarlo en un repositorio de **GitHub**. No me voy a extender mucho en el uso de **Jekyll**, para ello he adjuntado unos enlaces de interés a la documentación oficial, me centraré en la creación del sitio y el correspondiente despliegue en **GitHub**.

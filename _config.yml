@@ -51,6 +51,7 @@ plugins:
   - jekyll-paginate
   - jekyll-sitemap
   - jekyll-seo-tag
+  - jekyll-feed
 
 paginate: 9
 paginate_path: "/page/:num"

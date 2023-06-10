@@ -3,7 +3,7 @@ layout: post
 title:  Configurar la autenticación SMTP en cuentas de Microsoft 365
 description: Se recomienda habilitar la autenticación SMTP solo para las cuentas o buzones que lo requieran ya que es la opción menos segura.
 date:   2023-05-24 15:01:35 +0300
-image:  '/images/exchange-online.svg'
+image:  '/images/activar-desactivar-smtp.webp'
 tags:   [Microsoft 365, Exchange Online]
 ---
 

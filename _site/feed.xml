@@ -5,9 +5,187 @@
         <description>Un espacio para compartir conocimientos técnicos relacionados con la tecnología.</description>
         <link>http://localhost:4000/</link>
         <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-        <pubDate>Wed, 21 Jun 2023 20:26:18 +0200</pubDate>
-        <lastBuildDate>Wed, 21 Jun 2023 20:26:18 +0200</lastBuildDate>
+        <pubDate>Wed, 28 Jun 2023 12:18:02 +0200</pubDate>
+        <lastBuildDate>Wed, 28 Jun 2023 12:18:02 +0200</lastBuildDate>
         <generator>Jekyll v4.3.2</generator>
+        
+            <item>
+                <title>Automatizar despliegues en Azure con Terraform y GitHub Actions</title>
+                <description>&lt;p&gt;La mejor forma de hacer despliegues con &lt;strong&gt;Terraform&lt;/strong&gt; es automatizar todo el proceso que va desde &lt;em&gt;terraform init&lt;/em&gt; a &lt;em&gt;terraform apply&lt;/em&gt;, con un proceso previo de aprobación antes de aplicar los cambios y una conexión a &lt;strong&gt;Azure&lt;/strong&gt; haciendo uso de identidades federadas para &lt;strong&gt;OpenID&lt;/strong&gt; con el objetivo de no almacenar credenciales en &lt;strong&gt;GitHub&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;En este artículo os muestro como automatizar despliegues de infraestructura en &lt;strong&gt;Azure&lt;/strong&gt; con &lt;strong&gt;módulos de Terraform&lt;/strong&gt; usando un workflow de &lt;strong&gt;GitHub Actions&lt;/strong&gt;, descargando los módulos a través de &lt;strong&gt;SSH&lt;/strong&gt; y realizando la conexión con identidades federada para &lt;strong&gt;OpenID&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;tabla-de-contenidos&quot;&gt;Tabla de contenidos&lt;/h3&gt;
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;#arquitectura-y-contenido&quot;&gt;Arquitectura y contenido&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#configurar-backend-en-azure&quot;&gt;Configurar backend en Azure&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#configurar-identidades-federadas-para-openid&quot;&gt;Configurar identidades federadas para OpenID&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#configurar-clave-pública-y-privada&quot;&gt;Configurar clave pública y privada&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#crear-entornos-en-github&quot;&gt;Crear entornos en GitHub&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#agregar-secretos-en-github&quot;&gt;Agregar secretos en GitHub&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;arquitectura-y-contenido&quot;&gt;Arquitectura y contenido&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/280623/diagrama.svg&quot; alt=&quot;Arquitectura&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Los recursos que vamos a crear en &lt;strong&gt;Azure&lt;/strong&gt; para poner en marcha este escenario son un grupo de recursos &lt;em&gt;lab-rg&lt;/em&gt;, una cuenta de almacenamiento &lt;em&gt;labaztfbackend&lt;/em&gt; y un contenedor privado &lt;em&gt;tbackend&lt;/em&gt;. En el contenedor &lt;em&gt;tbackend&lt;/em&gt; es donde va a estar almacenado el archivo de estado &lt;em&gt;terraform.tfstate&lt;/em&gt; con la infraestructura de &lt;strong&gt;Azure&lt;/strong&gt; gestionada por &lt;strong&gt;Terraform&lt;/strong&gt;. En &lt;strong&gt;Azure AD&lt;/strong&gt; también hay que crear un registro de aplicación &lt;em&gt;tf-sp-terraform&lt;/em&gt;, configurar dos identidades federadas &lt;em&gt;plan&lt;/em&gt; y &lt;em&gt;apply&lt;/em&gt; para &lt;strong&gt;OpenID Connect&lt;/strong&gt; y dar permisos de colaborador al registro de aplicación &lt;em&gt;tf-sp-terraform&lt;/em&gt; sobre la suscripción para que pueda crear, eliminar o administrar los recursos de &lt;strong&gt;Azure&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Con un workflow de &lt;strong&gt;GitHub Actions&lt;/strong&gt; vamos automatizar el despliegue de un grupo de recursos llamado &lt;em&gt;rg-test00&lt;/em&gt; con las etiquetas &lt;em&gt;test5&lt;/em&gt; y &lt;em&gt;test6&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;El siguiente repositorio &lt;a href=&quot;https://github.com/ragalgut/az-tf-deployment-oidc&quot;&gt;az-tf-deployment-oidc&lt;/a&gt; es la plantilla que vamos a usar para trabajar este escenario. Para usar la plantilla: &lt;em&gt;Use this template&lt;/em&gt; &amp;gt; &lt;em&gt;Create a new repository&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/280623/usar-template.webp&quot; alt=&quot;Usar plantilla de GitHub&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;En el raiz del repositorio se encuentran los ficheros &lt;em&gt;main.tf&lt;/em&gt; y &lt;em&gt;terraform.tfvars&lt;/em&gt; donde está el código de &lt;strong&gt;Terraform&lt;/strong&gt; del proyecto que vamos a desplegar, en este caso un grupo de recursos con un &lt;a href=&quot;https://github.com/ragalgut/az-tf-module-resource-group&quot;&gt;módulo de Terraform&lt;/a&gt;.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/ragalgut/az-tf-deployment-oidc/blob/main/main.tf&quot;&gt;Código archivo main.tf&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/ragalgut/az-tf-deployment-oidc/blob/main/terraform.tfvars&quot;&gt;Código archivo terraform.tfvars&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;La ejecución del workflow se realiza desde el apartado &lt;em&gt;Actions&lt;/em&gt; en &lt;strong&gt;GitHub&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/ragalgut/az-tf-deployment-oidc/blob/main/.github/workflows/tf-plan-apply.yml&quot;&gt;Código del workflow&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;configurar-backend-en-azure&quot;&gt;Configurar backend en Azure&lt;/h2&gt;
+
+&lt;p&gt;Tenemos que crear en Azure un backend donde estará alojado el archivo de estado &lt;em&gt;terraform.tfstate&lt;/em&gt; con la infraestructura de &lt;strong&gt;Azure&lt;/strong&gt; gestionada por &lt;strong&gt;Terraform&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Hay que crear una cuenta de almacenamiento y un contenedor privado. Para este escenario creo una cuenta de almacenamiento llamada &lt;em&gt;labaztfbackend&lt;/em&gt; y un contenedor &lt;em&gt;tbackend&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/280623/cuenta-de-almacenamiento-azure.webp&quot; alt=&quot;Azure Storage Account&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Posteriormente tendremos que editar el siguiente bloque de nuestro código &lt;em&gt;main.tf&lt;/em&gt; y agregar el nombre del grupo de recursos, cuenta de almacenamiento y contenedor que hemos creado:&lt;/p&gt;
+
+&lt;div class=&quot;language-terraform highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;backend&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;azurerm&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;resource_group_name&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;lab-rg&quot;&lt;/span&gt;            &lt;span class=&quot;c1&quot;&gt;# Nombre del grupo de recursos donde se encuentra la cuenta de almacenamiento&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;storage_account_name&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;labaztfbackend&quot;&lt;/span&gt;   &lt;span class=&quot;c1&quot;&gt;# Nombre de la cuenta de almacenamiento donde se va almacenar el fichero de estado&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;container_name&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;tbackend&quot;&lt;/span&gt;               &lt;span class=&quot;c1&quot;&gt;# Nombre del container donde se va almacenar el fichero de estado&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;key&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;terraform.tfstate&quot;&lt;/span&gt;                 &lt;span class=&quot;c1&quot;&gt;# Nombre del fichero de estado. El nombre estándar es terraform.tfstate&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Referencia: &lt;a href=&quot;https://github.com/ragalgut/az-tf-deployment-oidc/blob/main/main.tf#L27-L32&quot;&gt;https://github.com/ragalgut/az-tf-deployment-oidc/blob/main/main.tf#L27-L32&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;configurar-identidades-federadas-para-openid&quot;&gt;Configurar identidades federadas para OpenID&lt;/h2&gt;
+
+&lt;p&gt;Para la creación de una identidad federada para &lt;strong&gt;OpenID&lt;/strong&gt; hay que crear un registro de aplicación en &lt;strong&gt;Azure AD&lt;/strong&gt;. Para este escenario creo uno llamado &lt;em&gt;tf-sp-terraform&lt;/em&gt; con acceso ‘&lt;em&gt;Solo cuentas de este directorio organizativo (solo de Default Directory: inquilino único)&lt;/em&gt;’.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/280623/registro-de-aplicacion.webp&quot; alt=&quot;Azure App Registration&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Posteriormente creamos dos identidades federadas del tipo entorno, yo las he llamado &lt;em&gt;plan&lt;/em&gt; y &lt;em&gt;apply&lt;/em&gt;. En el workflow hay dos jobs configurados, uno encargado de realizar &lt;em&gt;Terraform Plan&lt;/em&gt; y otro encargado de realizar &lt;em&gt;Terraform Apply&lt;/em&gt;, cada uno de estos jobs tienen configurado un entorno en &lt;strong&gt;GitHub&lt;/strong&gt;, también llamados &lt;em&gt;plan&lt;/em&gt; y &lt;em&gt;apply&lt;/em&gt;, este último configurado con un proceso previo de aprovación para que podamos verificar el plan y poder aprobar o rechazar los cambios. La identidad federada que crearemos en &lt;strong&gt;Azure&lt;/strong&gt; será de tipo entorno para que los jobs validen correctamente con &lt;strong&gt;Azure&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Para crear una identidad federada accedemos al registro de aplicación creado anteriormente &amp;gt; &lt;em&gt;Certificados y secretos&lt;/em&gt; &amp;gt; &lt;em&gt;Credenciales federadas&lt;/em&gt; &amp;gt; &lt;em&gt;Agregar credencial&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/280623/credenciales-federadas-plan-apply-azure-openid.webp&quot; alt=&quot;Credenciales federadas para OpenID&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;El escenario que tenemos que seleccionar es &lt;em&gt;Acciones de GitHub que implementan recursos de Azure&lt;/em&gt;, la &lt;em&gt;Organización&lt;/em&gt; es nuestro usuario de &lt;strong&gt;github.com&lt;/strong&gt;, en el caso de &lt;strong&gt;GitHub Enterprise&lt;/strong&gt; es el nombre de la organización, en &lt;em&gt;Repositorio&lt;/em&gt; el nombre de nuestro repositorio, &lt;em&gt;Tipo de entidad&lt;/em&gt; seleccionamos &lt;em&gt;Entorno&lt;/em&gt; y por último indicamos el nombre de la identidad.&lt;/p&gt;
+
+&lt;p&gt;El &lt;em&gt;Identificador de sujeto&lt;/em&gt; y &lt;em&gt;Api token&lt;/em&gt; que se muestra en la configuración es la que usa &lt;strong&gt;github.com&lt;/strong&gt;. Para &lt;strong&gt;GitHub Enterprise&lt;/strong&gt; hay que consultar con el administrador cual es el identificador y el api token y configurarlo en la identidad federada en &lt;strong&gt;Azure&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Cuando se ejecuta el workflow y da un fallo en la etapa de conexión con OpenID se puede ver en los logs cual es el identificador y api token que espera encontrar.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/280623/crear-credencial.webp&quot; alt=&quot;Crear credencial&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Por último tenemos que &lt;strong&gt;dar permisos de colaborador al registro de aplicación creado, en mi caso &lt;em&gt;tf-sp-terraform&lt;/em&gt; sobre la suscripción que queremos administrar con Terraform&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;crear-entornos-en-github&quot;&gt;Crear entornos en GitHub&lt;/h2&gt;
+
+&lt;p&gt;Para crear los dos entornos en &lt;strong&gt;GitHub&lt;/strong&gt; vamos en nuestro repositorio a &lt;em&gt;Settings&lt;/em&gt; &amp;gt; &lt;em&gt;Environments&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/280623/github-environments-plan-apply.webp&quot; alt=&quot;Entornos GitHub&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Creamos un nuevo entorno desde &lt;em&gt;New environment&lt;/em&gt; y le damos un nombre, para este escenario lo he llamado &lt;em&gt;plan&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/280623/new-environment-github.webp&quot; alt=&quot;Nuevo entorno GitHub&quot; /&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Hay que tener en cuenta que el nombre del entorno de &lt;strong&gt;GitHub&lt;/strong&gt; debe coincidir con el nombre del entorno configurado en la identidad federada para que pueda hacer conexión, además en este escenario se espera que los nombres sean &lt;em&gt;plan&lt;/em&gt; y &lt;em&gt;apply&lt;/em&gt; porque están configurados en cada job en el código del workflow. Referencia: &lt;a href=&quot;https://github.com/ragalgut/az-tf-deployment-oidc/blob/main/.github/workflows/tf-plan-apply.yml#L23&quot;&gt;plan&lt;/a&gt;, &lt;a href=&quot;https://github.com/ragalgut/az-tf-deployment-oidc/blob/main/.github/workflows/tf-plan-apply.yml#L92&quot;&gt;apply&lt;/a&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;El entorno &lt;em&gt;apply&lt;/em&gt; debe tener marcada la opción &lt;em&gt;Required reviewers&lt;/em&gt; y agregar un reviewer para el proceso de aprobación del job &lt;em&gt;Terraform Apply&lt;/em&gt;, podemos ser nosotros mismos.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/280623/required-reviewers-environment-apply.webp&quot; alt=&quot;Required reviewers environment GitHub&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;configurar-clave-pública-y-privada&quot;&gt;Configurar clave pública y privada&lt;/h2&gt;
+
+&lt;p&gt;Para que &lt;em&gt;terraform init&lt;/em&gt; pueda clonar el repositorio del módulo por &lt;strong&gt;SSH&lt;/strong&gt; tenemos que generar un par de claves, la privada estará encriptada como variable en un secreto de &lt;strong&gt;GitHub&lt;/strong&gt; y la pública estará unida en nuestro perfil de usuario. Este proceso lo detallo más adelante.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ssh-keygen -t rsa
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;agregar-secretos-en-github&quot;&gt;Agregar secretos en GitHub&lt;/h2&gt;
+
+&lt;p&gt;En el workflow hay configurado una serie de variables que GitHub espera obtener la información del repositorio de secretos, por lo tanto, tenemos que crearlos.&lt;/p&gt;
+
+&lt;p&gt;Referencia: &lt;a href=&quot;https://github.com/ragalgut/az-tf-deployment-oidc/blob/main/.github/workflows/tf-plan-apply.yml#L13-L16&quot;&gt;varibales en el workflow&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Para crear los secretos, tenemos que ir desde nuestro repositorio a &lt;em&gt;Settings&lt;/em&gt; &amp;gt; &lt;em&gt;Secrets and variables&lt;/em&gt; &amp;gt; &lt;em&gt;Actions&lt;/em&gt; &amp;gt; &lt;em&gt;New repository secret&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/280623/secrets-github.webp&quot; alt=&quot;Secrets GitHub&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;A continuación en la siguiente tabla proporciono la información que debeís agregar en cada campo:&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Name&lt;/th&gt;
+      &lt;th&gt;Secret&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;AZURE_CLIENT_ID&lt;/td&gt;
+      &lt;td&gt;El ID del registro de aplicación creado (cliente)&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;AZURE_SUBSCRIPTION_ID&lt;/td&gt;
+      &lt;td&gt;ID de la suscripción a gestionar con Terraform&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;AZURE_TENANT_ID&lt;/td&gt;
+      &lt;td&gt;ID del tenant de Azure. Este ID también se puede obtener de la información del registro de aplicación&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;GIT_SSH_COMMAND&lt;/td&gt;
+      &lt;td&gt;ssh -o StrictHostKeyChecking=no -i $HOME/.ssh/id_rsa&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;SSH_KEY_GITHUB_ACTIONS&lt;/td&gt;
+      &lt;td&gt;Clave privada del par de claves generados anteriormente&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Al copiar la clave privada debemos tener en cuenta que debe incluir las líneas completas &lt;em&gt;BEGIN OPENSSH PRIVATE KEY&lt;/em&gt; y &lt;em&gt;END OPENSSH PRIVATE KEY&lt;/em&gt;. Además debe haber una línea en blanco al final del todo.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Por último hay que configurar la clave pública en nuestra cuenta de usuario en &lt;em&gt;Settings&lt;/em&gt; &amp;gt; &lt;em&gt;SSH and GPG keys&lt;/em&gt; &amp;gt; &lt;em&gt;New SSH key&lt;/em&gt;.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;La clave pública debe tener el formato indicado y una línea en blanco al final.&lt;/p&gt;
+&lt;/blockquote&gt;
+</description>
+                <pubDate>Wed, 28 Jun 2023 10:00:00 +0200</pubDate>
+                <link>http://localhost:4000/automatizar-despliegues-en-azure-con-terraform-y-github-actions</link>
+                <guid isPermaLink="true">http://localhost:4000/automatizar-despliegues-en-azure-con-terraform-y-github-actions</guid>
+                
+                <category>Terraform</category>
+                
+                <category>Azure</category>
+                
+                <category>GitHub</category>
+                
+                <category>OpenID</category>
+                
+                
+            </item>
         
             <item>
                 <title>Creando un sitio web estático con Jekyll y GitHub</title>

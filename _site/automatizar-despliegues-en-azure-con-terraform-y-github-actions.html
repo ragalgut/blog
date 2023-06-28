@@ -2,23 +2,23 @@
 <html lang="es">
    <!-- SEO tags -->
 <!-- Begin Jekyll SEO tag v2.8.0 -->
-<title>Creando un sitio web estático con Jekyll y GitHub | Ragalgut</title>
+<title>Automatizar despliegues en Azure con Terraform y GitHub Actions | Ragalgut</title>
 <meta name="generator" content="Jekyll v4.3.2" />
-<meta property="og:title" content="Creando un sitio web estático con Jekyll y GitHub" />
+<meta property="og:title" content="Automatizar despliegues en Azure con Terraform y GitHub Actions" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="Te detallo como puedes crear un sitio web estático con Jekyll y alojarlo de forma gratuita en GitHub." />
-<meta property="og:description" content="Te detallo como puedes crear un sitio web estático con Jekyll y alojarlo de forma gratuita en GitHub." />
-<link rel="canonical" href="http://localhost:4000/creando-un-sitio-web-estatico-con-jekyll-y-github-pages" />
-<meta property="og:url" content="http://localhost:4000/creando-un-sitio-web-estatico-con-jekyll-y-github-pages" />
+<meta name="description" content="En este post voy a mostrar como automatizar el despliegue de infraestructura en Azure con Terraform y un workflow de GitHub Actions." />
+<meta property="og:description" content="En este post voy a mostrar como automatizar el despliegue de infraestructura en Azure con Terraform y un workflow de GitHub Actions." />
+<link rel="canonical" href="http://localhost:4000/automatizar-despliegues-en-azure-con-terraform-y-github-actions" />
+<meta property="og:url" content="http://localhost:4000/automatizar-despliegues-en-azure-con-terraform-y-github-actions" />
 <meta property="og:site_name" content="Ragalgut" />
-<meta property="og:image" content="http://localhost:4000/images/jekyll-github.svg" />
+<meta property="og:image" content="http://localhost:4000/images/280623/github-actions-workflow-terraform.svg" />
 <meta property="og:type" content="article" />
-<meta property="article:published_time" content="2023-06-05T14:01:35+02:00" />
+<meta property="article:published_time" content="2023-06-28T10:00:00+02:00" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta property="twitter:image" content="http://localhost:4000/images/jekyll-github.svg" />
-<meta property="twitter:title" content="Creando un sitio web estático con Jekyll y GitHub" />
+<meta property="twitter:image" content="http://localhost:4000/images/280623/github-actions-workflow-terraform.svg" />
+<meta property="twitter:title" content="Automatizar despliegues en Azure con Terraform y GitHub Actions" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2023-06-05T14:01:35+02:00","datePublished":"2023-06-05T14:01:35+02:00","description":"Te detallo como puedes crear un sitio web estático con Jekyll y alojarlo de forma gratuita en GitHub.","headline":"Creando un sitio web estático con Jekyll y GitHub","image":"http://localhost:4000/images/jekyll-github.svg","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/creando-un-sitio-web-estatico-con-jekyll-y-github-pages"},"url":"http://localhost:4000/creando-un-sitio-web-estatico-con-jekyll-y-github-pages"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2023-06-28T10:00:00+02:00","datePublished":"2023-06-28T10:00:00+02:00","description":"En este post voy a mostrar como automatizar el despliegue de infraestructura en Azure con Terraform y un workflow de GitHub Actions.","headline":"Automatizar despliegues en Azure con Terraform y GitHub Actions","image":"http://localhost:4000/images/280623/github-actions-workflow-terraform.svg","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/automatizar-despliegues-en-azure-con-terraform-y-github-actions"},"url":"http://localhost:4000/automatizar-despliegues-en-azure-con-terraform-y-github-actions"}</script>
 <!-- End Jekyll SEO tag -->
  
 
@@ -27,22 +27,22 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Creando un sitio web estático con Jekyll y GitHub</title>
-  <meta name='description' content='Te detallo como puedes crear un sitio web estático con Jekyll y alojarlo de forma gratuita en GitHub.'>
+  <title>Automatizar despliegues en Azure con Terraform y GitHub Actions</title>
+  <meta name='description' content='En este post voy a mostrar como automatizar el despliegue de infraestructura en Azure con Terraform y un workflow de GitHub Actions.'>
 
-  <link rel="canonical" href="http://localhost:4000/creando-un-sitio-web-estatico-con-jekyll-y-github-pages">
+  <link rel="canonical" href="http://localhost:4000/automatizar-despliegues-en-azure-con-terraform-y-github-actions">
   <link rel="alternate" type="application/rss+xml" title="Ragalgut" href="/feed.xml">
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Creando un sitio web estático con Jekyll y GitHub – Ragalgut">
-  <meta name="twitter:description" content="Te detallo como puedes crear un sitio web estático con Jekyll y alojarlo de forma gratuita en GitHub.">
-  <meta name="twitter:image:src" content="http://localhost:4000/images/jekyll-github.svg">
+  <meta name="twitter:title" content="Automatizar despliegues en Azure con Terraform y GitHub Actions – Ragalgut">
+  <meta name="twitter:description" content="En este post voy a mostrar como automatizar el despliegue de infraestructura en Azure con Terraform y un workflow de GitHub Actions.">
+  <meta name="twitter:image:src" content="http://localhost:4000/images/280623/github-actions-workflow-terraform.svg">
 
   <!-- Facebook OpenGraph -->
-  <meta property="og:title" content="Creando un sitio web estático con Jekyll y GitHub – Ragalgut">
-  <meta property="og:description" content="Te detallo como puedes crear un sitio web estático con Jekyll y alojarlo de forma gratuita en GitHub.">
-  <meta property="og:image" content="http://localhost:4000/images/jekyll-github.svg">
+  <meta property="og:title" content="Automatizar despliegues en Azure con Terraform y GitHub Actions – Ragalgut">
+  <meta property="og:description" content="En este post voy a mostrar como automatizar el despliegue de infraestructura en Azure con Terraform y un workflow de GitHub Actions.">
+  <meta property="og:image" content="http://localhost:4000/images/280623/github-actions-workflow-terraform.svg">
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -201,7 +201,7 @@
       
       <div class="col col-6 col-d-12">
         <div class="post-image">
-          <img class="lazy" data-src="/images/jekyll-github.svg" alt="Creando un sitio web estático con Jekyll y GitHub">
+          <img class="lazy" data-src="/images/280623/github-actions-workflow-terraform.svg" alt="Automatizar despliegues en Azure con Terraform y GitHub Actions">
         </div>
       </div>
       
@@ -215,14 +215,18 @@
           
             <div class="post__tags">
               
-                <a href="/tags#Jekyll" class="post__tag">Jekyll</a>
+                <a href="/tags#Terraform" class="post__tag">Terraform</a>
+              
+                <a href="/tags#Azure" class="post__tag">Azure</a>
               
                 <a href="/tags#GitHub" class="post__tag">GitHub</a>
+              
+                <a href="/tags#OpenID" class="post__tag">OpenID</a>
               
             </div>
           
   
-          <h1 class="post__title">Creando un sitio web estático con Jekyll y GitHub</h1>
+          <h1 class="post__title">Automatizar despliegues en Azure con Terraform y GitHub Actions</h1>
   
           <div class="post__meta">
             <a href="/about/" class="post__author-image">
@@ -231,7 +235,7 @@
 
             <div class="post__meta-bottom">
               <a class="post__author" href="/about/">Rafael Galante Gutiérrez</a>
-              <time class="post__date" datetime="2023-06-05T14:01:35+02:00">05 Jun 2023</time>
+              <time class="post__date" datetime="2023-06-28T10:00:00+02:00">28 Jun 2023</time>
             </div>
           </div>
   
@@ -247,190 +251,166 @@
   <article class="post">
 
     <div class="post__content">
-      <p>En este artículo voy a mostrar paso a paso como crear un sitio web estático con <strong>Jekyll</strong> desde un equipo con <strong>Windows 11</strong> y como alojarlo en un repositorio de <strong>GitHub</strong>. No me voy a extender mucho en el uso de <strong>Jekyll</strong>, para ello he adjuntado unos enlaces de interés a la documentación oficial, me centraré en la creación del sitio y el correspondiente despliegue en <strong>GitHub</strong>.</p>
+      <p>La mejor forma de hacer despliegues con <strong>Terraform</strong> es automatizar todo el proceso que va desde <em>terraform init</em> a <em>terraform apply</em>, con un proceso previo de aprobación antes de aplicar los cambios y una conexión a <strong>Azure</strong> haciendo uso de identidades federadas para <strong>OpenID</strong> con el objetivo de no almacenar credenciales en <strong>GitHub</strong>.</p>
 
-<h2 id="tabla-de-contenidos">Tabla de contenidos</h2>
+<p>En este artículo os muestro como automatizar despliegues de infraestructura en <strong>Azure</strong> con <strong>módulos de Terraform</strong> usando un workflow de <strong>GitHub Actions</strong>, descargando los módulos a través de <strong>SSH</strong> y realizando la conexión con identidades federada para <strong>OpenID</strong>.</p>
+
+<h3 id="tabla-de-contenidos">Tabla de contenidos</h3>
 <ol>
-  <li><a href="#arquitectura-como-trabajar-con-jekyll-y-github">Arquitectura, como trabajar con Jekyll y GitHub</a></li>
-  <li><a href="#prerequisitos">Prerequisitos</a></li>
-  <li><a href="#instalar-jekyll">Instalar Jekyll</a></li>
-  <li><a href="#enlaces-de-interés-jekyll">Enlaces de interés Jekyll</a></li>
-  <li><a href="#publicar-sitio-en-github">Publicar sitio en GitHub</a></li>
-  <li><a href="#desplegar-sitio-en-github-pages">Desplegar sitio en GitHub Pages</a></li>
-  <li><a href="#configurar-un-dominio-personalizado">Configurar un dominio personalizado</a></li>
+  <li><a href="#arquitectura-y-contenido">Arquitectura y contenido</a></li>
+  <li><a href="#configurar-backend-en-azure">Configurar backend en Azure</a></li>
+  <li><a href="#configurar-identidades-federadas-para-openid">Configurar identidades federadas para OpenID</a></li>
+  <li><a href="#configurar-clave-pública-y-privada">Configurar clave pública y privada</a></li>
+  <li><a href="#crear-entornos-en-github">Crear entornos en GitHub</a></li>
+  <li><a href="#agregar-secretos-en-github">Agregar secretos en GitHub</a></li>
 </ol>
 
-<h2 id="arquitectura-como-trabajar-con-jekyll-y-github">Arquitectura, como trabajar con Jekyll y GitHub</h2>
+<h2 id="arquitectura-y-contenido">Arquitectura y contenido</h2>
 
-<p><img src="/images/arquitectura-jekyll-github-pages.svg" alt="Sitio validado y publicado" /></p>
+<p><img src="/images/280623/diagrama.svg" alt="Arquitectura" /></p>
 
-<p><strong>Jekyll</strong> permite ejecutar nuestro sitio estático en un servidor local <em>http://localhost:4000</em>. Esto nos permite revisar los cambios que aplicamos en el repositorio local en nuestro equipo antes de aplicar un commit o un push al repositorio público.</p>
+<p>Los recursos que vamos a crear en <strong>Azure</strong> para poner en marcha este escenario son un grupo de recursos <em>lab-rg</em>, una cuenta de almacenamiento <em>labaztfbackend</em> y un contenedor privado <em>tbackend</em>. En el contenedor <em>tbackend</em> es donde va a estar almacenado el archivo de estado <em>terraform.tfstate</em> con la infraestructura de <strong>Azure</strong> gestionada por <strong>Terraform</strong>. En <strong>Azure AD</strong> también hay que crear un registro de aplicación <em>tf-sp-terraform</em>, configurar dos identidades federadas <em>plan</em> y <em>apply</em> para <strong>OpenID Connect</strong> y dar permisos de colaborador al registro de aplicación <em>tf-sp-terraform</em> sobre la suscripción para que pueda crear, eliminar o administrar los recursos de <strong>Azure</strong>.</p>
 
-<p>Por lo tanto el repositorio local lo trato como entorno de desarrollo y el público como producción.</p>
+<p>Con un workflow de <strong>GitHub Actions</strong> vamos automatizar el despliegue de un grupo de recursos llamado <em>rg-test00</em> con las etiquetas <em>test5</em> y <em>test6</em>.</p>
 
-<p>Una vez realizado un push al repositorio público se ejecuta automáticamente un workflow de <strong>GitHub Actions</strong> que despliega el sitio de <strong>Jekyll</strong> en <strong>GitHub Pages</strong>.</p>
+<p>El siguiente repositorio <a href="https://github.com/ragalgut/az-tf-deployment-oidc">az-tf-deployment-oidc</a> es la plantilla que vamos a usar para trabajar este escenario. Para usar la plantilla: <em>Use this template</em> &gt; <em>Create a new repository</em>.</p>
 
-<h2 id="prerequisitos">Prerequisitos</h2>
+<p><img src="/images/280623/usar-template.webp" alt="Usar plantilla de GitHub" /></p>
 
-<p>Es necesario descargar e instala la última versión de <strong>Ruby+Devkit</strong> desde el siguiente <a href="https://rubyinstaller.org/downloads/">enlace</a>. Este conjunto de herramientas instala el lenguaje <strong>Ruby</strong> y un entorno de ejecución.</p>
-
-<p>Durante la instalación nos aseguramos tener marcadas las siguientes dos opciones:</p>
+<p>En el raiz del repositorio se encuentran los ficheros <em>main.tf</em> y <em>terraform.tfvars</em> donde está el código de <strong>Terraform</strong> del proyecto que vamos a desplegar, en este caso un grupo de recursos con un <a href="https://github.com/ragalgut/az-tf-module-resource-group">módulo de Terraform</a>.</p>
 
 <ul>
-  <li>Add Ruby executables to your PATH.</li>
-  <li>Associate .rb and .rbw files with this Ruby installation.</li>
+  <li><a href="https://github.com/ragalgut/az-tf-deployment-oidc/blob/main/main.tf">Código archivo main.tf</a></li>
+  <li><a href="https://github.com/ragalgut/az-tf-deployment-oidc/blob/main/terraform.tfvars">Código archivo terraform.tfvars</a></li>
 </ul>
 
-<p><img src="/images/install-ruby-devkit1.webp" alt="Instalación Ruby+Devkit" /></p>
-
-<p>Y también los siguientes componentes para la instalación:</p>
+<p>La ejecución del workflow se realiza desde el apartado <em>Actions</em> en <strong>GitHub</strong>.</p>
 
 <ul>
-  <li>Ruby-3.2.2 base files.</li>
-  <li>Ruby RI and HTML documentation.</li>
-  <li>MSYS2 development toolchain 2023-04-01.</li>
+  <li><a href="https://github.com/ragalgut/az-tf-deployment-oidc/blob/main/.github/workflows/tf-plan-apply.yml">Código del workflow</a></li>
 </ul>
 
-<p><img src="/images/install-ruby-devkit2.webp" alt="Instalación Ruby+Devkit" /></p>
+<h2 id="configurar-backend-en-azure">Configurar backend en Azure</h2>
 
-<p>Tras finalizar la instalación dejamos marcado “<em>Run ridk install</em>” para que arranque la instalación de <em>MSYS2 y las herramientas de desarrollo</em>.</p>
+<p>Tenemos que crear en Azure un backend donde estará alojado el archivo de estado <em>terraform.tfstate</em> con la infraestructura de <strong>Azure</strong> gestionada por <strong>Terraform</strong>.</p>
 
-<p><img src="/images/install-ruby-devkit3.webp" alt="Instalación Ruby+Devkit" /></p>
+<p>Hay que crear una cuenta de almacenamiento y un contenedor privado. Para este escenario creo una cuenta de almacenamiento llamada <em>labaztfbackend</em> y un contenedor <em>tbackend</em>.</p>
 
-<p>Por último tenemos que instalar el componente <em>3 - MSYS2 and MINGW development toochain</em>.</p>
+<p><img src="/images/280623/cuenta-de-almacenamiento-azure.webp" alt="Azure Storage Account" /></p>
 
-<p><img src="/images/install-ruby-devkit4.webp" alt="Instalación Ruby+Devkit" /></p>
+<p>Posteriormente tendremos que editar el siguiente bloque de nuestro código <em>main.tf</em> y agregar el nombre del grupo de recursos, cuenta de almacenamiento y contenedor que hemos creado:</p>
 
-<h2 id="instalar-jekyll">Instalar Jekyll</h2>
-
-<p>Los comandos que facilito a continuación se ejecutan <strong>desde una consola CMD</strong>.</p>
-
-<p>Lo primero que tenemos que hacer es <strong>instalar Jekyll</strong>:</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gem install jekyll bundler
-</code></pre></div></div>
-<p>El siguiente comando sirve para comprobar la <strong>versión de Jekyll</strong> instalada:</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jekyll -v command
-</code></pre></div></div>
-<p>Para <strong>crear</strong> un nuevo blog o <strong>sitio estático</strong> ejecutamos el siguiente comando:</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jekyll new myblog
-</code></pre></div></div>
-<p>Para <strong>arrancar el servidor local de Jekyll</strong> y visualizar el blog accedemos a la carpeta myblog y ejecutamos:</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd myblog
-</code></pre></div></div>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bundle exec jekyll serve
+<div class="language-terraform highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">backend</span> <span class="s2">"azurerm"</span> <span class="p">{</span>
+    <span class="nx">resource_group_name</span> <span class="p">=</span> <span class="s2">"lab-rg"</span>            <span class="c1"># Nombre del grupo de recursos donde se encuentra la cuenta de almacenamiento</span>
+    <span class="nx">storage_account_name</span> <span class="p">=</span> <span class="s2">"labaztfbackend"</span>   <span class="c1"># Nombre de la cuenta de almacenamiento donde se va almacenar el fichero de estado</span>
+    <span class="nx">container_name</span> <span class="p">=</span> <span class="s2">"tbackend"</span>               <span class="c1"># Nombre del container donde se va almacenar el fichero de estado</span>
+    <span class="nx">key</span> <span class="p">=</span> <span class="s2">"terraform.tfstate"</span>                 <span class="c1"># Nombre del fichero de estado. El nombre estándar es terraform.tfstate</span>
+  <span class="p">}</span>
 </code></pre></div></div>
 
-<p>Abrimos en el navegador la siguiente URL <em>http://localhost:4000</em> y podremos visualizar el blog.</p>
+<p>Referencia: <a href="https://github.com/ragalgut/az-tf-deployment-oidc/blob/main/main.tf#L27-L32">https://github.com/ragalgut/az-tf-deployment-oidc/blob/main/main.tf#L27-L32</a></p>
 
-<p><img src="/images/myblog.webp" alt="Visualizar sitio estático desde servidor local de Jekyll" /></p>
+<h2 id="configurar-identidades-federadas-para-openid">Configurar identidades federadas para OpenID</h2>
 
-<h2 id="enlaces-de-interés-jekyll">Enlaces de interés Jekyll</h2>
+<p>Para la creación de una identidad federada para <strong>OpenID</strong> hay que crear un registro de aplicación en <strong>Azure AD</strong>. Para este escenario creo uno llamado <em>tf-sp-terraform</em> con acceso ‘<em>Solo cuentas de este directorio organizativo (solo de Default Directory: inquilino único)</em>’.</p>
 
-<p>Para que podáis ampliar conocimientos sobre el uso de <strong>Jekyll</strong> os facilito una serie de recursos de la documentación oficial que os ayudará a entender la estructura de directorios, creación de contenido, plugins y temas, entre otros.</p>
+<p><img src="/images/280623/registro-de-aplicacion.webp" alt="Azure App Registration" /></p>
 
-<h3 id="contenido">Contenido</h3>
+<p>Posteriormente creamos dos identidades federadas del tipo entorno, yo las he llamado <em>plan</em> y <em>apply</em>. En el workflow hay dos jobs configurados, uno encargado de realizar <em>Terraform Plan</em> y otro encargado de realizar <em>Terraform Apply</em>, cada uno de estos jobs tienen configurado un entorno en <strong>GitHub</strong>, también llamados <em>plan</em> y <em>apply</em>, este último configurado con un proceso previo de aprovación para que podamos verificar el plan y poder aprobar o rechazar los cambios. La identidad federada que crearemos en <strong>Azure</strong> será de tipo entorno para que los jobs validen correctamente con <strong>Azure</strong>.</p>
 
-<ol>
-  <li><a href="https://jekyllrb.com/docs/pages/">Pages</a></li>
-  <li><a href="https://jekyllrb.com/docs/posts/">Post</a></li>
-  <li><a href="https://jekyllrb.com/docs/front-matter/">Front Matter</a></li>
-  <li><a href="https://jekyllrb.com/docs/collections/">Collections</a></li>
-  <li><a href="https://jekyllrb.com/docs/datafiles/">Data Files</a></li>
-  <li><a href="https://jekyllrb.com/docs/assets/">Assets</a></li>
-  <li><a href="https://jekyllrb.com/docs/static-files/">Static Files</a></li>
-  <li><a href="https://jekyllrb.com/docs/plugins/">Plugins</a></li>
-</ol>
+<p>Para crear una identidad federada accedemos al registro de aplicación creado anteriormente &gt; <em>Certificados y secretos</em> &gt; <em>Credenciales federadas</em> &gt; <em>Agregar credencial</em>.</p>
 
-<h3 id="estructura-del-sitio">Estructura del sitio</h3>
+<p><img src="/images/280623/credenciales-federadas-plan-apply-azure-openid.webp" alt="Credenciales federadas para OpenID" /></p>
 
-<ol>
-  <li><a href="https://jekyllrb.com/docs/structure/">Structure</a></li>
-  <li><a href="https://jekyllrb.com/docs/liquid/">Liquid</a></li>
-  <li><a href="https://jekyllrb.com/docs/variables/">Variables</a></li>
-  <li><a href="https://jekyllrb.com/docs/includes/">Includes</a></li>
-  <li><a href="https://jekyllrb.com/docs/layouts/">Layouts</a></li>
-  <li><a href="https://jekyllrb.com/docs/permalinks/">Permalinks</a></li>
-  <li><a href="https://jekyllrb.com/docs/themes/">Themes</a></li>
-  <li><a href="https://jekyllrb.com/docs/pagination/">Pagination</a></li>
-</ol>
+<p>El escenario que tenemos que seleccionar es <em>Acciones de GitHub que implementan recursos de Azure</em>, la <em>Organización</em> es nuestro usuario de <strong>github.com</strong>, en el caso de <strong>GitHub Enterprise</strong> es el nombre de la organización, en <em>Repositorio</em> el nombre de nuestro repositorio, <em>Tipo de entidad</em> seleccionamos <em>Entorno</em> y por último indicamos el nombre de la identidad.</p>
 
-<h2 id="publicar-sitio-en-github">Publicar sitio en GitHub</h2>
+<p>El <em>Identificador de sujeto</em> y <em>Api token</em> que se muestra en la configuración es la que usa <strong>github.com</strong>. Para <strong>GitHub Enterprise</strong> hay que consultar con el administrador cual es el identificador y el api token y configurarlo en la identidad federada en <strong>Azure</strong>.</p>
 
-<p>Para publicar nuestro sitio estático en <strong>GitHub</strong> seguimos los siguientes pasos:</p>
+<blockquote>
+  <p>Cuando se ejecuta el workflow y da un fallo en la etapa de conexión con OpenID se puede ver en los logs cual es el identificador y api token que espera encontrar.</p>
+</blockquote>
 
-<ol>
-  <li>
-    <p><strong>Crear un repositorio en GitHub</strong>.</p>
+<p><img src="/images/280623/crear-credencial.webp" alt="Crear credencial" /></p>
 
-    <p><img src="/images/create-new-public-repository-github.webp" alt="Crear repositorio público en GitHub" /></p>
-  </li>
-  <li>
-    <p><strong>Clonamos nuestro repositorio</strong> en un directorio local de nuestro equipo. Yo hago uso de <a href="https://code.visualstudio.com/">Visual Studio Code</a>, pero también existen otras herramientas que facilitan la gestión de repositorios de <strong>GitHub</strong> como <a href="create-new-public-repository-github.png">GitHub Desktop</a>.</p>
-  </li>
-  <li>
-    <p><strong>Copiamos el contenido</strong> de nuestro sitio al repositorio clonado.</p>
-  </li>
-  <li>
-    <p><strong>Hacemos commit de todos los cambios</strong> y posteriormente un <strong>push</strong> para que se suba el contenido al repositorio público.</p>
+<p>Por último tenemos que <strong>dar permisos de colaborador al registro de aplicación creado, en mi caso <em>tf-sp-terraform</em> sobre la suscripción que queremos administrar con Terraform</strong>.</p>
 
-    <p><img src="/images/push-myblog-jekyll.webp" alt="Contenido del sitio en repositorio público" /></p>
-  </li>
-</ol>
+<h2 id="crear-entornos-en-github">Crear entornos en GitHub</h2>
 
-<h2 id="desplegar-sitio-en-github-pages">Desplegar sitio en GitHub Pages</h2>
+<p>Para crear los dos entornos en <strong>GitHub</strong> vamos en nuestro repositorio a <em>Settings</em> &gt; <em>Environments</em>.</p>
 
-<p>Una vez tenemos nuestro sitio público en <strong>GitHub</strong> tenemos que configurar <strong>GitHub Pages</strong> para que muestre el sitio web en un dominio de <strong>GitHub</strong>. Para ello vamos a <em>Settings &gt; Pages</em> desde el repositorio público.</p>
+<p><img src="/images/280623/github-environments-plan-apply.webp" alt="Entornos GitHub" /></p>
 
-<p><img src="/images/settings-github-pages.webp" alt="Configurar GitHub Pages" /></p>
+<p>Creamos un nuevo entorno desde <em>New environment</em> y le damos un nombre, para este escenario lo he llamado <em>plan</em>.</p>
 
-<p>En <em>source</em> seleccionamos <strong>GitHub Actions</strong>.</p>
+<p><img src="/images/280623/new-environment-github.webp" alt="Nuevo entorno GitHub" /></p>
 
-<p><img src="/images/source-github-pages.webp" alt="Configurar GitHub Pages" /></p>
+<blockquote>
+  <p>Hay que tener en cuenta que el nombre del entorno de <strong>GitHub</strong> debe coincidir con el nombre del entorno configurado en la identidad federada para que pueda hacer conexión, además en este escenario se espera que los nombres sean <em>plan</em> y <em>apply</em> porque están configurados en cada job en el código del workflow. Referencia: <a href="https://github.com/ragalgut/az-tf-deployment-oidc/blob/main/.github/workflows/tf-plan-apply.yml#L23">plan</a>, <a href="https://github.com/ragalgut/az-tf-deployment-oidc/blob/main/.github/workflows/tf-plan-apply.yml#L92">apply</a>.</p>
+</blockquote>
 
-<p>Seleccionamos configurar <strong>Jekyll</strong>.</p>
+<p>El entorno <em>apply</em> debe tener marcada la opción <em>Required reviewers</em> y agregar un reviewer para el proceso de aprobación del job <em>Terraform Apply</em>, podemos ser nosotros mismos.</p>
 
-<p><img src="/images/configure-jekyll-github-pages.webp" alt="Desplegar Jekyll en GitHub Pages" /></p>
+<p><img src="/images/280623/required-reviewers-environment-apply.webp" alt="Required reviewers environment GitHub" /></p>
 
-<p>Por último hacemos <em>commit</em> para aplicar el workflow que <strong>GitHub Actions</strong> nos facilita para el despliegue del sitio de <strong>Jekyll</strong> en <strong>GitHub Pages</strong>.</p>
+<h2 id="configurar-clave-pública-y-privada">Configurar clave pública y privada</h2>
 
-<p><img src="/images/commit-actions-github-pages.webp" alt="Desplegar Jekyll en GitHub Pages" /></p>
+<p>Para que <em>terraform init</em> pueda clonar el repositorio del módulo por <strong>SSH</strong> tenemos que generar un par de claves, la privada estará encriptada como variable en un secreto de <strong>GitHub</strong> y la pública estará unida en nuestro perfil de usuario. Este proceso lo detallo más adelante.</p>
 
-<h2 id="configurar-un-dominio-personalizado">Configurar un dominio personalizado</h2>
-
-<p>El dominio que viene por defecto para <strong>GitHub Pages</strong> tiene el siguiente formato [usuarioGitHub].github.io.
-   Si queremos agregar nuestro propio dominio, en mi caso ragalgut.me, tenemos que agregar los siguientes registros en la configuración DNS de nuestro proveedor de dominio.</p>
-
-<p>Crear los siguientes <strong>registros A</strong>:</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   185.199.108.153
-   185.199.109.153
-   185.199.110.153
-   185.199.111.153
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh-keygen -t rsa
 </code></pre></div></div>
 
-<p>Crear los siguientes <strong>registros AAA</strong>:</p>
+<h2 id="agregar-secretos-en-github">Agregar secretos en GitHub</h2>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   72606:50c0:8000::153
-   2606:50c0:8001::153
-   2606:50c0:8002::153
-   2606:50c0:8003::153
-</code></pre></div></div>
+<p>En el workflow hay configurado una serie de variables que GitHub espera obtener la información del repositorio de secretos, por lo tanto, tenemos que crearlos.</p>
 
-<p>Crear un <strong>registro CNAME</strong> en la que el subdominio sea <strong>www</strong> y el destino <strong>[usuarioGitHub].github.io</strong>.</p>
+<p>Referencia: <a href="https://github.com/ragalgut/az-tf-deployment-oidc/blob/main/.github/workflows/tf-plan-apply.yml#L13-L16">varibales en el workflow</a></p>
 
-<p><img src="/images/config-dns-zone-github-pages.webp" alt="Configurar zona DNS en proveedor de dominio" /></p>
+<p>Para crear los secretos, tenemos que ir desde nuestro repositorio a <em>Settings</em> &gt; <em>Secrets and variables</em> &gt; <em>Actions</em> &gt; <em>New repository secret</em>.</p>
 
-<p>Configuramos el dominio personalizado en <em>Settings &gt; Pages</em>.</p>
+<p><img src="/images/280623/secrets-github.webp" alt="Secrets GitHub" /></p>
 
-<p><img src="/images/custom-domain-github-pages.webp" alt="Configurar dominio personalizado GitHub Pages" /></p>
+<p>A continuación en la siguiente tabla proporciono la información que debeís agregar en cada campo:</p>
 
-<p>Tras validar el dominio personalizado el sitio web estará live.</p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Secret</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>AZURE_CLIENT_ID</td>
+      <td>El ID del registro de aplicación creado (cliente)</td>
+    </tr>
+    <tr>
+      <td>AZURE_SUBSCRIPTION_ID</td>
+      <td>ID de la suscripción a gestionar con Terraform</td>
+    </tr>
+    <tr>
+      <td>AZURE_TENANT_ID</td>
+      <td>ID del tenant de Azure. Este ID también se puede obtener de la información del registro de aplicación</td>
+    </tr>
+    <tr>
+      <td>GIT_SSH_COMMAND</td>
+      <td>ssh -o StrictHostKeyChecking=no -i $HOME/.ssh/id_rsa</td>
+    </tr>
+    <tr>
+      <td>SSH_KEY_GITHUB_ACTIONS</td>
+      <td>Clave privada del par de claves generados anteriormente</td>
+    </tr>
+  </tbody>
+</table>
 
-<p><img src="/images/github-pages-live.webp" alt="Sitio validado y publicado" /></p>
+<blockquote>
+  <p>Al copiar la clave privada debemos tener en cuenta que debe incluir las líneas completas <em>BEGIN OPENSSH PRIVATE KEY</em> y <em>END OPENSSH PRIVATE KEY</em>. Además debe haber una línea en blanco al final del todo.</p>
+</blockquote>
+
+<p>Por último hay que configurar la clave pública en nuestra cuenta de usuario en <em>Settings</em> &gt; <em>SSH and GPG keys</em> &gt; <em>New SSH key</em>.</p>
+
+<blockquote>
+  <p>La clave pública debe tener el formato indicado y una línea en blanco al final.</p>
+</blockquote>
 
     </div>
 
@@ -438,27 +418,27 @@
       <ul class="share__list list-reset">
         <li class="share__item">
           <a class="share__link share__twitter"
-            href="https://twitter.com/intent/tweet?text=Creando%20un%20sitio%20web%20est%C3%A1tico%20con%20Jekyll%20y%20GitHub&url=http://localhost:4000/creando-un-sitio-web-estatico-con-jekyll-y-github-pages"
+            href="https://twitter.com/intent/tweet?text=Automatizar%20despliegues%20en%20Azure%20con%20Terraform%20y%20GitHub%20Actions&url=http://localhost:4000/automatizar-despliegues-en-azure-con-terraform-y-github-actions"
             onclick="window.open(this.href, 'pop-up', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;"
             title="Compartir en Twitter" rel="nofollow"><i class="ion ion-logo-twitter"></i></a>
         </li>
         <li class="share__item">
-          <a class="share__link share__facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/creando-un-sitio-web-estatico-con-jekyll-y-github-pages"
+          <a class="share__link share__facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/automatizar-despliegues-en-azure-con-terraform-y-github-actions"
             onclick="window.open(this.href, 'pop-up', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;"
             title="Compartir en Facebook" rel="nofollow"><i class="ion ion-logo-facebook"></i></a>
         </li>
         <li class="share__item">
-          <a class="share__link share__reddit" href="https://reddit.com/submit?url=http://localhost:4000/creando-un-sitio-web-estatico-con-jekyll-y-github-pages&amp;media=http://localhost:4000/images/jekyll-github.svg&amp;description=Creando%20un%20sitio%20web%20est%C3%A1tico%20con%20Jekyll%20y%20GitHub"
+          <a class="share__link share__reddit" href="https://reddit.com/submit?url=http://localhost:4000/automatizar-despliegues-en-azure-con-terraform-y-github-actions&amp;media=http://localhost:4000/images/280623/github-actions-workflow-terraform.svg&amp;description=Automatizar%20despliegues%20en%20Azure%20con%20Terraform%20y%20GitHub%20Actions"
           onclick="window.open(this.href, 'pop-up', 'left=20,top=20,width=900,height=500,toolbar=1,resizable=0'); return false;" title="Compartir en Reddit"
           rel="nofollow"><i class="ion ion-logo-reddit"></i></a>
         </li>
         <!-- <li class="share__item">
-          <a class="share__link share__pinterest" href="http://pinterest.com/pin/create/button/?url=http://localhost:4000/creando-un-sitio-web-estatico-con-jekyll-y-github-pages&amp;media=http://localhost:4000/images/jekyll-github.svg&amp;description=Creando%20un%20sitio%20web%20est%C3%A1tico%20con%20Jekyll%20y%20GitHub"
+          <a class="share__link share__pinterest" href="http://pinterest.com/pin/create/button/?url=http://localhost:4000/automatizar-despliegues-en-azure-con-terraform-y-github-actions&amp;media=http://localhost:4000/images/280623/github-actions-workflow-terraform.svg&amp;description=Automatizar%20despliegues%20en%20Azure%20con%20Terraform%20y%20GitHub%20Actions"
           onclick="window.open(this.href, 'pop-up', 'left=20,top=20,width=900,height=500,toolbar=1,resizable=0'); return false;" title="Compartir en Pinterest"
           rel="nofollow"><i class="ion ion-logo-pinterest"></i></a>
         </li> -->
         <li class="share__item">
-          <a class="share__link share__linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/creando-un-sitio-web-estatico-con-jekyll-y-github-pages&title=Creando%20un%20sitio%20web%20est%C3%A1tico%20con%20Jekyll%20y%20GitHub&summary=Te%20detallo%20como%20puedes%20crear%20un%20sitio%20web%20est%C3%A1tico%20con%20Jekyll%20y%20alojarlo%20de%20forma%20gratuita%20en%20GitHub.&source=Ragalgut"
+          <a class="share__link share__linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/automatizar-despliegues-en-azure-con-terraform-y-github-actions&title=Automatizar%20despliegues%20en%20Azure%20con%20Terraform%20y%20GitHub%20Actions&summary=En%20este%20post%20voy%20a%20mostrar%20como%20automatizar%20el%20despliegue%20de%20infraestructura%20en%20Azure%20con%20Terraform%20y%20un%20workflow%20de%20GitHub%20Actions.&source=Ragalgut"
           onclick="window.open(this.href, 'pop-up', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Compartir en LinkedIn" rel="nofollow"><i class="ion ion-logo-linkedin"></i></a>
         </li>
       </ul>
@@ -488,7 +468,11 @@
                 
                 
                   
-                    <a href="/tags#Jekyll" class="section__link related-tag">Más de<span> Jekyll</span></a>
+                    <a href="/tags#Terraform" class="section__link related-tag">Más de<span> Terraform</span></a>
+                  
+                
+                  
+                
                   
                 
                   
@@ -506,18 +490,25 @@
             
       
             
+            
+            
+            
+      
+            
+      
+            
 
               <div class="article col col-4 col-d-6 col-t-12">
   <div class="article__inner">
 
     <div class="article__head">
-      <time class="article__date" datetime="2023-06-28T10:00:00+02:00">28 Jun 2023</time>
+      <time class="article__date" datetime="2023-06-05T14:01:35+02:00">05 Jun 2023</time>
 
       
 
       
-      <a class="article__image" href="/automatizar-despliegues-en-azure-con-terraform-y-github-actions">
-        <img class="lazy" data-src="/images/280623/github-actions-workflow-terraform.svg" alt="Automatizar despliegues en Azure con Terraform y GitHub Actions">
+      <a class="article__image" href="/creando-un-sitio-web-estatico-con-jekyll-y-github-pages">
+        <img class="lazy" data-src="/images/jekyll-github.svg" alt="Creando un sitio web estático con Jekyll y GitHub">
       </a>
       
 
@@ -526,11 +517,11 @@
     <div class="article__content">
 
       <h2 class="article__title">
-        <a href="/automatizar-despliegues-en-azure-con-terraform-y-github-actions">Automatizar despliegues en Azure con Terraform y GitHub Actions</a>
+        <a href="/creando-un-sitio-web-estatico-con-jekyll-y-github-pages">Creando un sitio web estático con Jekyll y GitHub</a>
       </h2>
 
       
-      <p class="article__excerpt">En este post voy a mostrar como automatizar el despliegue de infraestructura en Azure con Terraform y un workflow de GitHub Actions.</p>
+      <p class="article__excerpt">Te detallo como puedes crear un sitio web estático con Jekyll y alojarlo de forma gratuita en GitHub.</p>
       
 
     </div>
@@ -540,13 +531,6 @@
             
                 
               
-            
-            
-            
-      
-            
-      
-            
             
             
             

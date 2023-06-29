@@ -3,7 +3,7 @@ layout: post
 title:  Creando un sitio web estático con Jekyll y GitHub
 description: Te detallo como puedes crear un sitio web estático con Jekyll y alojarlo de forma gratuita en GitHub.
 date:   2023-06-05 15:01:35 +0300
-image:  '/images/jekyll-github.svg'
+image:  '/images/jekyll-github.webp'
 tags:   [Jekyll, GitHub]
 ---
 

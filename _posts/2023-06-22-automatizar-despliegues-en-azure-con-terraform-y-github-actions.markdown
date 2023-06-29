@@ -18,6 +18,7 @@ En este artículo os muestro como automatizar despliegues de infraestructura en 
 4. [Configurar clave pública y privada](#configurar-clave-pública-y-privada)
 5. [Crear entornos en GitHub](#crear-entornos-en-github)
 6. [Agregar secretos en GitHub](#agregar-secretos-en-github)
+7. [Puesta en marcha del workflow](#puesta-en-marcha-del-workflow)
 
 ## Arquitectura y contenido
 
@@ -43,7 +44,7 @@ La ejecución del workflow se realiza desde el apartado *Actions* en **GitHub**.
 
 ## Configurar backend en Azure
 
-Tenemos que crear en Azure un backend donde estará alojado el archivo de estado *terraform.tfstate* con la infraestructura de **Azure** gestionada por **Terraform**.
+Tenemos que crear en **Azure** un backend donde estará alojado el archivo de estado *terraform.tfstate* con la infraestructura de **Azure** gestionada por **Terraform**.
 
 Hay que crear una cuenta de almacenamiento y un contenedor privado. Para este escenario creo una cuenta de almacenamiento llamada *labaztfbackend* y un contenedor *tbackend*.
 
@@ -114,7 +115,7 @@ ssh-keygen -t rsa
 
 ## Agregar secretos en GitHub
 
-En el workflow hay configurado una serie de variables que GitHub espera obtener la información del repositorio de secretos, por lo tanto, tenemos que crearlos.
+En el workflow hay configurado una serie de variables que **GitHub** espera obtener la información del repositorio de secretos, por lo tanto, tenemos que crearlos.
 
 Referencia: [varibales en el workflow](https://github.com/ragalgut/az-tf-deployment-oidc/blob/main/.github/workflows/tf-plan-apply.yml#L13-L16)
 
@@ -137,3 +138,33 @@ A continuación en la siguiente tabla proporciono la información que debeís ag
 Por último hay que configurar la clave pública en nuestra cuenta de usuario en *Settings* > *SSH and GPG keys* > *New SSH key*.
 
 > La clave pública debe tener el formato indicado y una línea en blanco al final.
+
+## Puesta en marcha del workflow
+
+Para poner en marcha el workflow y ejecutar el despliegue en **Azure** tenemos que ir a *Actions* > *Terraform Plan/Apply*:
+
+![Ejecutar workflow GitHub Actions](/images/280623/ejecutar-workflow-github-actions.webp)
+
+Comenzará la ejecución del workflow, ejecutará cada job y sus diferentes etapas siempre que no exista un error en una de ellas. Si accedemos al workflow que está en ejecución podemos ver más detalles del job que se está ejecutando y los que están en espera.
+
+![Ejecutar workflow GitHub Actions](/images/280623/ejecutar-workflow-github-actions02.webp)
+
+Aquí podemos ver ambos jobs *Terraform Plan* y *Terraform Apply*. Las lineas azules de los jobs hacen referencia a las etapas ejecutadas. Para tener más detalles de las etapas que se están ejecutando accedemos al job *Terraform Plan*.
+
+![Ejecutar workflow GitHub Actions](/images/280623/ejecutar-workflow-github-actions03.webp)
+
+Aquí podemos ver las etapas que están en proceso, completadas o con error. Si desplegamos *Terraform Plan* podemos tener el detalle de los recursos que se van a desplegar en **Azure**.
+
+![Ejecutar workflow GitHub Actions](/images/280623/ejecutar-workflow-github-actions04.webp)
+
+Aquí podemos ver que se va a desplegar un grupo de recursos con el nombre *rg-test00* con dos etiquetas *test5* y *test6*. El siguiente paso es aprobar o rechazar este despliegue, para ello vamos al job *Terraform Apply* que está pendiente de aprobación.
+
+![Ejecutar workflow GitHub Actions](/images/280623/ejecutar-workflow-github-actions05.webp)
+
+Para aprobar o rechazar tenemos que hacer clic en *Review pending deployments* y marcamos la acción que queramos llevar a cabo, en este escenario voy aprobar el despliegue.
+
+![Ejecutar workflow GitHub Actions](/images/280623/ejecutar-workflow-github-actions07.webp)
+
+Una vez finalizadas las etapas podemos ver que los recursos se han desplegado correctamente en **Azure**.
+
+![Ejecutar workflow GitHub Actions](/images/280623/ejecutar-workflow-github-actions08.webp)

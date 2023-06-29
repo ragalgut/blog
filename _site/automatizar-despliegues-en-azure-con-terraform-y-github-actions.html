@@ -263,6 +263,7 @@
   <li><a href="#configurar-clave-pública-y-privada">Configurar clave pública y privada</a></li>
   <li><a href="#crear-entornos-en-github">Crear entornos en GitHub</a></li>
   <li><a href="#agregar-secretos-en-github">Agregar secretos en GitHub</a></li>
+  <li><a href="#puesta-en-marcha-del-workflow">Puesta en marcha del workflow</a></li>
 </ol>
 
 <h2 id="arquitectura-y-contenido">Arquitectura y contenido</h2>
@@ -292,7 +293,7 @@
 
 <h2 id="configurar-backend-en-azure">Configurar backend en Azure</h2>
 
-<p>Tenemos que crear en Azure un backend donde estará alojado el archivo de estado <em>terraform.tfstate</em> con la infraestructura de <strong>Azure</strong> gestionada por <strong>Terraform</strong>.</p>
+<p>Tenemos que crear en <strong>Azure</strong> un backend donde estará alojado el archivo de estado <em>terraform.tfstate</em> con la infraestructura de <strong>Azure</strong> gestionada por <strong>Terraform</strong>.</p>
 
 <p>Hay que crear una cuenta de almacenamiento y un contenedor privado. Para este escenario creo una cuenta de almacenamiento llamada <em>labaztfbackend</em> y un contenedor <em>tbackend</em>.</p>
 
@@ -361,7 +362,7 @@
 
 <h2 id="agregar-secretos-en-github">Agregar secretos en GitHub</h2>
 
-<p>En el workflow hay configurado una serie de variables que GitHub espera obtener la información del repositorio de secretos, por lo tanto, tenemos que crearlos.</p>
+<p>En el workflow hay configurado una serie de variables que <strong>GitHub</strong> espera obtener la información del repositorio de secretos, por lo tanto, tenemos que crearlos.</p>
 
 <p>Referencia: <a href="https://github.com/ragalgut/az-tf-deployment-oidc/blob/main/.github/workflows/tf-plan-apply.yml#L13-L16">varibales en el workflow</a></p>
 
@@ -411,6 +412,36 @@
 <blockquote>
   <p>La clave pública debe tener el formato indicado y una línea en blanco al final.</p>
 </blockquote>
+
+<h2 id="puesta-en-marcha-del-workflow">Puesta en marcha del workflow</h2>
+
+<p>Para poner en marcha el workflow y ejecutar el despliegue en <strong>Azure</strong> tenemos que ir a <em>Actions</em> &gt; <em>Terraform Plan/Apply</em>:</p>
+
+<p><img src="/images/280623/ejecutar-workflow-github-actions.webp" alt="Ejecutar workflow GitHub Actions" /></p>
+
+<p>Comenzará la ejecución del workflow, ejecutará cada job y sus diferentes etapas siempre que no exista un error en una de ellas. Si accedemos al workflow que está en ejecución podemos ver más detalles del job que se está ejecutando y los que están en espera.</p>
+
+<p><img src="/images/280623/ejecutar-workflow-github-actions02.webp" alt="Ejecutar workflow GitHub Actions" /></p>
+
+<p>Aquí podemos ver ambos jobs <em>Terraform Plan</em> y <em>Terraform Apply</em>. Las lineas azules de los jobs hacen referencia a las etapas ejecutadas. Para tener más detalles de las etapas que se están ejecutando accedemos al job <em>Terraform Plan</em>.</p>
+
+<p><img src="/images/280623/ejecutar-workflow-github-actions03.webp" alt="Ejecutar workflow GitHub Actions" /></p>
+
+<p>Aquí podemos ver las etapas que están en proceso, completadas o con error. Si desplegamos <em>Terraform Plan</em> podemos tener el detalle de los recursos que se van a desplegar en <strong>Azure</strong>.</p>
+
+<p><img src="/images/280623/ejecutar-workflow-github-actions04.webp" alt="Ejecutar workflow GitHub Actions" /></p>
+
+<p>Aquí podemos ver que se va a desplegar un grupo de recursos con el nombre <em>rg-test00</em> con dos etiquetas <em>test5</em> y <em>test6</em>. El siguiente paso es aprobar o rechazar este despliegue, para ello vamos al job <em>Terraform Apply</em> que está pendiente de aprobación.</p>
+
+<p><img src="/images/280623/ejecutar-workflow-github-actions05.webp" alt="Ejecutar workflow GitHub Actions" /></p>
+
+<p>Para aprobar o rechazar tenemos que hacer clic en <em>Review pending deployments</em> y marcamos la acción que queramos llevar a cabo, en este escenario voy aprobar el despliegue.</p>
+
+<p><img src="/images/280623/ejecutar-workflow-github-actions07.webp" alt="Ejecutar workflow GitHub Actions" /></p>
+
+<p>Una vez finalizadas las etapas podemos ver que los recursos se han desplegado correctamente en <strong>Azure</strong>.</p>
+
+<p><img src="/images/280623/ejecutar-workflow-github-actions08.webp" alt="Ejecutar workflow GitHub Actions" /></p>
 
     </div>
 

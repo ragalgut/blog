@@ -5,8 +5,8 @@
         <description>Un espacio para compartir conocimientos técnicos relacionados con la tecnología.</description>
         <link>http://localhost:4000/</link>
         <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-        <pubDate>Thu, 29 Jun 2023 15:13:01 +0200</pubDate>
-        <lastBuildDate>Thu, 29 Jun 2023 15:13:01 +0200</lastBuildDate>
+        <pubDate>Thu, 29 Jun 2023 15:55:21 +0200</pubDate>
+        <lastBuildDate>Thu, 29 Jun 2023 15:55:21 +0200</lastBuildDate>
         <generator>Jekyll v4.3.2</generator>
         
             <item>
@@ -23,6 +23,7 @@
   &lt;li&gt;&lt;a href=&quot;#configurar-clave-pública-y-privada&quot;&gt;Configurar clave pública y privada&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#crear-entornos-en-github&quot;&gt;Crear entornos en GitHub&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#agregar-secretos-en-github&quot;&gt;Agregar secretos en GitHub&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#puesta-en-marcha-del-workflow&quot;&gt;Puesta en marcha del workflow&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;h2 id=&quot;arquitectura-y-contenido&quot;&gt;Arquitectura y contenido&lt;/h2&gt;
@@ -52,7 +53,7 @@
 
 &lt;h2 id=&quot;configurar-backend-en-azure&quot;&gt;Configurar backend en Azure&lt;/h2&gt;
 
-&lt;p&gt;Tenemos que crear en Azure un backend donde estará alojado el archivo de estado &lt;em&gt;terraform.tfstate&lt;/em&gt; con la infraestructura de &lt;strong&gt;Azure&lt;/strong&gt; gestionada por &lt;strong&gt;Terraform&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;Tenemos que crear en &lt;strong&gt;Azure&lt;/strong&gt; un backend donde estará alojado el archivo de estado &lt;em&gt;terraform.tfstate&lt;/em&gt; con la infraestructura de &lt;strong&gt;Azure&lt;/strong&gt; gestionada por &lt;strong&gt;Terraform&lt;/strong&gt;.&lt;/p&gt;
 
 &lt;p&gt;Hay que crear una cuenta de almacenamiento y un contenedor privado. Para este escenario creo una cuenta de almacenamiento llamada &lt;em&gt;labaztfbackend&lt;/em&gt; y un contenedor &lt;em&gt;tbackend&lt;/em&gt;.&lt;/p&gt;
 
@@ -121,7 +122,7 @@
 
 &lt;h2 id=&quot;agregar-secretos-en-github&quot;&gt;Agregar secretos en GitHub&lt;/h2&gt;
 
-&lt;p&gt;En el workflow hay configurado una serie de variables que GitHub espera obtener la información del repositorio de secretos, por lo tanto, tenemos que crearlos.&lt;/p&gt;
+&lt;p&gt;En el workflow hay configurado una serie de variables que &lt;strong&gt;GitHub&lt;/strong&gt; espera obtener la información del repositorio de secretos, por lo tanto, tenemos que crearlos.&lt;/p&gt;
 
 &lt;p&gt;Referencia: &lt;a href=&quot;https://github.com/ragalgut/az-tf-deployment-oidc/blob/main/.github/workflows/tf-plan-apply.yml#L13-L16&quot;&gt;varibales en el workflow&lt;/a&gt;&lt;/p&gt;
 
@@ -171,6 +172,36 @@
 &lt;blockquote&gt;
   &lt;p&gt;La clave pública debe tener el formato indicado y una línea en blanco al final.&lt;/p&gt;
 &lt;/blockquote&gt;
+
+&lt;h2 id=&quot;puesta-en-marcha-del-workflow&quot;&gt;Puesta en marcha del workflow&lt;/h2&gt;
+
+&lt;p&gt;Para poner en marcha el workflow y ejecutar el despliegue en &lt;strong&gt;Azure&lt;/strong&gt; tenemos que ir a &lt;em&gt;Actions&lt;/em&gt; &amp;gt; &lt;em&gt;Terraform Plan/Apply&lt;/em&gt;:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/280623/ejecutar-workflow-github-actions.webp&quot; alt=&quot;Ejecutar workflow GitHub Actions&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Comenzará la ejecución del workflow, ejecutará cada job y sus diferentes etapas siempre que no exista un error en una de ellas. Si accedemos al workflow que está en ejecución podemos ver más detalles del job que se está ejecutando y los que están en espera.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/280623/ejecutar-workflow-github-actions02.webp&quot; alt=&quot;Ejecutar workflow GitHub Actions&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Aquí podemos ver ambos jobs &lt;em&gt;Terraform Plan&lt;/em&gt; y &lt;em&gt;Terraform Apply&lt;/em&gt;. Las lineas azules de los jobs hacen referencia a las etapas ejecutadas. Para tener más detalles de las etapas que se están ejecutando accedemos al job &lt;em&gt;Terraform Plan&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/280623/ejecutar-workflow-github-actions03.webp&quot; alt=&quot;Ejecutar workflow GitHub Actions&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Aquí podemos ver las etapas que están en proceso, completadas o con error. Si desplegamos &lt;em&gt;Terraform Plan&lt;/em&gt; podemos tener el detalle de los recursos que se van a desplegar en &lt;strong&gt;Azure&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/280623/ejecutar-workflow-github-actions04.webp&quot; alt=&quot;Ejecutar workflow GitHub Actions&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Aquí podemos ver que se va a desplegar un grupo de recursos con el nombre &lt;em&gt;rg-test00&lt;/em&gt; con dos etiquetas &lt;em&gt;test5&lt;/em&gt; y &lt;em&gt;test6&lt;/em&gt;. El siguiente paso es aprobar o rechazar este despliegue, para ello vamos al job &lt;em&gt;Terraform Apply&lt;/em&gt; que está pendiente de aprobación.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/280623/ejecutar-workflow-github-actions05.webp&quot; alt=&quot;Ejecutar workflow GitHub Actions&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Para aprobar o rechazar tenemos que hacer clic en &lt;em&gt;Review pending deployments&lt;/em&gt; y marcamos la acción que queramos llevar a cabo, en este escenario voy aprobar el despliegue.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/280623/ejecutar-workflow-github-actions07.webp&quot; alt=&quot;Ejecutar workflow GitHub Actions&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Una vez finalizadas las etapas podemos ver que los recursos se han desplegado correctamente en &lt;strong&gt;Azure&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/280623/ejecutar-workflow-github-actions08.webp&quot; alt=&quot;Ejecutar workflow GitHub Actions&quot; /&gt;&lt;/p&gt;
 </description>
                 <pubDate>Wed, 28 Jun 2023 10:00:00 +0200</pubDate>
                 <link>http://localhost:4000/automatizar-despliegues-en-azure-con-terraform-y-github-actions</link>

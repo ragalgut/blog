@@ -3,7 +3,7 @@ layout: post
 title:  Automatizar despliegues en Azure con Terraform y GitHub Actions
 description: En este post voy a mostrar como automatizar el despliegue de infraestructura en Azure con Terraform y un workflow de GitHub Actions.
 date:   2023-06-28 11:00:00 +0300
-image:  '/images/github-actions-workflow-terraform.png'
+image:  '/images/github-actions-workflow-terraform.webp'
 tags:   [Terraform, Azure, GitHub, OpenID]
 ---
 

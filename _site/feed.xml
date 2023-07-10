@@ -5,12 +5,12 @@
         <description>Un espacio para compartir conocimientos técnicos relacionados con la tecnología.</description>
         <link>http://localhost:4000/</link>
         <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-        <pubDate>Mon, 10 Jul 2023 13:00:11 +0200</pubDate>
-        <lastBuildDate>Mon, 10 Jul 2023 13:00:11 +0200</lastBuildDate>
+        <pubDate>Mon, 10 Jul 2023 13:05:34 +0200</pubDate>
+        <lastBuildDate>Mon, 10 Jul 2023 13:05:34 +0200</lastBuildDate>
         <generator>Jekyll v4.3.2</generator>
         
             <item>
-                <title>Actualizando la versión de Windows Server en una máquina virtual de Azure</title>
+                <title>Actualizando a una versión superior de Windows Server en una máquina virtual de Azure</title>
                 <description>&lt;p&gt;Si en algún momento te has plantado actualizar la versión de &lt;strong&gt;Windows Server&lt;/strong&gt; en una máquina virtual de &lt;strong&gt;Azure&lt;/strong&gt;, probablemente hayas decidido pasar por levantar una máquina de cero con la nueva versión, posteriormente hacer una migración de roles, datos, cambios de IP, DNS, etc.&lt;/p&gt;
 
 &lt;p&gt;En &lt;strong&gt;Azure&lt;/strong&gt; no es posible asociar una ISO a una unidad DVD/CD-ROM en una máquina virtual pero existe una alternativa que te voy a mostrar a continuación.&lt;/p&gt;

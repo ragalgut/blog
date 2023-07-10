@@ -2,7 +2,7 @@
 layout: post
 title:  Actualizando a una versión superior de Windows Server en una máquina virtual de Azure
 description: Te enseño como actualizar a una versión superior de Windows Server sobre una propia máquina virtual de Azure.
-date:   2023-07-07 11:00:00 +0300
+date:   2023-07-10 11:00:00 +0300
 image:  '/images/100723/windows-server-logo.webp'
 tags:   [Azure, Windows Server]
 ---

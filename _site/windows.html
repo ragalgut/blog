@@ -2,22 +2,23 @@
 <html lang="es">
    <!-- SEO tags -->
 <!-- Begin Jekyll SEO tag v2.8.0 -->
-<title>Ragalgut | Un espacio para compartir conocimientos técnicos relacionados con la tecnología.</title>
+<title>Actualizando la versión de Windows Server en una máquina virtual de Azure | Ragalgut</title>
 <meta name="generator" content="Jekyll v4.3.2" />
-<meta property="og:title" content="Ragalgut" />
+<meta property="og:title" content="Actualizando la versión de Windows Server en una máquina virtual de Azure" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="Un espacio para compartir conocimientos técnicos relacionados con la tecnología." />
-<meta property="og:description" content="Un espacio para compartir conocimientos técnicos relacionados con la tecnología." />
-<link rel="canonical" href="http://localhost:4000/" />
-<meta property="og:url" content="http://localhost:4000/" />
+<meta name="description" content="Es posible realizar un cambio de versión de Windows Server realizando la actualización sobre la propia máquina virtual." />
+<meta property="og:description" content="Es posible realizar un cambio de versión de Windows Server realizando la actualización sobre la propia máquina virtual." />
+<link rel="canonical" href="http://localhost:4000/windows" />
+<meta property="og:url" content="http://localhost:4000/windows" />
 <meta property="og:site_name" content="Ragalgut" />
-<meta property="og:image" content="http://localhost:4000/images/01.jpg" />
-<meta property="og:type" content="website" />
+<meta property="og:image" content="http://localhost:4000/images/100723/windows-server-logo.webp" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2023-07-07T10:00:00+02:00" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta property="twitter:image" content="http://localhost:4000/images/01.jpg" />
-<meta property="twitter:title" content="Ragalgut" />
+<meta property="twitter:image" content="http://localhost:4000/images/100723/windows-server-logo.webp" />
+<meta property="twitter:title" content="Actualizando la versión de Windows Server en una máquina virtual de Azure" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebSite","description":"Un espacio para compartir conocimientos técnicos relacionados con la tecnología.","headline":"Ragalgut","image":"http://localhost:4000/images/01.jpg","name":"Ragalgut","url":"http://localhost:4000/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2023-07-07T10:00:00+02:00","datePublished":"2023-07-07T10:00:00+02:00","description":"Es posible realizar un cambio de versión de Windows Server realizando la actualización sobre la propia máquina virtual.","headline":"Actualizando la versión de Windows Server en una máquina virtual de Azure","image":"http://localhost:4000/images/100723/windows-server-logo.webp","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/windows"},"url":"http://localhost:4000/windows"}</script>
 <!-- End Jekyll SEO tag -->
  
 
@@ -26,22 +27,22 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Ragalgut</title>
-  <meta name='description' content='Un espacio para compartir conocimientos técnicos relacionados con la tecnología.'>
+  <title>Actualizando la versión de Windows Server en una máquina virtual de Azure</title>
+  <meta name='description' content='Es posible realizar un cambio de versión de Windows Server realizando la actualización sobre la propia máquina virtual.'>
 
-  <link rel="canonical" href="http://localhost:4000/">
+  <link rel="canonical" href="http://localhost:4000/windows">
   <link rel="alternate" type="application/rss+xml" title="Ragalgut" href="/feed.xml">
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Ragalgut">
-  <meta name="twitter:description" content="Un espacio para compartir conocimientos técnicos relacionados con la tecnología.">
-  <meta name="twitter:image:src" content="http://localhost:4000/images/01.jpg">
+  <meta name="twitter:title" content="Actualizando la versión de Windows Server en una máquina virtual de Azure – Ragalgut">
+  <meta name="twitter:description" content="Es posible realizar un cambio de versión de Windows Server realizando la actualización sobre la propia máquina virtual.">
+  <meta name="twitter:image:src" content="http://localhost:4000/images/100723/windows-server-logo.webp">
 
   <!-- Facebook OpenGraph -->
-  <meta property="og:title" content="Ragalgut">
-  <meta property="og:description" content="Un espacio para compartir conocimientos técnicos relacionados con la tecnología.">
-  <meta property="og:image" content="http://localhost:4000/images/01.jpg">
+  <meta property="og:title" content="Actualizando la versión de Windows Server en una máquina virtual de Azure – Ragalgut">
+  <meta property="og:description" content="Es posible realizar un cambio de versión de Windows Server realizando la actualización sobre la propia máquina virtual.">
+  <meta property="og:image" content="http://localhost:4000/images/100723/windows-server-logo.webp">
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -191,92 +192,363 @@
 
   <!-- begin content -->
   <main class="content" aria-label="Content">
-    <!-- begin hero -->
-<section class="hero">
+    <div class="post-head">
   <div class="container">
     <div class="row">
+      
+      
+
+      
       <div class="col col-6 col-d-12">
-        <div class="footer__author">
-          <center>
-          <div class="footer__author-avatar">
-            <img class="lazy" data-src="/images/rafa-avatar.webp" alt="Rafael Galante Gutiérrez">
-          </div>
-          </center>
-          <h3 class="footer__author-name">Rafael Galante Gutiérrez</h3>
-          <p class="footer__author-bio">Azure Engineer at Kyndryl</p>
+        <div class="post-image">
+          <img class="lazy" data-src="/images/100723/windows-server-logo.webp" alt="Actualizando la versión de Windows Server en una máquina virtual de Azure">
+        </div>
+      </div>
+      
+
+      
+      
+      
+      <div class="col col-6 col-d-12">
+        <div class="post__info ">
+  
           
-          <div class="social">
-            <ul class="social__list list-reset">
+            <div class="post__tags">
               
-              <li class="social__item">
-                <a class="social__link" href="https://github.com/ragalgut" target="_blank" rel="noopener"
-                  aria-label=" link"><i class="ion ion-logo-github"></i></a>
-              </li>
+                <a href="/tags#Azure" class="post__tag">Azure</a>
               
-              <li class="social__item">
-                <a class="social__link" href="https://www.linkedin.com/in/ragalgut/" target="_blank" rel="noopener"
-                  aria-label=" link"><i class="ion ion-logo-linkedin"></i></a>
-              </li>
+                <a href="/tags#Windows Server" class="post__tag">Windows Server</a>
               
-            </ul>
-          </div>
+            </div>
           
-          <!--
-          <div class="hero__subscribe">
-            <form class="subscribe-form validate"
-              action="//ragagu.us11.list-manage.com/subscribe/post?u=5c523592f5bda733710584659&amp;id=148ee2d2d1" method="POST" id="membedded-subscribe-form" name="membedded-subscribe-form" target="_blank" novalidate>
-              <label class="screen-reader-text" for="mce-EMAIL">Email address</label>
-              <input class="subscribe-email required email" id="mce-EMAIL" type="text" name="EMAIL"
-                placeholder="Suscríbete aquí">
-              <button class="button button--primary subscribe-button" id="membedded-subscribe" type="submit" name="subscribe">Enviar</button>
-            </form>
+  
+          <h1 class="post__title">Actualizando la versión de Windows Server en una máquina virtual de Azure</h1>
+  
+          <div class="post__meta">
+            <a href="/about/" class="post__author-image">
+              <img class="lazy" data-src="/images/rafa-avatar.webp" alt="Rafael Galante Gutiérrez">
+            </a>
+
+            <div class="post__meta-bottom">
+              <a class="post__author" href="/about/">Rafael Galante Gutiérrez</a>
+              <time class="post__date" datetime="2023-07-07T10:00:00+02:00">07 Jul 2023</time>
+            </div>
           </div>
-          
-        -->
+  
         </div>
       </div>
     </div>
   </div>
-
-
-</section>
-<!-- end hero -->
-
-<div class="container">
-  <div class="row animate">
-    
-      
-        <div class="article col col-4 col-d-6 col-t-12">
-  <div class="article__inner">
-
-    <div class="article__head">
-      <time class="article__date" datetime="2023-07-07T10:00:00+02:00">07 Jul 2023</time>
-
-      
-
-      
-      <a class="article__image" href="/windows">
-        <img class="lazy" data-src="/images/100723/windows-server-logo.webp" alt="Actualizando la versión de Windows Server en una máquina virtual de Azure">
-      </a>
-      
-
-    </div>
-
-    <div class="article__content">
-
-      <h2 class="article__title">
-        <a href="/windows">Actualizando la versión de Windows Server en una máquina virtual de Azure</a>
-      </h2>
-
-      
-      <p class="article__excerpt">Es posible realizar un cambio de versión de Windows Server realizando la actualización sobre la propia máquina virtual.</p>
-      
-
-    </div>
-  </div>
 </div>
+
+<!-- begin post -->
+<div class="container animate">
+
+  <article class="post">
+
+    <div class="post__content">
+      <p>Si en algún momento te has plantado actualizar la versión de <strong>Windows Server</strong> en una máquina virtual de <strong>Azure</strong>, probablemente hayas decidido pasar por levantar una máquina de cero con la nueva versión, posteriormente hacer una migración de roles, datos, cambios de IP, DNS, etc.</p>
+
+<p>En <strong>Azure</strong> no es posible asociar una ISO a una unidad DVD/CD-ROM en una máquina virtual pero existe una alternativa que te voy a mostrar a continuación.</p>
+
+<h3 id="tabla-de-contenidos">Tabla de contenidos</h3>
+<ol>
+  <li><a href="#arquitectura-y-contenido">Arquitectura y contenido</a></li>
+  <li><a href="#requisitos">Requisitos</a></li>
+  <li><a href="#creando-el-disco-de-actualización">Creando el disco de actualización</a></li>
+  <li><a href="#ejecutando-upgrade-a-windows-server-2019-datacenter">Ejecutando upgrade a Windows Server 2019 Datacenter</a></li>
+</ol>
+
+<h2 id="arquitectura-y-contenido">Arquitectura y contenido</h2>
+
+<p>El escenario sobre el que voy a trabajar tiene la siguiente infraestructura, un grupo de recursos <em>upgradeWS</em>, con una red virtual <em>upgradeWS-vnet (10.1.0.0/24)</em>, dos máquinas virtuales, una <em>vmDomainSRV</em> es un controlador de dominio con <strong>Windows Server 2019 Datacenter</strong> y <em>vmFileSRV</em> tiene el rol de servidor de ficheros con <strong>Windows Server 2016 Datacenter</strong>. Actualizaré <em>vmFileSRV</em> a <strong>Windows Server 2019 Datacenter</strong>.</p>
+
+<p><img src="/images/100723/infraestructure-upgrade-windows-server-azure.svg" alt="Escenario del laboratorio" /></p>
+
+<h2 id="requisitos">Requisitos</h2>
+
+<ul>
+  <li>Actualmente se admite la actualización a <strong>Windows Server 2016</strong>, <strong>2019</strong> y <strong>2022</strong>.</li>
+  <li>La versión mínima funcional para la actualización es <strong>Windows Server 2012</strong>.</li>
+  <li>Las versiones no admitidas para una actualización son <strong>Windows Server 2008 R2 Standard</strong> y <strong>Datacenter</strong>.</li>
+  <li>El disco del sistema operativo debe tener suficiente espacio libre para la actualizacón, mínimo 32 GB.</li>
+  <li>El software antivirus y firewall deben estar deshabilitados porque pueden interferir durante el proceso de actualización y producir errores.</li>
+  <li>La máquina virtual debe estar configurada para la licencia por volumen de <strong>Windows Server</strong>.</li>
+  <li>El disco de la máquina virtual debe ser administrador, de lo contrario se debe migrar a discos administrados.</li>
+  <li>Realizar un snapshot de los discos de la máquina virtual antes de comenzar con el proceso de actualización para, en caso de error, volver al estado anterior de la máquina virtual.</li>
+  <li>
+    <p>Seguir la ruta de actualizaciones admitidas:</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Actualización desde / a</th>
+          <th>Windows Server 2012 R2</th>
+          <th>Windows Server 2016</th>
+          <th>Windows Server 2019</th>
+          <th>Windows Server 2022</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Windows Server 2012</td>
+          <td>Sí</td>
+          <td>Sí</td>
+          <td>-</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>Windows Server 2012 R2</td>
+          <td>-</td>
+          <td>Sí</td>
+          <td>Sí</td>
+          <td>-</td>
+        </tr>
+        <tr>
+          <td>Windows Server 2016</td>
+          <td>-</td>
+          <td>-</td>
+          <td>Sí</td>
+          <td>Sí</td>
+        </tr>
+        <tr>
+          <td>Windows Server 2019</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>Sí</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+</ul>
+
+<h2 id="creando-el-disco-de-actualización">Creando el disco de actualización</h2>
+
+<p>Para poder iniciar el proceso de actualización, mediante un script de <strong>PowerShell</strong> crearemos un disco de actualización que vendrá preparado con una imagen de <strong>Windows Server</strong> configurada para realizar la actualización del sistema operativo. Este disco de actualización debe estar conectado a la máquina virtual y se puede utilizar para actualizar las máquinas virtuales que sean necesarias, pero, de una en una. Este script también puede ser ejecutado desde <strong>Azure Cloud Shell (PowerShell)</strong>.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>resourceGroup</th>
+      <th>Nombre del grupo de recursos donde se creará el disco administrado de actualización. Si no existe, se crea el grupo de recursos con nombre.</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>ubicación</td>
+      <td>Región de Azure en la que se crea el disco administrado de actualización. Debe ser la misma región que la máquina virtual que se va a actualizar.</td>
+    </tr>
+    <tr>
+      <td>zona</td>
+      <td>Zona de Azure en la región seleccionada donde se creará el disco administrado de actualización. Debe estar en la misma zona que la máquina virtual que se va a actualizar. En el caso de las máquinas virtuales regionales (no zonales), el parámetro de zona debe ser “”.</td>
+    </tr>
+    <tr>
+      <td>diskName</td>
+      <td>Nombre del disco administrado que contendrá el disco de actualización</td>
+    </tr>
+    <tr>
+      <td>sku</td>
+      <td>Versión del disco de actualización de Windows Server. Debe ser <code class="language-plaintext highlighter-rouge">server2016Upgrade</code>, <code class="language-plaintext highlighter-rouge">server2019Upgrade</code> o <code class="language-plaintext highlighter-rouge">server2022Upgrade</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Script de PowerShell</strong></p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="w">
+</span><span class="c">#</span><span class="w">
+</span><span class="c"># Customer specific parameters </span><span class="w">
+
+</span><span class="c"># Resource group of the source VM</span><span class="w">
+</span><span class="nv">$resourceGroup</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"WindowsServerUpgrades"</span><span class="w">
+
+</span><span class="c"># Location of the source VM</span><span class="w">
+</span><span class="nv">$location</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"WestUS2"</span><span class="w">
+
+</span><span class="c"># Zone of the source VM, if any</span><span class="w">
+</span><span class="nv">$zone</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">""</span><span class="w"> 
+
+</span><span class="c"># Disk name for the that will be created</span><span class="w">
+</span><span class="nv">$diskName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"WindowsServer2022UpgradeDisk"</span><span class="w">
+
+</span><span class="c"># Target version for the upgrade - must be either server2022Upgrade or server2019Upgrade</span><span class="w">
+</span><span class="nv">$sku</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"server2022Upgrade"</span><span class="w">
+
+
+</span><span class="c"># Common parameters</span><span class="w">
+
+</span><span class="nv">$publisher</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"MicrosoftWindowsServer"</span><span class="w">
+</span><span class="nv">$offer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"WindowsServerUpgrade"</span><span class="w">
+</span><span class="nv">$managedDiskSKU</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Standard_LRS"</span><span class="w">
+
+</span><span class="c">#</span><span class="w">
+</span><span class="c"># Get the latest version of the special (hidden) VM Image from the Azure Marketplace</span><span class="w">
+
+</span><span class="nv">$versions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Get-AzVMImage</span><span class="w"> </span><span class="nt">-PublisherName</span><span class="w"> </span><span class="nv">$publisher</span><span class="w"> </span><span class="nt">-Location</span><span class="w"> </span><span class="nv">$location</span><span class="w"> </span><span class="nt">-Offer</span><span class="w"> </span><span class="nv">$offer</span><span class="w"> </span><span class="nt">-Skus</span><span class="w"> </span><span class="nv">$sku</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">sort-object</span><span class="w"> </span><span class="nt">-Descending</span><span class="w"> </span><span class="p">{[</span><span class="n">version</span><span class="p">]</span><span class="w"> </span><span class="bp">$_</span><span class="o">.</span><span class="nf">Version</span><span class="w">	</span><span class="p">}</span><span class="w">
+</span><span class="nv">$latestString</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$versions</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="nf">Version</span><span class="w">
+
+
+</span><span class="c"># Get the special (hidden) VM Image from the Azure Marketplace by version - the image is used to create a disk to upgrade to the new version</span><span class="w">
+
+
+</span><span class="nv">$image</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Get-AzVMImage</span><span class="w"> </span><span class="nt">-Location</span><span class="w"> </span><span class="nv">$location</span><span class="w"> </span><span class="se">`
+</span><span class="w">                       </span><span class="nt">-PublisherName</span><span class="w"> </span><span class="nv">$publisher</span><span class="w"> </span><span class="se">`
+</span><span class="w">                       </span><span class="nt">-Offer</span><span class="w"> </span><span class="nv">$offer</span><span class="w"> </span><span class="se">`
+</span><span class="w">                       </span><span class="nt">-Skus</span><span class="w"> </span><span class="nv">$sku</span><span class="w"> </span><span class="se">`
+</span><span class="w">                       </span><span class="nt">-Version</span><span class="w"> </span><span class="nv">$latestString</span><span class="w">
+
+</span><span class="c">#</span><span class="w">
+</span><span class="c"># Create Resource Group if it doesn't exist</span><span class="w">
+</span><span class="c">#</span><span class="w">
+
+</span><span class="kr">if</span><span class="w"> </span><span class="p">(</span><span class="o">-not</span><span class="w"> </span><span class="p">(</span><span class="n">Get-AzResourceGroup</span><span class="w"> </span><span class="nt">-Name</span><span class="w"> </span><span class="nv">$resourceGroup</span><span class="w"> </span><span class="nt">-ErrorAction</span><span class="w"> </span><span class="nx">SilentlyContinue</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="n">New-AzResourceGroup</span><span class="w"> </span><span class="nt">-Name</span><span class="w"> </span><span class="nv">$resourceGroup</span><span class="w"> </span><span class="nt">-Location</span><span class="w"> </span><span class="nv">$location</span><span class="w">    
+</span><span class="p">}</span><span class="w">
+
+</span><span class="c">#</span><span class="w">
+</span><span class="c"># Create Managed Disk from LUN 0</span><span class="w">
+</span><span class="c">#</span><span class="w">
+
+</span><span class="kr">if</span><span class="w"> </span><span class="p">(</span><span class="nv">$zone</span><span class="p">){</span><span class="w">
+    </span><span class="nv">$diskConfig</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">New-AzDiskConfig</span><span class="w"> </span><span class="nt">-SkuName</span><span class="w"> </span><span class="nv">$managedDiskSKU</span><span class="w"> </span><span class="se">`
+</span><span class="w">                                   </span><span class="nt">-CreateOption</span><span class="w"> </span><span class="nx">FromImage</span><span class="w"> </span><span class="se">`
+</span><span class="w">                                   </span><span class="nt">-Zone</span><span class="w"> </span><span class="nv">$zone</span><span class="w"> </span><span class="se">`
+</span><span class="w">                                   </span><span class="nt">-Location</span><span class="w"> </span><span class="nv">$location</span><span class="w">
+</span><span class="p">}</span><span class="w"> </span><span class="kr">else</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nv">$diskConfig</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">New-AzDiskConfig</span><span class="w"> </span><span class="nt">-SkuName</span><span class="w"> </span><span class="nv">$managedDiskSKU</span><span class="w"> </span><span class="se">`
+</span><span class="w">                                   </span><span class="nt">-CreateOption</span><span class="w"> </span><span class="nx">FromImage</span><span class="w"> </span><span class="se">`
+</span><span class="w">                                   </span><span class="nt">-Location</span><span class="w"> </span><span class="nv">$location</span><span class="w">
+</span><span class="p">}</span><span class="w"> 
+
+</span><span class="n">Set-AzDiskImageReference</span><span class="w"> </span><span class="nt">-Disk</span><span class="w"> </span><span class="nv">$diskConfig</span><span class="w"> </span><span class="nt">-Id</span><span class="w"> </span><span class="nv">$image</span><span class="o">.</span><span class="nf">Id</span><span class="w"> </span><span class="nt">-Lun</span><span class="w"> </span><span class="nx">0</span><span class="w">
+
+</span><span class="n">New-AzDisk</span><span class="w"> </span><span class="nt">-ResourceGroupName</span><span class="w"> </span><span class="nv">$resourceGroup</span><span class="w"> </span><span class="se">`
+</span><span class="w">           </span><span class="nt">-DiskName</span><span class="w"> </span><span class="nv">$diskName</span><span class="w"> </span><span class="se">`
+</span><span class="w">           </span><span class="nt">-Disk</span><span class="w"> </span><span class="nv">$diskConfig</span><span class="w">
+
+</span></code></pre></div></div>
+
+<p>Tras ejecutar el script la consola de <strong>Cloud Shell</strong> me devuelve la siguiente salida:</p>
+
+<p><img src="/images/100723/outputs-azure-cloud-shell.webp" alt="Salida Azure Cloud Shell" /></p>
+
+<p>El disco ha sido creado, como podemos observar con una capacidad de 10GB, suficiente para contener los archivos para la actualización a <strong>Windows Server 2019 Datacenter</strong>:</p>
+
+<p><img src="/images/100723/azure-disk-upgrade-windows-server-2019-datacenter.webp" alt="Disco de datos para la actualización a Windows Server 2019 Datacenter" /></p>
+
+<p>Una vez adjuntado el disco a la máquina virtual podemos ver que contiene una carpeta con la versión de <strong>Windows Server</strong> a la cual vamos actualizar y los archivos para la actualización:</p>
+
+<p><img src="/images/100723/files-upgrade-to-windows-server-2019-datacenter.webp" alt="Archivos para la actualización a Windows Server 2019 Datacenter" /></p>
+
+<h2 id="ejecutando-upgrade-a-windows-server-2019-datacenter">Ejecutando upgrade a Windows Server 2019 Datacenter</h2>
+
+<p>Para comenzar el proceso de actualización tenemos que abrir una consola de <strong>PowerShell</strong> en la máquina que queremos ejecutar esta y situanos en el directorio donde se encuentran los archivos para la actualización del sistema operativo, en mi caso es <em>F:\Windows Server 2019</em> y ejecutar el siguiente comando:</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">.</span><span class="n">\setup.exe</span><span class="w"> </span><span class="nx">/auto</span><span class="w"> </span><span class="nx">upgrade</span><span class="w"> </span><span class="nx">/dynamicupdate</span><span class="w"> </span><span class="nx">disable</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Se abrirá el asistente de instalación de <strong>Windows Server XXXX</strong>, seleccionamos la edición a la que queremos actualizar:</p>
+
+<p><img src="/images/100723/windows-server-2019-setup.webp" alt="Asistente de instalación Windows Server 2019" /></p>
+
+<p>Comenzará el proceso de actualización:</p>
+
+<p><img src="/images/100723/installing-windows-server-2019.webp" alt="Actualizando a Windows Server 2019" /></p>
+
+<p>Si durante el proceso de instalación se reinicia la máquina perderemos la conexión y podremos visualizar el proceso de actualización desde los diagnósticos de arranque en <strong>Azure</strong>:</p>
+
+<p><img src="/images/100723/bootdiagnostics-windows-server-2019-setup.webp" alt="Diagnósticos de arranque actualización a Windows Server 2019" /></p>
+
+<p>Una vez finalizado el proceso de actualización y tengamos disponible nuestra máquina virtual, podremos observar que esta ya se encuentra actualizada con la nueva versión de <strong>Windows Server</strong>, mantiene toda la información y roles, además que seguirá unida al dominio.</p>
+
+<p><img src="/images/100723/findstr.webp" alt="Comprobando el dominio de la máquina virtual" /></p>
+
+<p>Si el proceso de actualización falla y la máquina entra en un estado de inactividad (no arranca), podremos restaurar el snapshot realizado antes del upgrade y repetir el proceso.</p>
+
+    </div>
+
+    <div class="post__share">
+      <ul class="share__list list-reset">
+        <li class="share__item">
+          <a class="share__link share__twitter"
+            href="https://twitter.com/intent/tweet?text=Actualizando%20la%20versi%C3%B3n%20de%20Windows%20Server%20en%20una%20m%C3%A1quina%20virtual%20de%20Azure&url=http://localhost:4000/windows"
+            onclick="window.open(this.href, 'pop-up', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;"
+            title="Compartir en Twitter" rel="nofollow"><i class="ion ion-logo-twitter"></i></a>
+        </li>
+        <li class="share__item">
+          <a class="share__link share__facebook" href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/windows"
+            onclick="window.open(this.href, 'pop-up', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;"
+            title="Compartir en Facebook" rel="nofollow"><i class="ion ion-logo-facebook"></i></a>
+        </li>
+        <li class="share__item">
+          <a class="share__link share__reddit" href="https://reddit.com/submit?url=http://localhost:4000/windows&amp;media=http://localhost:4000/images/100723/windows-server-logo.webp&amp;description=Actualizando%20la%20versi%C3%B3n%20de%20Windows%20Server%20en%20una%20m%C3%A1quina%20virtual%20de%20Azure"
+          onclick="window.open(this.href, 'pop-up', 'left=20,top=20,width=900,height=500,toolbar=1,resizable=0'); return false;" title="Compartir en Reddit"
+          rel="nofollow"><i class="ion ion-logo-reddit"></i></a>
+        </li>
+        <!-- <li class="share__item">
+          <a class="share__link share__pinterest" href="http://pinterest.com/pin/create/button/?url=http://localhost:4000/windows&amp;media=http://localhost:4000/images/100723/windows-server-logo.webp&amp;description=Actualizando%20la%20versi%C3%B3n%20de%20Windows%20Server%20en%20una%20m%C3%A1quina%20virtual%20de%20Azure"
+          onclick="window.open(this.href, 'pop-up', 'left=20,top=20,width=900,height=500,toolbar=1,resizable=0'); return false;" title="Compartir en Pinterest"
+          rel="nofollow"><i class="ion ion-logo-pinterest"></i></a>
+        </li> -->
+        <li class="share__item">
+          <a class="share__link share__linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/windows&title=Actualizando%20la%20versi%C3%B3n%20de%20Windows%20Server%20en%20una%20m%C3%A1quina%20virtual%20de%20Azure&summary=Es%20posible%20realizar%20un%20cambio%20de%20versi%C3%B3n%20de%20Windows%20Server%20realizando%20la%20actualizaci%C3%B3n%20sobre%20la%20propia%20m%C3%A1quina%20virtual.&source=Ragalgut"
+          onclick="window.open(this.href, 'pop-up', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Compartir en LinkedIn" rel="nofollow"><i class="ion ion-logo-linkedin"></i></a>
+        </li>
+      </ul>
+    </div>
+
+
+  </article>
+</div>
+<!-- end post -->
+
+
+
+
+
+
+
+<!-- begin related posts -->
+<div class="container">
+  <section class="related-posts is-related animate">
+    <div class="row">
+      <div class="col col-12">
+        <div class="container__inner">
+          <div class="section__info">
+            <div class="section__head">
+              <h2 class="section__title">Te puede interesar</h2>
+              <a class="section__link" href="/blog">
+                
+                
+                  
+                    <a href="/tags#Azure" class="section__link related-tag">Más de<span> Azure</span></a>
+                  
+                
+                  
+                
+              
+              </a>
+            </div>
+          </div>
+          <div class="row">
+
+          
+            
+            
       
-        <div class="article col col-4 col-d-6 col-t-12">
+            
+      
+            
+            
+            
+            
+      
+            
+      
+            
+
+              <div class="article col col-4 col-d-6 col-t-12">
   <div class="article__inner">
 
     <div class="article__head">
@@ -305,130 +577,76 @@
     </div>
   </div>
 </div>
+
+            
+                
+              
+            
+            
+            
       
-        <div class="article col col-4 col-d-6 col-t-12">
-  <div class="article__inner">
-
-    <div class="article__head">
-      <time class="article__date" datetime="2023-06-05T14:01:35+02:00">05 Jun 2023</time>
-
+            
       
-
+            
+            
+            
+            
       
-      <a class="article__image" href="/creando-un-sitio-web-estatico-con-jekyll-y-github-pages">
-        <img class="lazy" data-src="/images/jekyll-github.webp" alt="Creando un sitio web estático con Jekyll y GitHub">
-      </a>
+            
       
-
-    </div>
-
-    <div class="article__content">
-
-      <h2 class="article__title">
-        <a href="/creando-un-sitio-web-estatico-con-jekyll-y-github-pages">Creando un sitio web estático con Jekyll y GitHub</a>
-      </h2>
-
-      
-      <p class="article__excerpt">Te detallo como puedes crear un sitio web estático con Jekyll y alojarlo de forma gratuita en GitHub.</p>
-      
-
-    </div>
-  </div>
-</div>
-      
-        <div class="article col col-4 col-d-6 col-t-12">
-  <div class="article__inner">
-
-    <div class="article__head">
-      <time class="article__date" datetime="2023-05-24T14:01:35+02:00">24 May 2023</time>
-
-      
-
-      
-      <a class="article__image" href="/configurar-la-autenticacion-smtp-en-cuentas-de-microsoft-365">
-        <img class="lazy" data-src="/images/activar-desactivar-smtp.webp" alt="Configurar la autenticación SMTP en cuentas de Microsoft 365">
-      </a>
-      
-
-    </div>
-
-    <div class="article__content">
-
-      <h2 class="article__title">
-        <a href="/configurar-la-autenticacion-smtp-en-cuentas-de-microsoft-365">Configurar la autenticación SMTP en cuentas de Microsoft 365</a>
-      </h2>
-
-      
-      <p class="article__excerpt">Se recomienda habilitar la autenticación SMTP solo para las cuentas o buzones que lo requieran ya que es la opción menos segura.</p>
-      
-
-    </div>
-  </div>
-</div>
-      
-    
-  </div>
-</div>
-
-
-
-<!-- begin section-tags
-<section class="section section-tags">
-  <div class="container">
-    <div class="row">
-      <div class="col col-12">
-        <div class="section__head">
-          <h3 class="section__title">Etiquetas</h3>
-          <a href="/tags/" class="section__link">Ver todas</a>
-        </div>
-        
-        
-
-        <div class="row">
-          
-          
-          <div class="col col-3 col-d-6 col-m-12">
-            <a href="/tags#Azure" class="tag-image">
-              <span class="tag-name">Azure</span>
-              <img class="lazy"  data-src="/images/100723/windows-server-logo.webp" alt="post.title" >
-            </a>
+            
+            
           </div>
-          
-          
-          
-          <div class="col col-3 col-d-6 col-m-12">
-            <a href="/tags#Exchange+Online" class="tag-image">
-              <span class="tag-name">Exchange Online</span>
-              <img class="lazy"  data-src="/images/activar-desactivar-smtp.webp" alt="post.title" >
-            </a>
-          </div>
-          
-          
-          
-          <div class="col col-3 col-d-6 col-m-12">
-            <a href="/tags#GitHub" class="tag-image">
-              <span class="tag-name">GitHub</span>
-              <img class="lazy"  data-src="/images/github-actions-workflow-terraform.webp" alt="post.title" >
-            </a>
-          </div>
-          
-          
-          
-          <div class="col col-3 col-d-6 col-m-12">
-            <a href="/tags#Jekyll" class="tag-image">
-              <span class="tag-name">Jekyll</span>
-              <img class="lazy"  data-src="/images/jekyll-github.webp" alt="post.title" >
-            </a>
-          </div>
-          
-          
-          
         </div>
       </div>
     </div>
+  </section>
+</div>
+<!-- end related posts -->
+
+
+  <div class="container">
+    <div class="row">
+      <div class="col col-12">
+        <!-- begin comments -->
+<div class="show-comments">
+  <button class="button disqus-button" id="show-comments-button" onclick="disqus();return false;">Ver comentarios</button>
+</div>
+
+<div id="disqus_thread" class="post__comments">
+  <div id="disqus_empty"></div>
+</div>
+
+<script>
+  var disqus_loaded = false;
+  var disqus_shortname = 'ragalgut';
+  var disqus_container = document.getElementById("disqus_thread");
+  function disqus() {
+    if (!disqus_loaded) {
+      disqus_loaded = true;
+      var e = document.createElement("script");
+      e.type = "text/javascript";
+      e.async = true;
+      e.src = "//" + disqus_shortname + ".disqus.com/embed.js";
+      (document.getElementsByTagName("head")[0] ||
+        document.getElementsByTagName("body")[0])
+        .appendChild(e);
+      // Hide the button after opening
+      document.getElementById("show-comments-button").style.display = "none";
+      // Show disqus comments
+      disqus_container.classList.add("is-open");
+    }
+  }
+</script>
+
+<noscript>Please enable JavaScript to view the
+  <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+</noscript>
+<!-- end comments --> 
+      </div>
+    </div>
   </div>
-</section>
-end section-tags -->
+
   </main>
   <!-- end content -->
 

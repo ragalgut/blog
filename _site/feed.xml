@@ -5,9 +5,241 @@
         <description>Un espacio para compartir conocimientos técnicos relacionados con la tecnología.</description>
         <link>http://localhost:4000/</link>
         <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-        <pubDate>Fri, 07 Jul 2023 23:30:15 +0200</pubDate>
-        <lastBuildDate>Fri, 07 Jul 2023 23:30:15 +0200</lastBuildDate>
+        <pubDate>Mon, 10 Jul 2023 13:00:11 +0200</pubDate>
+        <lastBuildDate>Mon, 10 Jul 2023 13:00:11 +0200</lastBuildDate>
         <generator>Jekyll v4.3.2</generator>
+        
+            <item>
+                <title>Actualizando la versión de Windows Server en una máquina virtual de Azure</title>
+                <description>&lt;p&gt;Si en algún momento te has plantado actualizar la versión de &lt;strong&gt;Windows Server&lt;/strong&gt; en una máquina virtual de &lt;strong&gt;Azure&lt;/strong&gt;, probablemente hayas decidido pasar por levantar una máquina de cero con la nueva versión, posteriormente hacer una migración de roles, datos, cambios de IP, DNS, etc.&lt;/p&gt;
+
+&lt;p&gt;En &lt;strong&gt;Azure&lt;/strong&gt; no es posible asociar una ISO a una unidad DVD/CD-ROM en una máquina virtual pero existe una alternativa que te voy a mostrar a continuación.&lt;/p&gt;
+
+&lt;h3 id=&quot;tabla-de-contenidos&quot;&gt;Tabla de contenidos&lt;/h3&gt;
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;#arquitectura-y-contenido&quot;&gt;Arquitectura y contenido&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#requisitos&quot;&gt;Requisitos&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#creando-el-disco-de-actualización&quot;&gt;Creando el disco de actualización&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#ejecutando-upgrade-a-windows-server-2019-datacenter&quot;&gt;Ejecutando upgrade a Windows Server 2019 Datacenter&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;arquitectura-y-contenido&quot;&gt;Arquitectura y contenido&lt;/h2&gt;
+
+&lt;p&gt;El escenario sobre el que voy a trabajar tiene la siguiente infraestructura, un grupo de recursos &lt;em&gt;upgradeWS&lt;/em&gt;, con una red virtual &lt;em&gt;upgradeWS-vnet (10.1.0.0/24)&lt;/em&gt;, dos máquinas virtuales, una &lt;em&gt;vmDomainSRV&lt;/em&gt; es un controlador de dominio con &lt;strong&gt;Windows Server 2019 Datacenter&lt;/strong&gt; y &lt;em&gt;vmFileSRV&lt;/em&gt; tiene el rol de servidor de ficheros con &lt;strong&gt;Windows Server 2016 Datacenter&lt;/strong&gt;. Actualizaré &lt;em&gt;vmFileSRV&lt;/em&gt; a &lt;strong&gt;Windows Server 2019 Datacenter&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/100723/infraestructure-upgrade-windows-server-azure.svg&quot; alt=&quot;Escenario del laboratorio&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;requisitos&quot;&gt;Requisitos&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Actualmente se admite la actualización a &lt;strong&gt;Windows Server 2016&lt;/strong&gt;, &lt;strong&gt;2019&lt;/strong&gt; y &lt;strong&gt;2022&lt;/strong&gt;.&lt;/li&gt;
+  &lt;li&gt;La versión mínima funcional para la actualización es &lt;strong&gt;Windows Server 2012&lt;/strong&gt;.&lt;/li&gt;
+  &lt;li&gt;Las versiones no admitidas para una actualización son &lt;strong&gt;Windows Server 2008 R2 Standard&lt;/strong&gt; y &lt;strong&gt;Datacenter&lt;/strong&gt;.&lt;/li&gt;
+  &lt;li&gt;El disco del sistema operativo debe tener suficiente espacio libre para la actualizacón, mínimo 32 GB.&lt;/li&gt;
+  &lt;li&gt;El software antivirus y firewall deben estar deshabilitados porque pueden interferir durante el proceso de actualización y producir errores.&lt;/li&gt;
+  &lt;li&gt;La máquina virtual debe estar configurada para la licencia por volumen de &lt;strong&gt;Windows Server&lt;/strong&gt;.&lt;/li&gt;
+  &lt;li&gt;El disco de la máquina virtual debe ser administrador, de lo contrario se debe migrar a discos administrados.&lt;/li&gt;
+  &lt;li&gt;Realizar un snapshot de los discos de la máquina virtual antes de comenzar con el proceso de actualización para, en caso de error, volver al estado anterior de la máquina virtual.&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Seguir la ruta de actualizaciones admitidas:&lt;/p&gt;
+
+    &lt;table&gt;
+      &lt;thead&gt;
+        &lt;tr&gt;
+          &lt;th&gt;Actualización desde / a&lt;/th&gt;
+          &lt;th&gt;Windows Server 2012 R2&lt;/th&gt;
+          &lt;th&gt;Windows Server 2016&lt;/th&gt;
+          &lt;th&gt;Windows Server 2019&lt;/th&gt;
+          &lt;th&gt;Windows Server 2022&lt;/th&gt;
+        &lt;/tr&gt;
+      &lt;/thead&gt;
+      &lt;tbody&gt;
+        &lt;tr&gt;
+          &lt;td&gt;Windows Server 2012&lt;/td&gt;
+          &lt;td&gt;Sí&lt;/td&gt;
+          &lt;td&gt;Sí&lt;/td&gt;
+          &lt;td&gt;-&lt;/td&gt;
+          &lt;td&gt;-&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;td&gt;Windows Server 2012 R2&lt;/td&gt;
+          &lt;td&gt;-&lt;/td&gt;
+          &lt;td&gt;Sí&lt;/td&gt;
+          &lt;td&gt;Sí&lt;/td&gt;
+          &lt;td&gt;-&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;td&gt;Windows Server 2016&lt;/td&gt;
+          &lt;td&gt;-&lt;/td&gt;
+          &lt;td&gt;-&lt;/td&gt;
+          &lt;td&gt;Sí&lt;/td&gt;
+          &lt;td&gt;Sí&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+          &lt;td&gt;Windows Server 2019&lt;/td&gt;
+          &lt;td&gt;-&lt;/td&gt;
+          &lt;td&gt;-&lt;/td&gt;
+          &lt;td&gt;-&lt;/td&gt;
+          &lt;td&gt;Sí&lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;creando-el-disco-de-actualización&quot;&gt;Creando el disco de actualización&lt;/h2&gt;
+
+&lt;p&gt;Para poder iniciar el proceso de actualización, mediante un script de &lt;strong&gt;PowerShell&lt;/strong&gt; crearemos un disco de actualización que vendrá preparado con una imagen de &lt;strong&gt;Windows Server&lt;/strong&gt; configurada para realizar la actualización del sistema operativo. Este disco de actualización debe estar conectado a la máquina virtual y se puede utilizar para actualizar las máquinas virtuales que sean necesarias, pero, de una en una. Este script también puede ser ejecutado desde &lt;strong&gt;Azure Cloud Shell (PowerShell)&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;resourceGroup&lt;/th&gt;
+      &lt;th&gt;Nombre del grupo de recursos donde se creará el disco administrado de actualización. Si no existe, se crea el grupo de recursos con nombre.&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;ubicación&lt;/td&gt;
+      &lt;td&gt;Región de Azure en la que se crea el disco administrado de actualización. Debe ser la misma región que la máquina virtual que se va a actualizar.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;zona&lt;/td&gt;
+      &lt;td&gt;Zona de Azure en la región seleccionada donde se creará el disco administrado de actualización. Debe estar en la misma zona que la máquina virtual que se va a actualizar. En el caso de las máquinas virtuales regionales (no zonales), el parámetro de zona debe ser “”.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;diskName&lt;/td&gt;
+      &lt;td&gt;Nombre del disco administrado que contendrá el disco de actualización&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;sku&lt;/td&gt;
+      &lt;td&gt;Versión del disco de actualización de Windows Server. Debe ser &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;server2016Upgrade&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;server2019Upgrade&lt;/code&gt; o &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;server2022Upgrade&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;&lt;strong&gt;Script de PowerShell&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;# Customer specific parameters &lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+
+&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;# Resource group of the source VM&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$resourceGroup&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;WindowsServerUpgrades&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+
+&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;# Location of the source VM&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$location&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;WestUS2&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+
+&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;# Zone of the source VM, if any&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$zone&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; 
+
+&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;# Disk name for the that will be created&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$diskName&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;WindowsServer2022UpgradeDisk&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+
+&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;# Target version for the upgrade - must be either server2022Upgrade or server2019Upgrade&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$sku&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;server2022Upgrade&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+
+
+&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;# Common parameters&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+
+&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$publisher&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;MicrosoftWindowsServer&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$offer&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;WindowsServerUpgrade&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$managedDiskSKU&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Standard_LRS&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+
+&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;# Get the latest version of the special (hidden) VM Image from the Azure Marketplace&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+
+&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$versions&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Get-AzVMImage&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-PublisherName&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$publisher&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Location&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$location&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Offer&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$offer&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Skus&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$sku&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sort-object&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Descending&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;version&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;$_&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Version&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;	&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$latestString&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$versions&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Version&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+
+
+&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;# Get the special (hidden) VM Image from the Azure Marketplace by version - the image is used to create a disk to upgrade to the new version&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+
+
+&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$image&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Get-AzVMImage&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Location&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$location&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;`
+&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;                       &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-PublisherName&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$publisher&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;`
+&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;                       &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Offer&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$offer&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;`
+&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;                       &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Skus&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$sku&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;`
+&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;                       &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Version&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$latestString&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+
+&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;# Create Resource Group if it doesn&apos;t exist&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+
+&lt;/span&gt;&lt;span class=&quot;kr&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-not&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Get-AzResourceGroup&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Name&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$resourceGroup&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-ErrorAction&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;SilentlyContinue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;New-AzResourceGroup&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Name&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$resourceGroup&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Location&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$location&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;    
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+
+&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;# Create Managed Disk from LUN 0&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+
+&lt;/span&gt;&lt;span class=&quot;kr&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$zone&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$diskConfig&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;New-AzDiskConfig&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-SkuName&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$managedDiskSKU&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;`
+&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;                                   &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-CreateOption&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;FromImage&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;`
+&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;                                   &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Zone&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$zone&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;`
+&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;                                   &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Location&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$location&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kr&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$diskConfig&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;New-AzDiskConfig&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-SkuName&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$managedDiskSKU&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;`
+&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;                                   &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-CreateOption&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;FromImage&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;`
+&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;                                   &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Location&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$location&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; 
+
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Set-AzDiskImageReference&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Disk&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$diskConfig&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Id&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$image&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Id&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Lun&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;New-AzDisk&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-ResourceGroupName&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$resourceGroup&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;`
+&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;           &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-DiskName&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$diskName&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;`
+&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;           &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-Disk&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$diskConfig&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Tras ejecutar el script la consola de &lt;strong&gt;Cloud Shell&lt;/strong&gt; me devuelve la siguiente salida:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/100723/outputs-azure-cloud-shell.webp&quot; alt=&quot;Salida Azure Cloud Shell&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;El disco ha sido creado, como podemos observar con una capacidad de 10GB, suficiente para contener los archivos para la actualización a &lt;strong&gt;Windows Server 2019 Datacenter&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/100723/azure-disk-upgrade-windows-server-2019-datacenter.webp&quot; alt=&quot;Disco de datos para la actualización a Windows Server 2019 Datacenter&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Una vez adjuntado el disco a la máquina virtual podemos ver que contiene una carpeta con la versión de &lt;strong&gt;Windows Server&lt;/strong&gt; a la cual vamos actualizar y los archivos para la actualización:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/100723/files-upgrade-to-windows-server-2019-datacenter.webp&quot; alt=&quot;Archivos para la actualización a Windows Server 2019 Datacenter&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;ejecutando-upgrade-a-windows-server-2019-datacenter&quot;&gt;Ejecutando upgrade a Windows Server 2019 Datacenter&lt;/h2&gt;
+
+&lt;p&gt;Para comenzar el proceso de actualización tenemos que abrir una consola de &lt;strong&gt;PowerShell&lt;/strong&gt; en la máquina que queremos ejecutar esta y situanos en el directorio donde se encuentran los archivos para la actualización del sistema operativo, en mi caso es &lt;em&gt;F:\Windows Server 2019&lt;/em&gt; y ejecutar el siguiente comando:&lt;/p&gt;
+
+&lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;\setup.exe&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;/auto&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;upgrade&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;/dynamicupdate&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;disable&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Se abrirá el asistente de instalación de &lt;strong&gt;Windows Server XXXX&lt;/strong&gt;, seleccionamos la edición a la que queremos actualizar:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/100723/windows-server-2019-setup.webp&quot; alt=&quot;Asistente de instalación Windows Server 2019&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Comenzará el proceso de actualización:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/100723/installing-windows-server-2019.webp&quot; alt=&quot;Actualizando a Windows Server 2019&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Si durante el proceso de instalación se reinicia la máquina perderemos la conexión y podremos visualizar el proceso de actualización desde los diagnósticos de arranque en &lt;strong&gt;Azure&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/100723/bootdiagnostics-windows-server-2019-setup.webp&quot; alt=&quot;Diagnósticos de arranque actualización a Windows Server 2019&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Una vez finalizado el proceso de actualización y tengamos disponible nuestra máquina virtual, podremos observar que esta ya se encuentra actualizada con la nueva versión de &lt;strong&gt;Windows Server&lt;/strong&gt;, mantiene toda la información y roles, además que seguirá unida al dominio.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/100723/findstr.webp&quot; alt=&quot;Comprobando el dominio de la máquina virtual&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Si el proceso de actualización falla y la máquina entra en un estado de inactividad (no arranca), podremos restaurar el snapshot realizado antes del upgrade y repetir el proceso.&lt;/p&gt;
+</description>
+                <pubDate>Fri, 07 Jul 2023 10:00:00 +0200</pubDate>
+                <link>http://localhost:4000/windows</link>
+                <guid isPermaLink="true">http://localhost:4000/windows</guid>
+                
+                <category>Azure</category>
+                
+                <category>Windows Server</category>
+                
+                
+            </item>
         
             <item>
                 <title>Automatizar despliegues en Azure con Terraform y GitHub Actions</title>

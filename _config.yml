@@ -16,13 +16,13 @@ author:
   author__avatar: '/images/rafa-avatar.webp'
 
 social:
-#- {icon: "ion-logo-twitter", link: "https://twitter.com"}
 #- {icon: "ion-logo-facebook", link: "https://facebook.com"}
 #- {icon: "ion-logo-instagram", link: "https://instagram.com"}
 #- {icon: "ion-logo-pinterest", link: "https://pinterest.com"}
 #- {icon: "ion-logo-youtube", link: "https://youtube.com"}
 - {icon: "ion-logo-github", link: "https://github.com/ragalgut"}
 - {icon: "ion-logo-linkedin", link: "https://www.linkedin.com/in/ragalgut/"}
+- {icon: "ion-logo-twitter", link: "https://twitter.com/ragalgut"}
 
 
 #-------------------------------

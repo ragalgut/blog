@@ -5,9 +5,288 @@
         <description>Un espacio para compartir conocimientos técnicos relacionados con la tecnología.</description>
         <link>http://localhost:4000/</link>
         <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-        <pubDate>Tue, 11 Jul 2023 13:03:31 +0200</pubDate>
-        <lastBuildDate>Tue, 11 Jul 2023 13:03:31 +0200</lastBuildDate>
+        <pubDate>Thu, 27 Jul 2023 17:26:29 +0200</pubDate>
+        <lastBuildDate>Thu, 27 Jul 2023 17:26:29 +0200</lastBuildDate>
         <generator>Jekyll v4.3.2</generator>
+        
+            <item>
+                <title>Probando GitHub Copilot para cuentas individuales en Visual Studio Code - Parte 1</title>
+                <description>&lt;p&gt;Al final me he decidido y he dado el paso a probar esta herramienta de IA. Últimamente trabajo mucho con &lt;strong&gt;Terraform&lt;/strong&gt; y tengo curiosidad de saber cómo funciona y cómo me puede ayudar en mi día a día. GitHub ofrece dos versiones de &lt;strong&gt;Copilot&lt;/strong&gt;, una para cuentas individuales y otra para empresas. Para cuentas individuales ofrecen una prueba de 30 días: &lt;a href=&quot;https://github.com/features/copilot&quot;&gt;https://github.com/features/copilot&lt;/a&gt;&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Copilot for Individuals&lt;/th&gt;
+      &lt;th&gt;Copilot for Business&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Plugs right into your editor&lt;/td&gt;
+      &lt;td&gt;Everything included in Copilot for Individuals, plus…&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Turns natural language prompts into code&lt;/td&gt;
+      &lt;td&gt;Simple license management&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Offers multi-line function suggestions&lt;/td&gt;
+      &lt;td&gt;Organization-wide policy management&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Speeds up test generation&lt;/td&gt;
+      &lt;td&gt;Industry-leading privacy&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Filters out common vulnerable coding patterns&lt;/td&gt;
+      &lt;td&gt;Corporate proxy support&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Blocks suggestions matching public code&lt;/td&gt;
+      &lt;td&gt;Copilot Chat beta&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;Tengo mi entorno preparado, he instalado la extensión &lt;strong&gt;GitHub Copilot&lt;/strong&gt; en VS Code y conectado con &lt;a href=&quot;github.com&quot;&gt;github.com&lt;/a&gt;. He creado un archivo &lt;em&gt;main.tf&lt;/em&gt;, he comenzado a escribir y ha comenzado la acción.&lt;/p&gt;
+
+&lt;p&gt;Lo primero que he querido configurar es el bloque &lt;em&gt;terraform&lt;/em&gt; para configurar la verisón requerida. Tras escribirlo, automáticamente me lo ha sugerido. Las sugerencias las muestra con un tono grisaceo, basta con tabular para aceptarla o seguir escribiendo para que de forma automática estas cambien adaptándose al código que estamos configurando.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/270723/github-copilot-terraform-00.webp&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Aquí comienza lo bueno, al presionar enter dos veces para comenzar a escribir el siguiente bloque de código ya me está sugiriendo la creación del bloque &lt;em&gt;provider&lt;/em&gt;. En este caso me lo configura con &lt;em&gt;aws&lt;/em&gt; pero yo lo edito para que sea &lt;em&gt;azurerm&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;Vuelvo a repetir, presiono enter dos veces y me sugiere la creación de un grupo de recursos, con el nombre y la localización definidas.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/270723/github-copilot-terraform-01.webp&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Si observamos no me ha sugerido el bloque &lt;em&gt;required_providers&lt;/em&gt; ni &lt;em&gt;backend&lt;/em&gt; dentro del bloque de &lt;em&gt;terraform&lt;/em&gt;, el cual resuelvo presionando enter dos veces después de &lt;em&gt;required_version&lt;/em&gt; y automáticamente me sugiere ambos bloques.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/270723/github-copilot-terraform-02.webp&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Siguiendo aplicando este metodo, &lt;strong&gt;Copilot&lt;/strong&gt; me ha sugerido los siguientes recursos que muestro a continuación.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;terraform {
+    required_version = &quot;&amp;gt;= 0.12&quot;
+
+    required_providers {
+        azurerm = {
+            source  = &quot;hashicorp/azurerm&quot;
+            version = &quot;=2.0.0&quot;
+        }
+    }
+
+    backend &quot;azurerm&quot; {
+        resource_group_name  = &quot;rg-terraform-azure&quot;
+        storage_account_name = &quot;terraformazurestorage&quot;
+        container_name       = &quot;tfstate&quot;
+        key                  = &quot;terraform.tfstate&quot;
+    }
+}
+
+provider &quot;azurerm&quot; {
+    version = &quot;=2.0.0&quot;
+    features {}
+}
+
+resource &quot;azurerm_resource_group&quot; &quot;rg&quot; {
+    name     = &quot;rg-terraform-azure&quot;
+    location = &quot;West Europe&quot;
+}
+
+resource &quot;azurerm_virtual_network&quot; &quot;vnet&quot; {
+    name                = &quot;vnet-terraform-azure&quot;
+    address_space       = [&quot;10.0.0.0/16&quot;]
+    location            = azurerm_resource_group.rg.location
+    resource_group_name = azurerm_resource_group.rg.name
+}
+
+resource &quot;azurerm_subnet&quot; &quot;subnet&quot; {
+    name                 = &quot;subnet-terraform-azure&quot;
+    resource_group_name  = azurerm_resource_group.rg.name
+    virtual_network_name = azurerm_virtual_network.vnet.name
+    address_prefix       = &quot;10.10.1.10/24&quot;
+}
+
+resource &quot;azurerm_network_security_group&quot; &quot;nsg&quot; {
+    name                = &quot;nsg-terraform-azure&quot;
+    location            = azurerm_resource_group.rg.location
+    resource_group_name = azurerm_resource_group.rg.name
+}
+
+resource &quot;azurerm_network_security_rule&quot; &quot;nsg_rule&quot; {
+    name                        = &quot;nsg-rule-terraform-azure&quot;
+    priority                    = 100
+    direction                   = &quot;Inbound&quot;
+    access                      = &quot;Allow&quot;
+    protocol                    = &quot;Tcp&quot;
+    source_port_range           = &quot;*&quot;
+    destination_port_range      = &quot;80&quot;
+    source_address_prefix       = &quot;*&quot;
+    destination_address_prefix  = &quot;*&quot;
+    resource_group_name         = azurerm_resource_group.rg.name
+    network_security_group_name = azurerm_network_security_group.nsg.name
+}
+
+resource &quot;azurerm_public_ip&quot; &quot;public_ip&quot; {
+    name                = &quot;public-ip-terraform-azure&quot;
+    location            = azurerm_resource_group.rg.location
+    resource_group_name = azurerm_resource_group.rg.name
+    allocation_method   = &quot;Dynamic&quot;
+}
+
+resource &quot;azurerm_network_interface&quot; &quot;nic&quot; {
+    name                = &quot;nic-terraform-azure&quot;
+    location            = azurerm_resource_group.rg.location
+    resource_group_name = azurerm_resource_group.rg.name
+
+    ip_configuration {
+        name                          = &quot;ipconfig-terraform-azure&quot;
+        subnet_id                     = azurerm_subnet.subnet.id
+        private_ip_address_allocation = &quot;Dynamic&quot;
+        public_ip_address_id          = azurerm_public_ip.public_ip.id
+    }
+}
+
+resource &quot;azurerm_virtual_machine&quot; &quot;vm&quot; {
+    name                  = &quot;vm-terraform-azure&quot;
+    location              = azurerm_resource_group.rg.location
+    resource_group_name   = azurerm_resource_group.rg.name
+    network_interface_ids = [azurerm_network_interface.nic.id]
+    vm_size               = &quot;Standard_DS1_v2&quot;
+
+    storage_image_reference {
+        publisher = &quot;Canonical&quot;
+        offer     = &quot;UbuntuServer&quot;
+        sku       = &quot;16.04-LTS&quot;
+        version   = &quot;latest&quot;
+    }
+
+    storage_os_disk {
+        name              = &quot;osdisk-terraform-azure&quot;
+        caching           = &quot;ReadWrite&quot;
+        create_option     = &quot;FromImage&quot;
+        managed_disk_type = &quot;Standard_LRS&quot;
+    }
+
+    os_profile {
+        computer_name  = &quot;vm-terraform-azure&quot;
+        admin_username = &quot;azureuser&quot;
+    }
+
+    os_profile_linux_config {
+        disable_password_authentication = true
+        ssh_keys {
+            path     = &quot;/home/azureuser/.ssh/authorized_keys&quot;
+            key_data = file(&quot;~/.ssh/id_rsa.pub&quot;)
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Cada bloque que genera lo hace de manera inteligente, asocia nos recursos con otros, por ejemplo, el grupo de recursos de cada recurso (valga la redundancia) que me está sugiriendo lo está asociando al grupo de recursos que se ha configurado, lo mismo ocurre con la localización, todos van asociado a localización definida en el grupo de recursos, &lt;em&gt;West Europe&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;Esta claro que no tiene porque ser 100% funcional el código que nos está generando porque tendremos que modificar los nombres y aplicar las configuraciones deseadas, pero, nos está ahorrando tener que redactar bastante código. Hasta ahora todo el código que nos ha sugerido &lt;strong&gt;Copilot&lt;/strong&gt; no contiene variables.&lt;/p&gt;
+
+&lt;h3 id=&quot;qué-ocurre-si-defino-el-nombre-de-los-recursos-como-variables&quot;&gt;¿Qué ocurre si defino el nombre de los recursos como variables?&lt;/h3&gt;
+
+&lt;p&gt;Si configuro &lt;em&gt;name&lt;/em&gt; y &lt;em&gt;location&lt;/em&gt; del grupo de recursos como variables, el siguiente bloque que me sugiere para la red virtual &lt;em&gt;name&lt;/em&gt; es una variable pero &lt;em&gt;address_space&lt;/em&gt; no.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/270723/github-copilot-terraform-03.webp&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Entonces voy a tomar la sugerencia como buena, pero voy a editar &lt;em&gt;address_space&lt;/em&gt; para indicarle que es una variable y voy a ver a continuación si en el bloque que me sugiere de subnet &lt;em&gt;address_prefixes&lt;/em&gt; lo configura como variable:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/270723/github-copilot-terraform-04.webp&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Y así es, &lt;em&gt;address_prefixes&lt;/em&gt;. ¡Qué maravilla!&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Copilot aprende la forma en que vamos escribiendo el código.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Voy a trabajar ahora con el archivo variables.tf y ver si es capaz de declarar todas las variables que son necesarias. El siguiente código es mi fichero &lt;em&gt;main.tf&lt;/em&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;terraform {
+    required_version = &quot;&amp;gt;= 0.12&quot;
+
+    required_providers {
+        azurerm = {
+            source  = &quot;hashicorp/azurerm&quot;
+            version = &quot;=2.0.0&quot;
+        }
+    }
+
+    backend &quot;azurerm&quot; {
+        resource_group_name  = &quot;rg-terraform-azure&quot;
+        storage_account_name = &quot;terraformazurestorage&quot;
+        container_name       = &quot;tfstate&quot;
+        key                  = &quot;terraform.tfstate&quot;
+    }
+}
+
+provider &quot;azurerm&quot; {
+    version = &quot;=2.0.0&quot;
+    features {}
+}
+
+resource &quot;azurerm_resource_group&quot; &quot;rg&quot; {
+    name     = var.name_rg
+    location = var.location
+}
+
+resource &quot;azurerm_virtual_network&quot; &quot;vnet&quot; {
+    name                = var.name_vnet
+    address_space       = var.address_space_vnet
+    location            = azurerm_resource_group.rg.location
+    resource_group_name = azurerm_resource_group.rg.name
+}
+
+resource &quot;azurerm_subnet&quot; &quot;subnet&quot; {
+    name                 = var.name_subnet
+    resource_group_name  = azurerm_resource_group.rg.name
+    virtual_network_name = azurerm_virtual_network.vnet.name
+    address_prefixes     = var.address_prefixes_subnet
+}
+
+resource &quot;azurerm_network_security_group&quot; &quot;nsg&quot; {
+    name                = var.name_nsg
+    location            = azurerm_resource_group.rg.location
+    resource_group_name = azurerm_resource_group.rg.name
+}
+
+resource &quot;azurerm_network_security_rule&quot; &quot;nsg_rule&quot; {
+    name                        = var.name_nsg_rule
+    priority                    = var.priority_nsg_rule
+    direction                   = var.direction_nsg_rule
+    access                      = var.access_nsg_rule
+    protocol                    = var.protocol_nsg_rule
+    source_port_range           = var.source_port_range_nsg_rule
+    destination_port_range      = var.destination_port_range_nsg_rule
+    source_address_prefix       = var.source_address_prefix_nsg_rule
+    destination_address_prefix  = var.destination_address_prefix_nsg_rule
+    resource_group_name         = azurerm_resource_group.rg.name
+    network_security_group_name = azurerm_network_security_group.nsg.name
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;En el fichero &lt;em&gt;variables.tf&lt;/em&gt; comienzo escribiendo &lt;em&gt;variable&lt;/em&gt; y automáticamente me sugiere la primera variable necesaria que es para &lt;em&gt;rg_name&lt;/em&gt;, a partir de aquí va surgiendo cada una de las variables necesarias de forma ordenada, tan solo hay que aplicar los nombres y espacios de direcciones necesarios.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/270723/github-copilot-terraform-05.webp&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Hasta aquí la primera parte de pruebas con Copilot, la primera impresión ha sido que no quiero dejar de usarlo para configurar mis módulos o configurar infraestructura en Azure. Es una herramienta que le da un vuelco a la productividad porque ahorras mucho tiempo ‘picando código’, pero siempre es necesario saber de la tecnología que vas a usar para adaptar el código a las necesidades del proyecto que vas a ejecutar y corregir posibles errores. En unos días publicaré una segunda parte donde probaré los prompts para que me genere una estructura de código completa.&lt;/p&gt;
+</description>
+                <pubDate>Thu, 27 Jul 2023 10:00:00 +0200</pubDate>
+                <link>http://localhost:4000/probando-github-copilot-para-cuentas-individuales-en-visual-studio-code-parte-1</link>
+                <guid isPermaLink="true">http://localhost:4000/probando-github-copilot-para-cuentas-individuales-en-visual-studio-code-parte-1</guid>
+                
+                <category>GitHub</category>
+                
+                <category>Copilot</category>
+                
+                <category>Terraform</category>
+                
+                
+            </item>
         
             <item>
                 <title>Actualizando a una versión superior de Windows Server en una máquina virtual de Azure</title>
@@ -231,8 +510,8 @@
 &lt;p&gt;Si el proceso de actualización falla y la máquina entra en un estado de inactividad (no arranca), podremos restaurar el snapshot realizado antes del upgrade y repetir el proceso.&lt;/p&gt;
 </description>
                 <pubDate>Mon, 10 Jul 2023 10:00:00 +0200</pubDate>
-                <link>http://localhost:4000/actualizando-a-una-version-superior-de-windows-server-en-una-maquina-virtual-de-azure</link>
-                <guid isPermaLink="true">http://localhost:4000/actualizando-a-una-version-superior-de-windows-server-en-una-maquina-virtual-de-azure</guid>
+                <link>http://localhost:4000/actualizando-a-una-version-superior-de-windows-server-en-una-maquina-virtual-de-azure-copy</link>
+                <guid isPermaLink="true">http://localhost:4000/actualizando-a-una-version-superior-de-windows-server-en-una-maquina-virtual-de-azure-copy</guid>
                 
                 <category>Azure</category>
                 

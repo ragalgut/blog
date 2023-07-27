@@ -20,7 +20,7 @@ Al final me he decidido y he dado el paso a probar esta herramienta de IA. Últi
 
 Tengo mi entorno preparado, he instalado la extensión **GitHub Copilot** en VS Code y conectado con [github.com](github.com). He creado un archivo *main.tf*, he comenzado a escribir y ha comenzado la acción. 
 
-Lo primero que he querido configurar es el bloque *terraform* para configurar la verisón requerida. Tras escribirlo, automáticamente me lo ha sugerido. Las sugerencias las muestra con un tono grisaceo, basta con tabular para aceptarla o seguir escribiendo para que de forma automática estas cambien adaptándose al código que estamos configurando.
+Lo primero que he querido configurar es el bloque *terraform* para configurar *required_version*. Tras escribirlo, automáticamente me lo ha sugerido. Las sugerencias las muestra con un tono grisaceo, basta con tabular para aceptarla o seguir escribiendo para que de forma automática estas cambien adaptándose al código que estamos configurando.
 
 ![](/images/270723/github-copilot-terraform-00.webp)
 
@@ -155,7 +155,7 @@ resource "azurerm_virtual_machine" "vm" {
 }
 ```
 
-Cada bloque que genera lo hace de manera inteligente, asocia nos recursos con otros, por ejemplo, el grupo de recursos de cada recurso (valga la redundancia) que me está sugiriendo lo está asociando al grupo de recursos que se ha configurado, lo mismo ocurre con la localización, todos van asociado a localización definida en el grupo de recursos, *West Europe*.
+Cada bloque que genera lo hace de manera inteligente, asocia unos recursos con otros, por ejemplo, el grupo de recursos de cada recurso (valga la redundancia) que me está sugiriendo lo está asociando al grupo de recursos que se ha configurado, lo mismo ocurre con la localización, todos van asociado a localización definida en el grupo de recursos, *West Europe*.
 
 Esta claro que no tiene porque ser 100% funcional el código que nos está generando porque tendremos que modificar los nombres y aplicar las configuraciones deseadas, pero, nos está ahorrando tener que redactar bastante código. Hasta ahora todo el código que nos ha sugerido **Copilot** no contiene variables.
 
@@ -169,7 +169,7 @@ Entonces voy a tomar la sugerencia como buena, pero voy a editar *address_space*
 
 ![](/images/270723/github-copilot-terraform-04.webp)
 
-Y así es, *address_prefixes*. ¡Qué maravilla!
+Y así es, ¡qué maravilla!
 
  > Copilot aprende la forma en que vamos escribiendo el código.
 

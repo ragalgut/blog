@@ -5,9 +5,9 @@
         <description>Un espacio para compartir conocimientos técnicos relacionados con la tecnología.</description>
         <link>http://localhost:4000/</link>
         <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-        <pubDate>Thu, 27 Jul 2023 17:38:45 +0200</pubDate>
-        <lastBuildDate>Thu, 27 Jul 2023 17:38:45 +0200</lastBuildDate>
-        <generator>Jekyll v4.3.2</generator>
+        <pubDate>Sat, 13 Jan 2024 16:27:19 +0100</pubDate>
+        <lastBuildDate>Sat, 13 Jan 2024 16:27:19 +0100</lastBuildDate>
+        <generator>Jekyll v4.3.3</generator>
         
             <item>
                 <title>Probando GitHub Copilot para cuentas individuales en Visual Studio Code - Parte 1</title>
@@ -50,7 +50,7 @@
 
 &lt;p&gt;Tengo mi entorno preparado, he instalado la extensión &lt;strong&gt;GitHub Copilot&lt;/strong&gt; en VS Code y conectado con &lt;a href=&quot;github.com&quot;&gt;github.com&lt;/a&gt;. He creado un archivo &lt;em&gt;main.tf&lt;/em&gt;, he comenzado a escribir y ha comenzado la acción.&lt;/p&gt;
 
-&lt;p&gt;Lo primero que he querido configurar es el bloque &lt;em&gt;terraform&lt;/em&gt; para configurar la verisón requerida. Tras escribirlo, automáticamente me lo ha sugerido. Las sugerencias las muestra con un tono grisaceo, basta con tabular para aceptarla o seguir escribiendo para que de forma automática estas cambien adaptándose al código que estamos configurando.&lt;/p&gt;
+&lt;p&gt;Lo primero que he querido configurar es el bloque &lt;em&gt;terraform&lt;/em&gt; para configurar &lt;em&gt;required_version&lt;/em&gt;. Tras escribirlo, automáticamente me lo ha sugerido. Las sugerencias las muestra con un tono grisaceo, basta con tabular para aceptarla o seguir escribiendo para que de forma automática estas cambien adaptándose al código que estamos configurando.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/images/270723/github-copilot-terraform-00.webp&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
@@ -184,7 +184,7 @@ resource &quot;azurerm_virtual_machine&quot; &quot;vm&quot; {
 }
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;Cada bloque que genera lo hace de manera inteligente, asocia nos recursos con otros, por ejemplo, el grupo de recursos de cada recurso (valga la redundancia) que me está sugiriendo lo está asociando al grupo de recursos que se ha configurado, lo mismo ocurre con la localización, todos van asociado a localización definida en el grupo de recursos, &lt;em&gt;West Europe&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;Cada bloque que genera lo hace de manera inteligente, asocia unos recursos con otros, por ejemplo, el grupo de recursos de cada recurso (valga la redundancia) que me está sugiriendo lo está asociando al grupo de recursos que se ha configurado, lo mismo ocurre con la localización, todos van asociado a localización definida en el grupo de recursos, &lt;em&gt;West Europe&lt;/em&gt;.&lt;/p&gt;
 
 &lt;p&gt;Esta claro que no tiene porque ser 100% funcional el código que nos está generando porque tendremos que modificar los nombres y aplicar las configuraciones deseadas, pero, nos está ahorrando tener que redactar bastante código. Hasta ahora todo el código que nos ha sugerido &lt;strong&gt;Copilot&lt;/strong&gt; no contiene variables.&lt;/p&gt;
 
@@ -198,7 +198,7 @@ resource &quot;azurerm_virtual_machine&quot; &quot;vm&quot; {
 
 &lt;p&gt;&lt;img src=&quot;/images/270723/github-copilot-terraform-04.webp&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;Y así es, &lt;em&gt;address_prefixes&lt;/em&gt;. ¡Qué maravilla!&lt;/p&gt;
+&lt;p&gt;Y así es, ¡qué maravilla!&lt;/p&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;Copilot aprende la forma en que vamos escribiendo el código.&lt;/p&gt;

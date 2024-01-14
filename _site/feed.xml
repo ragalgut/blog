@@ -5,12 +5,12 @@
         <description>Un espacio para compartir conocimientos técnicos relacionados con la tecnología.</description>
         <link>http://localhost:4000/</link>
         <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-        <pubDate>Sat, 13 Jan 2024 16:27:19 +0100</pubDate>
-        <lastBuildDate>Sat, 13 Jan 2024 16:27:19 +0100</lastBuildDate>
+        <pubDate>Sun, 14 Jan 2024 13:38:40 +0100</pubDate>
+        <lastBuildDate>Sun, 14 Jan 2024 13:38:40 +0100</lastBuildDate>
         <generator>Jekyll v4.3.3</generator>
         
             <item>
-                <title>Probando GitHub Copilot para cuentas individuales en Visual Studio Code - Parte 1</title>
+                <title>Probando GitHub Copilot para cuentas individuales en Visual Studio Code</title>
                 <description>&lt;p&gt;Al final me he decidido y he dado el paso a probar esta herramienta de IA. Últimamente trabajo mucho con &lt;strong&gt;Terraform&lt;/strong&gt; y tengo curiosidad de saber cómo funciona y cómo me puede ayudar en mi día a día. GitHub ofrece dos versiones de &lt;strong&gt;Copilot&lt;/strong&gt;, una para cuentas individuales y otra para empresas. Para cuentas individuales ofrecen una prueba de 30 días: &lt;a href=&quot;https://github.com/features/copilot&quot;&gt;https://github.com/features/copilot&lt;/a&gt;&lt;/p&gt;
 
 &lt;table&gt;
@@ -273,11 +273,11 @@ resource &quot;azurerm_network_security_rule&quot; &quot;nsg_rule&quot; {
 
 &lt;p&gt;&lt;img src=&quot;/images/270723/github-copilot-terraform-05.webp&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;Hasta aquí la primera parte de pruebas con Copilot, la primera impresión ha sido que no quiero dejar de usarlo para configurar mis módulos o configurar infraestructura en Azure. Es una herramienta que le da un vuelco a la productividad porque ahorras mucho tiempo ‘picando código’, pero siempre es necesario saber de la tecnología que vas a usar para adaptar el código a las necesidades del proyecto que vas a ejecutar y corregir posibles errores. En unos días publicaré una segunda parte donde probaré los prompts para que me genere una estructura de código completa.&lt;/p&gt;
+&lt;p&gt;Hasta aquí mis primeras pruebas con Copilot, la primera impresión ha sido ¡no quiero dejar de usarlo! ya sea para configurar mis módulos o configurar infraestructura en Azure. Es una herramienta que le da un vuelco a la productividad porque ahorras mucho tiempo ‘picando código’, pero siempre es necesario saber de la tecnología que vas a usar para adaptar el código a las necesidades del proyecto que vas a ejecutar y corregir posibles errores.&lt;/p&gt;
 </description>
                 <pubDate>Thu, 27 Jul 2023 10:00:00 +0200</pubDate>
-                <link>http://localhost:4000/probando-github-copilot-para-cuentas-individuales-en-visual-studio-code-parte-1</link>
-                <guid isPermaLink="true">http://localhost:4000/probando-github-copilot-para-cuentas-individuales-en-visual-studio-code-parte-1</guid>
+                <link>http://localhost:4000/probando-github-copilot-para-cuentas-individuales-en-visual-studio-code</link>
+                <guid isPermaLink="true">http://localhost:4000/probando-github-copilot-para-cuentas-individuales-en-visual-studio-code</guid>
                 
                 <category>GitHub</category>
                 

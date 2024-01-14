@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  Probando GitHub Copilot para cuentas individuales en Visual Studio Code - Parte 1
+title:  Probando GitHub Copilot para cuentas individuales en Visual Studio Code
 description: Primeras impresiones usando Copilot para cuentas individuales con código de Terraform.
 date:   2023-07-27 11:00:00 +0300
 image:  '/images/270723/copilot-github.webp'
@@ -243,4 +243,4 @@ En el fichero *variables.tf* comienzo escribiendo *variable* y automáticamente 
 
 ![](/images/270723/github-copilot-terraform-05.webp)
 
-Hasta aquí la primera parte de pruebas con Copilot, la primera impresión ha sido que no quiero dejar de usarlo para configurar mis módulos o configurar infraestructura en Azure. Es una herramienta que le da un vuelco a la productividad porque ahorras mucho tiempo 'picando código', pero siempre es necesario saber de la tecnología que vas a usar para adaptar el código a las necesidades del proyecto que vas a ejecutar y corregir posibles errores. En unos días publicaré una segunda parte donde probaré los prompts para que me genere una estructura de código completa.
+Hasta aquí mis primeras pruebas con Copilot, la primera impresión ha sido ¡no quiero dejar de usarlo! ya sea para configurar mis módulos o configurar infraestructura en Azure. Es una herramienta que le da un vuelco a la productividad porque ahorras mucho tiempo 'picando código', pero siempre es necesario saber de la tecnología que vas a usar para adaptar el código a las necesidades del proyecto que vas a ejecutar y corregir posibles errores.

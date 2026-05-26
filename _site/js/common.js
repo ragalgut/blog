@@ -179,4 +179,26 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   }
 
+
+  /* =======================
+  // Copy Code Button
+  ======================= */
+  document.querySelectorAll('.post__content pre > code, .page__content pre > code').forEach(function(codeBlock) {
+    const pre = codeBlock.parentNode;
+    const wrapper = document.createElement('div');
+    wrapper.className = 'code-block';
+    pre.parentNode.insertBefore(wrapper, pre);
+    wrapper.appendChild(pre);
+    const btn = document.createElement('button');
+    btn.className = 'code-copy-btn';
+    btn.textContent = 'Copiar';
+    wrapper.appendChild(btn);
+    btn.addEventListener('click', function() {
+      navigator.clipboard.writeText(codeBlock.textContent).then(function() {
+        btn.textContent = '¡Copiado!';
+        setTimeout(function() { btn.textContent = 'Copiar'; }, 2000);
+      });
+    });
+  });
+
 });

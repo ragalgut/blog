@@ -7,7 +7,7 @@
         <div class="logo">
           <a class="logo__link" href="{{ site.baseurl }}/">
           {% if site.logo %}
-            <img class="logo__image" src="{{ site.baseurl }}{{ site.logo }}" alt="{{ site.title }}">
+            {% include logo.svg %}
           {% else %}
             {{ site.title }}
           {% endif %}
@@ -24,15 +24,19 @@
               <li class="nav__item">
                 <a href="{{ site.baseurl }}/" class="nav__link">Inicio</a>
               </li>
-              {% for page in site.pages %}
-                {% unless page.name == 'tags.html' or page.name == '404.html' %}
-                  {% if page.title %}
-                  <li class="nav__item">
-                    <a href="{{ page.url | prepend: site.baseurl }}" class="nav__link">{{ page.title }}</a>
+              <li class="nav__item">
+                <a href="{{ site.baseurl }}/acerca-de/" class="nav__link">Acerca de</a>
+              </li>
+              <li class="nav__item nav__item--has-dropdown">
+                <a href="#" class="nav__link nav__link--dropdown" aria-haspopup="true" aria-expanded="false">
+                  Herramientas <i class="ion ion-ios-arrow-down nav__arrow"></i>
+                </a>
+                <ul class="nav__dropdown list-reset">
+                  <li class="nav__dropdown-item">
+                    <a href="{{ site.baseurl }}/generador-contrasenas/" class="nav__dropdown-link">Generador de contraseñas</a>
                   </li>
-                  {% endif %}
-                {% endunless %}
-              {% endfor %}
+                </ul>
+              </li>
               {% if site.color_scheme == "auto" %}
               <li class="nav__item nav__item-icon">
                 <div class="toggle-theme">

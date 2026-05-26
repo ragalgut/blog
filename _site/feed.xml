@@ -5,13 +5,13 @@
         <description>Un espacio para compartir conocimientos técnicos relacionados con la tecnología.</description>
         <link>http://localhost:4000/</link>
         <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-        <pubDate>Sun, 14 Jan 2024 13:40:16 +0100</pubDate>
-        <lastBuildDate>Sun, 14 Jan 2024 13:40:16 +0100</lastBuildDate>
-        <generator>Jekyll v4.3.3</generator>
+        <pubDate>Tue, 26 May 2026 18:59:18 +0200</pubDate>
+        <lastBuildDate>Tue, 26 May 2026 18:59:18 +0200</lastBuildDate>
+        <generator>Jekyll v4.4.1</generator>
         
             <item>
                 <title>Probando GitHub Copilot para cuentas individuales en Visual Studio Code</title>
-                <description>&lt;p&gt;Al final me he decidido y he dado el paso a probar esta herramienta de IA. Últimamente trabajo mucho con &lt;strong&gt;Terraform&lt;/strong&gt; y tengo curiosidad de saber cómo funciona y cómo me puede ayudar en mi día a día. GitHub ofrece dos versiones de &lt;strong&gt;Copilot&lt;/strong&gt;, una para cuentas individuales y otra para empresas. Para cuentas individuales ofrecen una prueba de 30 días: &lt;a href=&quot;https://github.com/features/copilot&quot;&gt;https://github.com/features/copilot&lt;/a&gt;&lt;/p&gt;
+                <description>&lt;p&gt;Al final me he decidido y he dado el paso a probar esta herramienta de IA. Últimamente trabajo mucho con &lt;strong&gt;Terraform&lt;/strong&gt; —una herramienta de infraestructura como código (IaC) que permite definir y desplegar recursos en la nube de forma declarativa— y tengo curiosidad de saber cómo funciona Copilot y cómo me puede ayudar en mi día a día. GitHub ofrece dos versiones de &lt;strong&gt;Copilot&lt;/strong&gt;, una para cuentas individuales y otra para empresas. Para cuentas individuales ofrecen una prueba de 30 días: &lt;a href=&quot;https://github.com/features/copilot&quot;&gt;https://github.com/features/copilot&lt;/a&gt;&lt;/p&gt;
 
 &lt;table&gt;
   &lt;thead&gt;
@@ -48,13 +48,17 @@
   &lt;/tbody&gt;
 &lt;/table&gt;
 
+&lt;h3 id=&quot;primeros-pasos-configurando-el-bloque-terraform&quot;&gt;Primeros pasos: configurando el bloque terraform&lt;/h3&gt;
+
 &lt;p&gt;Tengo mi entorno preparado, he instalado la extensión &lt;strong&gt;GitHub Copilot&lt;/strong&gt; en VS Code y conectado con &lt;a href=&quot;github.com&quot;&gt;github.com&lt;/a&gt;. He creado un archivo &lt;em&gt;main.tf&lt;/em&gt;, he comenzado a escribir y ha comenzado la acción.&lt;/p&gt;
 
-&lt;p&gt;Lo primero que he querido configurar es el bloque &lt;em&gt;terraform&lt;/em&gt; para configurar &lt;em&gt;required_version&lt;/em&gt;. Tras escribirlo, automáticamente me lo ha sugerido. Las sugerencias las muestra con un tono grisaceo, basta con tabular para aceptarla o seguir escribiendo para que de forma automática estas cambien adaptándose al código que estamos configurando.&lt;/p&gt;
+&lt;p&gt;Lo primero que he querido configurar es el bloque &lt;em&gt;terraform&lt;/em&gt; para configurar &lt;em&gt;required_version&lt;/em&gt;. Tras escribirlo, automáticamente me lo ha sugerido. Las sugerencias las muestra con un tono grisáceo; basta con tabular para aceptarlas o seguir escribiendo para que de forma automática cambien adaptándose al código que estamos configurando.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/images/270723/github-copilot-terraform-00.webp&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;Aquí comienza lo bueno, al presionar enter dos veces para comenzar a escribir el siguiente bloque de código ya me está sugiriendo la creación del bloque &lt;em&gt;provider&lt;/em&gt;. En este caso me lo configura con &lt;em&gt;aws&lt;/em&gt; pero yo lo edito para que sea &lt;em&gt;azurerm&lt;/em&gt;.&lt;/p&gt;
+&lt;h3 id=&quot;sugerencias-en-cadena&quot;&gt;Sugerencias en cadena&lt;/h3&gt;
+
+&lt;p&gt;Aquí comienza lo bueno: al presionar Enter dos veces para comenzar a escribir el siguiente bloque de código, ya me está sugiriendo la creación del bloque &lt;em&gt;provider&lt;/em&gt;. En este caso me lo configura con &lt;em&gt;aws&lt;/em&gt; pero yo lo edito para que sea &lt;em&gt;azurerm&lt;/em&gt;.&lt;/p&gt;
 
 &lt;p&gt;Vuelvo a repetir, presiono enter dos veces y me sugiere la creación de un grupo de recursos, con el nombre y la localización definidas.&lt;/p&gt;
 
@@ -64,7 +68,7 @@
 
 &lt;p&gt;&lt;img src=&quot;/images/270723/github-copilot-terraform-02.webp&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;Siguiendo aplicando este metodo, &lt;strong&gt;Copilot&lt;/strong&gt; me ha sugerido los siguientes recursos que muestro a continuación.&lt;/p&gt;
+&lt;p&gt;Aplicando este método, &lt;strong&gt;Copilot&lt;/strong&gt; me ha sugerido los siguientes recursos:&lt;/p&gt;
 
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;terraform {
     required_version = &quot;&amp;gt;= 0.12&quot;
@@ -186,7 +190,7 @@ resource &quot;azurerm_virtual_machine&quot; &quot;vm&quot; {
 
 &lt;p&gt;Cada bloque que genera lo hace de manera inteligente, asocia unos recursos con otros, por ejemplo, el grupo de recursos de cada recurso (valga la redundancia) que me está sugiriendo lo está asociando al grupo de recursos que se ha configurado, lo mismo ocurre con la localización, todos van asociado a localización definida en el grupo de recursos, &lt;em&gt;West Europe&lt;/em&gt;.&lt;/p&gt;
 
-&lt;p&gt;Esta claro que no tiene porque ser 100% funcional el código que nos está generando porque tendremos que modificar los nombres y aplicar las configuraciones deseadas, pero, nos está ahorrando tener que redactar bastante código. Hasta ahora todo el código que nos ha sugerido &lt;strong&gt;Copilot&lt;/strong&gt; no contiene variables.&lt;/p&gt;
+&lt;p&gt;Está claro que no tiene por qué ser 100% funcional el código que nos está generando, ya que tendremos que modificar los nombres y aplicar las configuraciones deseadas. Aun así, nos está ahorrando escribir una cantidad considerable de código. Hasta ahora todo el código sugerido por &lt;strong&gt;Copilot&lt;/strong&gt; no contiene variables.&lt;/p&gt;
 
 &lt;h3 id=&quot;qué-ocurre-si-defino-el-nombre-de-los-recursos-como-variables&quot;&gt;¿Qué ocurre si defino el nombre de los recursos como variables?&lt;/h3&gt;
 
@@ -201,7 +205,7 @@ resource &quot;azurerm_virtual_machine&quot; &quot;vm&quot; {
 &lt;p&gt;Y así es, ¡qué maravilla!&lt;/p&gt;
 
 &lt;blockquote&gt;
-  &lt;p&gt;Copilot aprende la forma en que vamos escribiendo el código.&lt;/p&gt;
+  &lt;p&gt;Copilot adapta sus sugerencias al estilo y convenciones que vas adoptando a lo largo del archivo.&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;p&gt;Voy a trabajar ahora con el archivo variables.tf y ver si es capaz de declarar todas las variables que son necesarias. El siguiente código es mi fichero &lt;em&gt;main.tf&lt;/em&gt;.&lt;/p&gt;
@@ -273,7 +277,13 @@ resource &quot;azurerm_network_security_rule&quot; &quot;nsg_rule&quot; {
 
 &lt;p&gt;&lt;img src=&quot;/images/270723/github-copilot-terraform-05.webp&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;Hasta aquí mis primeras pruebas con Copilot, la primera impresión ha sido ¡no quiero dejar de usarlo! ya sea para configurar mis módulos o configurar infraestructura en Azure. Es una herramienta que le da un vuelco a la productividad porque ahorras mucho tiempo ‘picando código’, pero siempre es necesario saber de la tecnología que vas a usar para adaptar el código a las necesidades del proyecto que vas a ejecutar y corregir posibles errores.&lt;/p&gt;
+&lt;h3 id=&quot;conclusión&quot;&gt;Conclusión&lt;/h3&gt;
+
+&lt;p&gt;Hasta aquí mis primeras pruebas con GitHub Copilot. La primera impresión ha sido clara: &lt;strong&gt;no quiero dejar de usarlo&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Es una herramienta que acelera la productividad de forma notable, especialmente para tareas repetitivas como definir recursos de infraestructura en Azure. Aun así, es fundamental conocer la tecnología que se está usando: Copilot sugiere, pero tú revisas, adaptas y corriges.&lt;/p&gt;
+
+&lt;p&gt;¿Lo has probado ya? Cuéntame tu experiencia en los comentarios.&lt;/p&gt;
 </description>
                 <pubDate>Thu, 27 Jul 2023 10:00:00 +0200</pubDate>
                 <link>http://localhost:4000/probando-github-copilot-para-cuentas-individuales-en-visual-studio-code</link>
@@ -290,9 +300,9 @@ resource &quot;azurerm_network_security_rule&quot; &quot;nsg_rule&quot; {
         
             <item>
                 <title>Actualizando a una versión superior de Windows Server en una máquina virtual de Azure</title>
-                <description>&lt;p&gt;Si en algún momento te has plantado actualizar la versión de &lt;strong&gt;Windows Server&lt;/strong&gt; en una máquina virtual de &lt;strong&gt;Azure&lt;/strong&gt;, probablemente hayas decidido pasar por levantar una máquina de cero con la nueva versión, posteriormente hacer una migración de roles, datos, cambios de IP, DNS, etc.&lt;/p&gt;
+                <description>&lt;p&gt;Si en algún momento te has planteado actualizar la versión de &lt;strong&gt;Windows Server&lt;/strong&gt; en una máquina virtual de &lt;strong&gt;Azure&lt;/strong&gt;, probablemente hayas optado por levantar una máquina desde cero con la nueva versión y migrar después roles, datos, direcciones IP, DNS, etc.&lt;/p&gt;
 
-&lt;p&gt;En &lt;strong&gt;Azure&lt;/strong&gt; no es posible asociar una ISO a una unidad DVD/CD-ROM en una máquina virtual pero existe una alternativa que te voy a mostrar a continuación.&lt;/p&gt;
+&lt;p&gt;En &lt;strong&gt;Azure&lt;/strong&gt; no es posible asociar una ISO a una unidad DVD/CD-ROM en una máquina virtual, pero existe una alternativa más directa: un disco administrado de actualización. Te la muestro paso a paso.&lt;/p&gt;
 
 &lt;h3 id=&quot;tabla-de-contenidos&quot;&gt;Tabla de contenidos&lt;/h3&gt;
 &lt;ol&gt;
@@ -314,57 +324,61 @@ resource &quot;azurerm_network_security_rule&quot; &quot;nsg_rule&quot; {
   &lt;li&gt;Actualmente se admite la actualización a &lt;strong&gt;Windows Server 2016&lt;/strong&gt;, &lt;strong&gt;2019&lt;/strong&gt; y &lt;strong&gt;2022&lt;/strong&gt;.&lt;/li&gt;
   &lt;li&gt;La versión mínima funcional para la actualización es &lt;strong&gt;Windows Server 2012&lt;/strong&gt;.&lt;/li&gt;
   &lt;li&gt;Las versiones no admitidas para una actualización son &lt;strong&gt;Windows Server 2008 R2 Standard&lt;/strong&gt; y &lt;strong&gt;Datacenter&lt;/strong&gt;.&lt;/li&gt;
-  &lt;li&gt;El disco del sistema operativo debe tener suficiente espacio libre para la actualizacón, mínimo 32 GB.&lt;/li&gt;
+  &lt;li&gt;El disco del sistema operativo debe tener suficiente espacio libre para la actualización, mínimo 32 GB.&lt;/li&gt;
   &lt;li&gt;El software antivirus y firewall deben estar deshabilitados porque pueden interferir durante el proceso de actualización y producir errores.&lt;/li&gt;
   &lt;li&gt;La máquina virtual debe estar configurada para la licencia por volumen de &lt;strong&gt;Windows Server&lt;/strong&gt;.&lt;/li&gt;
-  &lt;li&gt;El disco de la máquina virtual debe ser administrador, de lo contrario se debe migrar a discos administrados.&lt;/li&gt;
-  &lt;li&gt;Realizar un snapshot de los discos de la máquina virtual antes de comenzar con el proceso de actualización para, en caso de error, volver al estado anterior de la máquina virtual.&lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Seguir la ruta de actualizaciones admitidas:&lt;/p&gt;
-
-    &lt;table&gt;
-      &lt;thead&gt;
-        &lt;tr&gt;
-          &lt;th&gt;Actualización desde / a&lt;/th&gt;
-          &lt;th&gt;Windows Server 2012 R2&lt;/th&gt;
-          &lt;th&gt;Windows Server 2016&lt;/th&gt;
-          &lt;th&gt;Windows Server 2019&lt;/th&gt;
-          &lt;th&gt;Windows Server 2022&lt;/th&gt;
-        &lt;/tr&gt;
-      &lt;/thead&gt;
-      &lt;tbody&gt;
-        &lt;tr&gt;
-          &lt;td&gt;Windows Server 2012&lt;/td&gt;
-          &lt;td&gt;Sí&lt;/td&gt;
-          &lt;td&gt;Sí&lt;/td&gt;
-          &lt;td&gt;-&lt;/td&gt;
-          &lt;td&gt;-&lt;/td&gt;
-        &lt;/tr&gt;
-        &lt;tr&gt;
-          &lt;td&gt;Windows Server 2012 R2&lt;/td&gt;
-          &lt;td&gt;-&lt;/td&gt;
-          &lt;td&gt;Sí&lt;/td&gt;
-          &lt;td&gt;Sí&lt;/td&gt;
-          &lt;td&gt;-&lt;/td&gt;
-        &lt;/tr&gt;
-        &lt;tr&gt;
-          &lt;td&gt;Windows Server 2016&lt;/td&gt;
-          &lt;td&gt;-&lt;/td&gt;
-          &lt;td&gt;-&lt;/td&gt;
-          &lt;td&gt;Sí&lt;/td&gt;
-          &lt;td&gt;Sí&lt;/td&gt;
-        &lt;/tr&gt;
-        &lt;tr&gt;
-          &lt;td&gt;Windows Server 2019&lt;/td&gt;
-          &lt;td&gt;-&lt;/td&gt;
-          &lt;td&gt;-&lt;/td&gt;
-          &lt;td&gt;-&lt;/td&gt;
-          &lt;td&gt;Sí&lt;/td&gt;
-        &lt;/tr&gt;
-      &lt;/tbody&gt;
-    &lt;/table&gt;
-  &lt;/li&gt;
+  &lt;li&gt;El disco de la máquina virtual debe ser &lt;strong&gt;administrado&lt;/strong&gt;; si no lo es, migrarlo antes de continuar.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Realizar un snapshot de los discos&lt;/strong&gt; de la máquina virtual antes de comenzar. En caso de error, permitirá restaurar el estado anterior.&lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;Importante:&lt;/strong&gt; no omitas el snapshot. Si el proceso falla y la máquina no arranca, es la única forma de recuperarla sin pérdida de datos.&lt;/p&gt;
+  &lt;ul&gt;
+    &lt;li&gt;Seguir la ruta de actualizaciones admitidas:&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Actualización desde / a&lt;/th&gt;
+      &lt;th&gt;Windows Server 2012 R2&lt;/th&gt;
+      &lt;th&gt;Windows Server 2016&lt;/th&gt;
+      &lt;th&gt;Windows Server 2019&lt;/th&gt;
+      &lt;th&gt;Windows Server 2022&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Windows Server 2012&lt;/td&gt;
+      &lt;td&gt;Sí&lt;/td&gt;
+      &lt;td&gt;Sí&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Windows Server 2012 R2&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+      &lt;td&gt;Sí&lt;/td&gt;
+      &lt;td&gt;Sí&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Windows Server 2016&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+      &lt;td&gt;Sí&lt;/td&gt;
+      &lt;td&gt;Sí&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Windows Server 2019&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+      &lt;td&gt;-&lt;/td&gt;
+      &lt;td&gt;Sí&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
 
 &lt;h2 id=&quot;creando-el-disco-de-actualización&quot;&gt;Creando el disco de actualización&lt;/h2&gt;
 
@@ -486,12 +500,12 @@ resource &quot;azurerm_network_security_rule&quot; &quot;nsg_rule&quot; {
 
 &lt;h2 id=&quot;ejecutando-upgrade-a-windows-server-2019-datacenter&quot;&gt;Ejecutando upgrade a Windows Server 2019 Datacenter&lt;/h2&gt;
 
-&lt;p&gt;Para comenzar el proceso de actualización tenemos que abrir una consola de &lt;strong&gt;PowerShell&lt;/strong&gt; en la máquina que queremos ejecutar esta y situanos en el directorio donde se encuentran los archivos para la actualización del sistema operativo, en mi caso es &lt;em&gt;F:\Windows Server 2019&lt;/em&gt; y ejecutar el siguiente comando:&lt;/p&gt;
+&lt;p&gt;Para comenzar el proceso de actualización, abre una consola de &lt;strong&gt;PowerShell&lt;/strong&gt; en la máquina que quieres actualizar y sitúate en el directorio donde se encuentran los archivos de actualización. En mi caso es &lt;em&gt;F:\Windows Server 2019&lt;/em&gt;. Ejecuta el siguiente comando:&lt;/p&gt;
 
 &lt;div class=&quot;language-powershell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;\setup.exe&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;/auto&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;upgrade&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;/dynamicupdate&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;disable&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;Se abrirá el asistente de instalación de &lt;strong&gt;Windows Server XXXX&lt;/strong&gt;, seleccionamos la edición a la que queremos actualizar:&lt;/p&gt;
+&lt;p&gt;Se abrirá el asistente de instalación de &lt;strong&gt;Windows Server 2019&lt;/strong&gt;. Selecciona la edición a la que quieres actualizar:&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/images/100723/windows-server-2019-setup.webp&quot; alt=&quot;Asistente de instalación Windows Server 2019&quot; /&gt;&lt;/p&gt;
 
@@ -499,15 +513,26 @@ resource &quot;azurerm_network_security_rule&quot; &quot;nsg_rule&quot; {
 
 &lt;p&gt;&lt;img src=&quot;/images/100723/installing-windows-server-2019.webp&quot; alt=&quot;Actualizando a Windows Server 2019&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;Si durante el proceso de instalación se reinicia la máquina perderemos la conexión y podremos visualizar el proceso de actualización desde los diagnósticos de arranque en &lt;strong&gt;Azure&lt;/strong&gt;:&lt;/p&gt;
+&lt;p&gt;Durante el proceso de instalación la máquina se reiniciará y se perderá la conexión RDP. Puedes seguir el progreso desde los &lt;strong&gt;diagnósticos de arranque&lt;/strong&gt; en el portal de Azure:&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/images/100723/bootdiagnostics-windows-server-2019-setup.webp&quot; alt=&quot;Diagnósticos de arranque actualización a Windows Server 2019&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;Una vez finalizado el proceso de actualización y tengamos disponible nuestra máquina virtual, podremos observar que esta ya se encuentra actualizada con la nueva versión de &lt;strong&gt;Windows Server&lt;/strong&gt;, mantiene toda la información y roles, además que seguirá unida al dominio.&lt;/p&gt;
+&lt;p&gt;Una vez finalizado el proceso, la máquina virtual estará disponible con la nueva versión de &lt;strong&gt;Windows Server&lt;/strong&gt;, conservando toda la información, los roles configurados y la unión al dominio.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/images/100723/findstr.webp&quot; alt=&quot;Comprobando el dominio de la máquina virtual&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;Si el proceso de actualización falla y la máquina entra en un estado de inactividad (no arranca), podremos restaurar el snapshot realizado antes del upgrade y repetir el proceso.&lt;/p&gt;
+&lt;h2 id=&quot;conclusión&quot;&gt;Conclusión&lt;/h2&gt;
+
+&lt;p&gt;Actualizar Windows Server en Azure sin levantar una nueva máquina es perfectamente viable gracias al disco administrado de actualización. El proceso es limpio, conserva roles y datos, y evita la complejidad de una migración completa.&lt;/p&gt;
+
+&lt;p&gt;Los puntos clave a recordar:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Comprueba la ruta de actualización admitida antes de empezar.&lt;/li&gt;
+  &lt;li&gt;Haz siempre un snapshot previo.&lt;/li&gt;
+  &lt;li&gt;Si el proceso falla, restaura el snapshot y analiza los logs antes de repetirlo.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;¿Has tenido que actualizar Windows Server en Azure? Cuéntame tu experiencia en los comentarios.&lt;/p&gt;
 </description>
                 <pubDate>Mon, 10 Jul 2023 10:00:00 +0200</pubDate>
                 <link>http://localhost:4000/actualizando-a-una-version-superior-de-windows-server-en-una-maquina-virtual-de-azure-copy</link>
@@ -524,7 +549,7 @@ resource &quot;azurerm_network_security_rule&quot; &quot;nsg_rule&quot; {
                 <title>Automatizar despliegues en Azure con Terraform y GitHub Actions</title>
                 <description>&lt;p&gt;La mejor forma de hacer despliegues con &lt;strong&gt;Terraform&lt;/strong&gt; es automatizar todo el proceso que va desde &lt;em&gt;terraform init&lt;/em&gt; a &lt;em&gt;terraform apply&lt;/em&gt;, con un proceso previo de aprobación antes de aplicar los cambios y una conexión a &lt;strong&gt;Azure&lt;/strong&gt; haciendo uso de identidades federadas para &lt;strong&gt;OpenID&lt;/strong&gt; con el objetivo de no almacenar credenciales en &lt;strong&gt;GitHub&lt;/strong&gt;.&lt;/p&gt;
 
-&lt;p&gt;En este artículo os muestro como automatizar despliegues de infraestructura en &lt;strong&gt;Azure&lt;/strong&gt; con &lt;strong&gt;módulos de Terraform&lt;/strong&gt; usando un workflow de &lt;strong&gt;GitHub Actions&lt;/strong&gt;, descargando los módulos a través de &lt;strong&gt;SSH&lt;/strong&gt; y realizando la conexión con identidades federada para &lt;strong&gt;OpenID&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;En este artículo te muestro cómo automatizar despliegues de infraestructura en &lt;strong&gt;Azure&lt;/strong&gt; con &lt;strong&gt;módulos de Terraform&lt;/strong&gt; usando un workflow de &lt;strong&gt;GitHub Actions&lt;/strong&gt;, descargando los módulos a través de &lt;strong&gt;SSH&lt;/strong&gt; y realizando la conexión con identidades federadas para &lt;strong&gt;OpenID&lt;/strong&gt;.&lt;/p&gt;
 
 &lt;h3 id=&quot;tabla-de-contenidos&quot;&gt;Tabla de contenidos&lt;/h3&gt;
 &lt;ol&gt;
@@ -543,13 +568,13 @@ resource &quot;azurerm_network_security_rule&quot; &quot;nsg_rule&quot; {
 
 &lt;p&gt;Los recursos que vamos a crear en &lt;strong&gt;Azure&lt;/strong&gt; para poner en marcha este escenario son un grupo de recursos &lt;em&gt;lab-rg&lt;/em&gt;, una cuenta de almacenamiento &lt;em&gt;labaztfbackend&lt;/em&gt; y un contenedor privado &lt;em&gt;tbackend&lt;/em&gt;. En el contenedor &lt;em&gt;tbackend&lt;/em&gt; es donde va a estar almacenado el archivo de estado &lt;em&gt;terraform.tfstate&lt;/em&gt; con la infraestructura de &lt;strong&gt;Azure&lt;/strong&gt; gestionada por &lt;strong&gt;Terraform&lt;/strong&gt;. En &lt;strong&gt;Azure AD&lt;/strong&gt; también hay que crear un registro de aplicación &lt;em&gt;tf-sp-terraform&lt;/em&gt;, configurar dos identidades federadas &lt;em&gt;plan&lt;/em&gt; y &lt;em&gt;apply&lt;/em&gt; para &lt;strong&gt;OpenID Connect&lt;/strong&gt; y dar permisos de colaborador al registro de aplicación &lt;em&gt;tf-sp-terraform&lt;/em&gt; sobre la suscripción para que pueda crear, eliminar o administrar los recursos de &lt;strong&gt;Azure&lt;/strong&gt;.&lt;/p&gt;
 
-&lt;p&gt;Con un workflow de &lt;strong&gt;GitHub Actions&lt;/strong&gt; vamos automatizar el despliegue de un grupo de recursos llamado &lt;em&gt;rg-test00&lt;/em&gt; con las etiquetas &lt;em&gt;test5&lt;/em&gt; y &lt;em&gt;test6&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;Con un workflow de &lt;strong&gt;GitHub Actions&lt;/strong&gt; vamos a automatizar el despliegue de un grupo de recursos llamado &lt;em&gt;rg-test00&lt;/em&gt; con las etiquetas &lt;em&gt;test5&lt;/em&gt; y &lt;em&gt;test6&lt;/em&gt;.&lt;/p&gt;
 
 &lt;p&gt;El siguiente repositorio &lt;a href=&quot;https://github.com/ragalgut/az-tf-deployment-oidc&quot;&gt;az-tf-deployment-oidc&lt;/a&gt; es la plantilla que vamos a usar para trabajar este escenario. Para usar la plantilla: &lt;em&gt;Use this template&lt;/em&gt; &amp;gt; &lt;em&gt;Create a new repository&lt;/em&gt;.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/images/280623/usar-template.webp&quot; alt=&quot;Usar plantilla de GitHub&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;En el raiz del repositorio se encuentran los ficheros &lt;em&gt;main.tf&lt;/em&gt; y &lt;em&gt;terraform.tfvars&lt;/em&gt; donde está el código de &lt;strong&gt;Terraform&lt;/strong&gt; del proyecto que vamos a desplegar, en este caso un grupo de recursos con un &lt;a href=&quot;https://github.com/ragalgut/az-tf-module-resource-group&quot;&gt;módulo de Terraform&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;En la raíz del repositorio se encuentran los ficheros &lt;em&gt;main.tf&lt;/em&gt; y &lt;em&gt;terraform.tfvars&lt;/em&gt; donde está el código de &lt;strong&gt;Terraform&lt;/strong&gt; del proyecto que vamos a desplegar, en este caso un grupo de recursos con un &lt;a href=&quot;https://github.com/ragalgut/az-tf-module-resource-group&quot;&gt;módulo de Terraform&lt;/a&gt;.&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;https://github.com/ragalgut/az-tf-deployment-oidc/blob/main/main.tf&quot;&gt;Código archivo main.tf&lt;/a&gt;&lt;/li&gt;
@@ -573,10 +598,10 @@ resource &quot;azurerm_network_security_rule&quot; &quot;nsg_rule&quot; {
 &lt;p&gt;Posteriormente tendremos que editar el siguiente bloque de nuestro código &lt;em&gt;main.tf&lt;/em&gt; y agregar el nombre del grupo de recursos, cuenta de almacenamiento y contenedor que hemos creado:&lt;/p&gt;
 
 &lt;div class=&quot;language-terraform highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;backend&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;azurerm&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;resource_group_name&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;lab-rg&quot;&lt;/span&gt;            &lt;span class=&quot;c1&quot;&gt;# Nombre del grupo de recursos donde se encuentra la cuenta de almacenamiento&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;storage_account_name&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;labaztfbackend&quot;&lt;/span&gt;   &lt;span class=&quot;c1&quot;&gt;# Nombre de la cuenta de almacenamiento donde se va almacenar el fichero de estado&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;container_name&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;tbackend&quot;&lt;/span&gt;               &lt;span class=&quot;c1&quot;&gt;# Nombre del container donde se va almacenar el fichero de estado&lt;/span&gt;
-    &lt;span class=&quot;nx&quot;&gt;key&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;terraform.tfstate&quot;&lt;/span&gt;                 &lt;span class=&quot;c1&quot;&gt;# Nombre del fichero de estado. El nombre estándar es terraform.tfstate&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;resource_group_name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;lab-rg&quot;&lt;/span&gt;            &lt;span class=&quot;c1&quot;&gt;# Nombre del grupo de recursos donde se encuentra la cuenta de almacenamiento&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;storage_account_name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;labaztfbackend&quot;&lt;/span&gt;   &lt;span class=&quot;c1&quot;&gt;# Nombre de la cuenta de almacenamiento donde se va almacenar el fichero de estado&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;container_name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;tbackend&quot;&lt;/span&gt;               &lt;span class=&quot;c1&quot;&gt;# Nombre del container donde se va almacenar el fichero de estado&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;key&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;terraform.tfstate&quot;&lt;/span&gt;                 &lt;span class=&quot;c1&quot;&gt;# Nombre del fichero de estado. El nombre estándar es terraform.tfstate&lt;/span&gt;
   &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
@@ -588,7 +613,7 @@ resource &quot;azurerm_network_security_rule&quot; &quot;nsg_rule&quot; {
 
 &lt;p&gt;&lt;img src=&quot;/images/280623/registro-de-aplicacion.webp&quot; alt=&quot;Azure App Registration&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;Posteriormente creamos dos identidades federadas del tipo entorno, yo las he llamado &lt;em&gt;plan&lt;/em&gt; y &lt;em&gt;apply&lt;/em&gt;. En el workflow hay dos jobs configurados, uno encargado de realizar &lt;em&gt;Terraform Plan&lt;/em&gt; y otro encargado de realizar &lt;em&gt;Terraform Apply&lt;/em&gt;, cada uno de estos jobs tienen configurado un entorno en &lt;strong&gt;GitHub&lt;/strong&gt;, también llamados &lt;em&gt;plan&lt;/em&gt; y &lt;em&gt;apply&lt;/em&gt;, este último configurado con un proceso previo de aprovación para que podamos verificar el plan y poder aprobar o rechazar los cambios. La identidad federada que crearemos en &lt;strong&gt;Azure&lt;/strong&gt; será de tipo entorno para que los jobs validen correctamente con &lt;strong&gt;Azure&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;Posteriormente creamos dos identidades federadas de tipo entorno, llamadas &lt;em&gt;plan&lt;/em&gt; y &lt;em&gt;apply&lt;/em&gt;. En el workflow hay dos jobs configurados: uno encargado de ejecutar &lt;em&gt;Terraform Plan&lt;/em&gt; y otro de ejecutar &lt;em&gt;Terraform Apply&lt;/em&gt;. Cada job tiene configurado su entorno en &lt;strong&gt;GitHub&lt;/strong&gt; (también llamados &lt;em&gt;plan&lt;/em&gt; y &lt;em&gt;apply&lt;/em&gt;), siendo el de &lt;em&gt;apply&lt;/em&gt; el que incluye un proceso previo de aprobación para verificar el plan antes de aplicar los cambios. La identidad federada que crearemos en &lt;strong&gt;Azure&lt;/strong&gt; será de tipo entorno para que los jobs validen correctamente con &lt;strong&gt;Azure&lt;/strong&gt;.&lt;/p&gt;
 
 &lt;p&gt;Para crear una identidad federada accedemos al registro de aplicación creado anteriormente &amp;gt; &lt;em&gt;Certificados y secretos&lt;/em&gt; &amp;gt; &lt;em&gt;Credenciales federadas&lt;/em&gt; &amp;gt; &lt;em&gt;Agregar credencial&lt;/em&gt;.&lt;/p&gt;
 
@@ -596,7 +621,7 @@ resource &quot;azurerm_network_security_rule&quot; &quot;nsg_rule&quot; {
 
 &lt;p&gt;El escenario que tenemos que seleccionar es &lt;em&gt;Acciones de GitHub que implementan recursos de Azure&lt;/em&gt;, la &lt;em&gt;Organización&lt;/em&gt; es nuestro usuario de &lt;strong&gt;github.com&lt;/strong&gt;, en el caso de &lt;strong&gt;GitHub Enterprise&lt;/strong&gt; es el nombre de la organización, en &lt;em&gt;Repositorio&lt;/em&gt; el nombre de nuestro repositorio, &lt;em&gt;Tipo de entidad&lt;/em&gt; seleccionamos &lt;em&gt;Entorno&lt;/em&gt; y por último indicamos el nombre de la identidad.&lt;/p&gt;
 
-&lt;p&gt;El &lt;em&gt;Identificador de sujeto&lt;/em&gt; y &lt;em&gt;Api token&lt;/em&gt; que se muestra en la configuración es la que usa &lt;strong&gt;github.com&lt;/strong&gt;. Para &lt;strong&gt;GitHub Enterprise&lt;/strong&gt; hay que consultar con el administrador cual es el identificador y el api token y configurarlo en la identidad federada en &lt;strong&gt;Azure&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;El &lt;em&gt;Identificador de sujeto&lt;/em&gt; y &lt;em&gt;Api token&lt;/em&gt; que se muestra en la configuración es la que usa &lt;strong&gt;github.com&lt;/strong&gt;. Para &lt;strong&gt;GitHub Enterprise&lt;/strong&gt; hay que consultar con el administrador cuál es el identificador y el api token, y configurarlo en la identidad federada en &lt;strong&gt;Azure&lt;/strong&gt;.&lt;/p&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;Cuando se ejecuta el workflow y da un fallo en la etapa de conexión con OpenID se puede ver en los logs cual es el identificador y api token que espera encontrar.&lt;/p&gt;
@@ -635,13 +660,13 @@ resource &quot;azurerm_network_security_rule&quot; &quot;nsg_rule&quot; {
 
 &lt;p&gt;En el workflow hay configurado una serie de variables que &lt;strong&gt;GitHub&lt;/strong&gt; espera obtener la información del repositorio de secretos, por lo tanto, tenemos que crearlos.&lt;/p&gt;
 
-&lt;p&gt;Referencia: &lt;a href=&quot;https://github.com/ragalgut/az-tf-deployment-oidc/blob/main/.github/workflows/tf-plan-apply.yml#L13-L16&quot;&gt;varibales en el workflow&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Referencia: &lt;a href=&quot;https://github.com/ragalgut/az-tf-deployment-oidc/blob/main/.github/workflows/tf-plan-apply.yml#L13-L16&quot;&gt;variables en el workflow&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;Para crear los secretos, tenemos que ir desde nuestro repositorio a &lt;em&gt;Settings&lt;/em&gt; &amp;gt; &lt;em&gt;Secrets and variables&lt;/em&gt; &amp;gt; &lt;em&gt;Actions&lt;/em&gt; &amp;gt; &lt;em&gt;New repository secret&lt;/em&gt;.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/images/280623/secrets-github.webp&quot; alt=&quot;Secrets GitHub&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;A continuación en la siguiente tabla proporciono la información que debeís agregar en cada campo:&lt;/p&gt;
+&lt;p&gt;En la siguiente tabla encontrarás la información que debes agregar en cada secreto:&lt;/p&gt;
 
 &lt;table&gt;
   &lt;thead&gt;
@@ -694,7 +719,7 @@ resource &quot;azurerm_network_security_rule&quot; &quot;nsg_rule&quot; {
 
 &lt;p&gt;&lt;img src=&quot;/images/280623/ejecutar-workflow-github-actions02.webp&quot; alt=&quot;Ejecutar workflow GitHub Actions&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;Aquí podemos ver ambos jobs &lt;em&gt;Terraform Plan&lt;/em&gt; y &lt;em&gt;Terraform Apply&lt;/em&gt;. Las lineas azules de los jobs hacen referencia a las etapas ejecutadas. Para tener más detalles de las etapas que se están ejecutando accedemos al job &lt;em&gt;Terraform Plan&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;Aquí podemos ver ambos jobs &lt;em&gt;Terraform Plan&lt;/em&gt; y &lt;em&gt;Terraform Apply&lt;/em&gt;. Las líneas azules de los jobs hacen referencia a las etapas ejecutadas. Para tener más detalles de las etapas que se están ejecutando accedemos al job &lt;em&gt;Terraform Plan&lt;/em&gt;.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/images/280623/ejecutar-workflow-github-actions03.webp&quot; alt=&quot;Ejecutar workflow GitHub Actions&quot; /&gt;&lt;/p&gt;
 
@@ -713,6 +738,19 @@ resource &quot;azurerm_network_security_rule&quot; &quot;nsg_rule&quot; {
 &lt;p&gt;Una vez finalizadas las etapas podemos ver que los recursos se han desplegado correctamente en &lt;strong&gt;Azure&lt;/strong&gt;.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/images/280623/ejecutar-workflow-github-actions08.webp&quot; alt=&quot;Ejecutar workflow GitHub Actions&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;conclusión&quot;&gt;Conclusión&lt;/h2&gt;
+
+&lt;p&gt;Con esta configuración tienes un pipeline de Terraform completamente automatizado en &lt;strong&gt;Azure&lt;/strong&gt;: sin credenciales almacenadas, con un proceso de aprobación manual antes del &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;apply&lt;/code&gt; y con la trazabilidad que ofrece &lt;strong&gt;GitHub Actions&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Los puntos clave de este escenario:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;OpenID Connect&lt;/strong&gt; elimina la necesidad de gestionar secrets de larga duración en Azure.&lt;/li&gt;
+  &lt;li&gt;Los entornos de GitHub permiten añadir revisores obligatorios antes de desplegar.&lt;/li&gt;
+  &lt;li&gt;El backend en Azure Storage garantiza que el estado de Terraform esté centralizado y versionado.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;¿Tienes dudas sobre alguno de los pasos o has encontrado algún problema al configurarlo? Déjame un comentario.&lt;/p&gt;
 </description>
                 <pubDate>Wed, 28 Jun 2023 10:00:00 +0200</pubDate>
                 <link>http://localhost:4000/automatizar-despliegues-en-azure-con-terraform-y-github-actions</link>
@@ -731,12 +769,12 @@ resource &quot;azurerm_network_security_rule&quot; &quot;nsg_rule&quot; {
         
             <item>
                 <title>Creando un sitio web estático con Jekyll y GitHub</title>
-                <description>&lt;p&gt;En este artículo voy a mostrar paso a paso como crear un sitio web estático con &lt;strong&gt;Jekyll&lt;/strong&gt; desde un equipo con &lt;strong&gt;Windows 11&lt;/strong&gt; y como alojarlo en un repositorio de &lt;strong&gt;GitHub&lt;/strong&gt;. No me voy a extender mucho en el uso de &lt;strong&gt;Jekyll&lt;/strong&gt;, para ello he adjuntado unos enlaces de interés a la documentación oficial, me centraré en la creación del sitio y el correspondiente despliegue en &lt;strong&gt;GitHub&lt;/strong&gt;.&lt;/p&gt;
+                <description>&lt;p&gt;En este artículo voy a mostrar paso a paso cómo crear un sitio web estático con &lt;strong&gt;Jekyll&lt;/strong&gt; desde un equipo con &lt;strong&gt;Windows 11&lt;/strong&gt; y cómo alojarlo en un repositorio de &lt;strong&gt;GitHub&lt;/strong&gt;. No me voy a extender mucho en el uso de &lt;strong&gt;Jekyll&lt;/strong&gt;, para ello he adjuntado unos enlaces de interés a la documentación oficial; me centraré en la creación del sitio y el correspondiente despliegue en &lt;strong&gt;GitHub&lt;/strong&gt;.&lt;/p&gt;
 
 &lt;h2 id=&quot;tabla-de-contenidos&quot;&gt;Tabla de contenidos&lt;/h2&gt;
 &lt;ol&gt;
-  &lt;li&gt;&lt;a href=&quot;#arquitectura-como-trabajar-con-jekyll-y-github&quot;&gt;Arquitectura, como trabajar con Jekyll y GitHub&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#prerequisitos&quot;&gt;Prerequisitos&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#arquitectura-como-trabajar-con-jekyll-y-github&quot;&gt;Arquitectura, cómo trabajar con Jekyll y GitHub&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#prerequisitos&quot;&gt;Prerrequisitos&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#instalar-jekyll&quot;&gt;Instalar Jekyll&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#enlaces-de-interés-jekyll&quot;&gt;Enlaces de interés Jekyll&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#publicar-sitio-en-github&quot;&gt;Publicar sitio en GitHub&lt;/a&gt;&lt;/li&gt;
@@ -744,7 +782,7 @@ resource &quot;azurerm_network_security_rule&quot; &quot;nsg_rule&quot; {
   &lt;li&gt;&lt;a href=&quot;#configurar-un-dominio-personalizado&quot;&gt;Configurar un dominio personalizado&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h2 id=&quot;arquitectura-como-trabajar-con-jekyll-y-github&quot;&gt;Arquitectura, como trabajar con Jekyll y GitHub&lt;/h2&gt;
+&lt;h2 id=&quot;arquitectura-cómo-trabajar-con-jekyll-y-github&quot;&gt;Arquitectura, cómo trabajar con Jekyll y GitHub&lt;/h2&gt;
 
 &lt;p&gt;&lt;img src=&quot;/images/arquitectura-jekyll-github-pages.svg&quot; alt=&quot;Sitio validado y publicado&quot; /&gt;&lt;/p&gt;
 
@@ -754,9 +792,9 @@ resource &quot;azurerm_network_security_rule&quot; &quot;nsg_rule&quot; {
 
 &lt;p&gt;Una vez realizado un push al repositorio público se ejecuta automáticamente un workflow de &lt;strong&gt;GitHub Actions&lt;/strong&gt; que despliega el sitio de &lt;strong&gt;Jekyll&lt;/strong&gt; en &lt;strong&gt;GitHub Pages&lt;/strong&gt;.&lt;/p&gt;
 
-&lt;h2 id=&quot;prerequisitos&quot;&gt;Prerequisitos&lt;/h2&gt;
+&lt;h2 id=&quot;prerrequisitos&quot;&gt;Prerrequisitos&lt;/h2&gt;
 
-&lt;p&gt;Es necesario descargar e instala la última versión de &lt;strong&gt;Ruby+Devkit&lt;/strong&gt; desde el siguiente &lt;a href=&quot;https://rubyinstaller.org/downloads/&quot;&gt;enlace&lt;/a&gt;. Este conjunto de herramientas instala el lenguaje &lt;strong&gt;Ruby&lt;/strong&gt; y un entorno de ejecución.&lt;/p&gt;
+&lt;p&gt;Es necesario descargar e instalar la última versión de &lt;strong&gt;Ruby+Devkit&lt;/strong&gt; desde el siguiente &lt;a href=&quot;https://rubyinstaller.org/downloads/&quot;&gt;enlace&lt;/a&gt;. Este conjunto de herramientas instala el lenguaje &lt;strong&gt;Ruby&lt;/strong&gt; y un entorno de ejecución.&lt;/p&gt;
 
 &lt;p&gt;Durante la instalación nos aseguramos tener marcadas las siguientes dos opciones:&lt;/p&gt;
 
@@ -795,7 +833,7 @@ resource &quot;azurerm_network_security_rule&quot; &quot;nsg_rule&quot; {
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;p&gt;El siguiente comando sirve para comprobar la &lt;strong&gt;versión de Jekyll&lt;/strong&gt; instalada:&lt;/p&gt;
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;jekyll -v command
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;jekyll -v
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;p&gt;Para &lt;strong&gt;crear&lt;/strong&gt; un nuevo blog o &lt;strong&gt;sitio estático&lt;/strong&gt; ejecutamos el siguiente comando:&lt;/p&gt;
 
@@ -814,7 +852,7 @@ resource &quot;azurerm_network_security_rule&quot; &quot;nsg_rule&quot; {
 
 &lt;h2 id=&quot;enlaces-de-interés-jekyll&quot;&gt;Enlaces de interés Jekyll&lt;/h2&gt;
 
-&lt;p&gt;Para que podáis ampliar conocimientos sobre el uso de &lt;strong&gt;Jekyll&lt;/strong&gt; os facilito una serie de recursos de la documentación oficial que os ayudará a entender la estructura de directorios, creación de contenido, plugins y temas, entre otros.&lt;/p&gt;
+&lt;p&gt;Para que puedas ampliar conocimientos sobre el uso de &lt;strong&gt;Jekyll&lt;/strong&gt; te facilito una serie de recursos de la documentación oficial que te ayudarán a entender la estructura de directorios, creación de contenido, plugins y temas, entre otros.&lt;/p&gt;
 
 &lt;h3 id=&quot;contenido&quot;&gt;Contenido&lt;/h3&gt;
 
@@ -853,7 +891,7 @@ resource &quot;azurerm_network_security_rule&quot; &quot;nsg_rule&quot; {
     &lt;p&gt;&lt;img src=&quot;/images/create-new-public-repository-github.webp&quot; alt=&quot;Crear repositorio público en GitHub&quot; /&gt;&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;Clonamos nuestro repositorio&lt;/strong&gt; en un directorio local de nuestro equipo. Yo hago uso de &lt;a href=&quot;https://code.visualstudio.com/&quot;&gt;Visual Studio Code&lt;/a&gt;, pero también existen otras herramientas que facilitan la gestión de repositorios de &lt;strong&gt;GitHub&lt;/strong&gt; como &lt;a href=&quot;create-new-public-repository-github.png&quot;&gt;GitHub Desktop&lt;/a&gt;.&lt;/p&gt;
+    &lt;p&gt;&lt;strong&gt;Clonamos nuestro repositorio&lt;/strong&gt; en un directorio local de nuestro equipo. Yo hago uso de &lt;a href=&quot;https://code.visualstudio.com/&quot;&gt;Visual Studio Code&lt;/a&gt;, pero también existen otras herramientas que facilitan la gestión de repositorios de &lt;strong&gt;GitHub&lt;/strong&gt; como &lt;a href=&quot;https://desktop.github.com/&quot;&gt;GitHub Desktop&lt;/a&gt;.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;&lt;strong&gt;Copiamos el contenido&lt;/strong&gt; de nuestro sitio al repositorio clonado.&lt;/p&gt;
@@ -896,9 +934,9 @@ resource &quot;azurerm_network_security_rule&quot; &quot;nsg_rule&quot; {
    185.199.111.153
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;Crear los siguientes &lt;strong&gt;registros AAA&lt;/strong&gt;:&lt;/p&gt;
+&lt;p&gt;Crear los siguientes &lt;strong&gt;registros AAAA&lt;/strong&gt;:&lt;/p&gt;
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   72606:50c0:8000::153
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   2606:50c0:8000::153
    2606:50c0:8001::153
    2606:50c0:8002::153
    2606:50c0:8003::153
@@ -912,9 +950,17 @@ resource &quot;azurerm_network_security_rule&quot; &quot;nsg_rule&quot; {
 
 &lt;p&gt;&lt;img src=&quot;/images/custom-domain-github-pages.webp&quot; alt=&quot;Configurar dominio personalizado GitHub Pages&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;Tras validar el dominio personalizado el sitio web estará live.&lt;/p&gt;
+&lt;p&gt;Tras validar el dominio personalizado el sitio web estará en marcha.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/images/github-pages-live.webp&quot; alt=&quot;Sitio validado y publicado&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;conclusión&quot;&gt;Conclusión&lt;/h2&gt;
+
+&lt;p&gt;En este artículo has visto cómo levantar un blog con &lt;strong&gt;Jekyll&lt;/strong&gt; desde cero, publicarlo en &lt;strong&gt;GitHub&lt;/strong&gt; y desplegarlo automáticamente en &lt;strong&gt;GitHub Pages&lt;/strong&gt;, incluyendo la configuración de un dominio personalizado.&lt;/p&gt;
+
+&lt;p&gt;Lo mejor de esta arquitectura es que es completamente gratuita: el alojamiento, el despliegue continuo y el certificado SSL los gestiona &lt;strong&gt;GitHub&lt;/strong&gt; sin coste adicional.&lt;/p&gt;
+
+&lt;p&gt;Si tienes alguna duda sobre alguno de los pasos o quieres compartir cómo has personalizado tu propio sitio, déjame un comentario.&lt;/p&gt;
 </description>
                 <pubDate>Mon, 05 Jun 2023 14:01:35 +0200</pubDate>
                 <link>http://localhost:4000/creando-un-sitio-web-estatico-con-jekyll-y-github-pages</link>
@@ -929,12 +975,19 @@ resource &quot;azurerm_network_security_rule&quot; &quot;nsg_rule&quot; {
         
             <item>
                 <title>Configurar la autenticación SMTP en cuentas de Microsoft 365</title>
-                <description>&lt;p&gt;&lt;strong&gt;SMTP&lt;/strong&gt; es un protocolo usado para el envío y recepción de correos presente en aplicaciones, servidores de correos, impresoras multifuncionales, formularios webs, clientes &lt;strong&gt;POP3&lt;/strong&gt; e &lt;strong&gt;IMAP4&lt;/strong&gt;, etc. El puerto que utiliza es &lt;strong&gt;TCP 587&lt;/strong&gt;.&lt;/p&gt;
+                <description>&lt;p&gt;&lt;strong&gt;SMTP&lt;/strong&gt; es un protocolo usado para el envío y recepción de correos presente en aplicaciones, servidores de correo, impresoras multifuncionales, formularios web, clientes &lt;strong&gt;POP3&lt;/strong&gt; e &lt;strong&gt;IMAP4&lt;/strong&gt;, etc. El puerto que utiliza es &lt;strong&gt;TCP 587&lt;/strong&gt;.&lt;/p&gt;
 
-&lt;p&gt;Las cuentas de &lt;strong&gt;Microsoft 365&lt;/strong&gt; que disponen de una licencia para &lt;strong&gt;Exchange Online&lt;/strong&gt; permiten habilitar la autenticación &lt;strong&gt;SMTP (AUTH SMTP)&lt;/strong&gt;, pero, solo se recomienda hacerlo en cuentas que lo requieran porque por defecto hacen uso de una autenticación más moderna y segura.&lt;/p&gt;
+&lt;p&gt;Las cuentas de &lt;strong&gt;Microsoft 365&lt;/strong&gt; con licencia para &lt;strong&gt;Exchange Online&lt;/strong&gt; permiten habilitar la autenticación &lt;strong&gt;SMTP (AUTH SMTP)&lt;/strong&gt;, pero solo se recomienda en cuentas que lo requieran, ya que por defecto usan una autenticación más moderna y segura.&lt;/p&gt;
+
+&lt;h2 id=&quot;tabla-de-contenidos&quot;&gt;Tabla de contenidos&lt;/h2&gt;
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;#requisitos-para-activar-o-deshabilitar-smtp-y-conexión-a-exchange-online-mediante-powershell&quot;&gt;Requisitos y conexión a Exchange Online&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#deshabilitar-autenticación-smtp-globalmente&quot;&gt;Deshabilitar autenticación SMTP globalmente&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#habilitar-autenticación-smtp-en-cuentas-específicas&quot;&gt;Habilitar autenticación SMTP en cuentas específicas&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
 
 &lt;blockquote&gt;
-  &lt;p&gt;Si tiene habilitado los valores predeterminados de seguridad en el tenant de su empresa, AUTH SMTP está por defecto deshabilitado en todas las cuentas de Microsoft 365.&lt;/p&gt;
+  &lt;p&gt;Si tienes habilitados los valores predeterminados de seguridad en el tenant de tu empresa, AUTH SMTP está deshabilitado por defecto en todas las cuentas de Microsoft 365.&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;h2 id=&quot;requisitos-para-activar-o-desactivar-smtp-y-conexión-a-exchange-online-mediante-powershell&quot;&gt;Requisitos para activar o desactivar SMTP y conexión a Exchange Online mediante PowerShell&lt;/h2&gt;
@@ -973,24 +1026,37 @@ resource &quot;azurerm_network_security_rule&quot; &quot;nsg_rule&quot; {
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Set-TransportConfig -SmtpClientAuthenticationDisabled $true
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;Para comprobar que se ha deshabilitado la autenticación &lt;strong&gt;SMTP&lt;/strong&gt; ejecutamos el siguiente comando y comprobamos que el valor de la propiedad &lt;em&gt;SmtpClientAuthenticationDisablede&lt;/em&gt; sea &lt;em&gt;True&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;Para comprobar que se ha deshabilitado la autenticación &lt;strong&gt;SMTP&lt;/strong&gt;, ejecutamos el siguiente comando y verificamos que el valor de la propiedad &lt;em&gt;SmtpClientAuthenticationDisabled&lt;/em&gt; sea &lt;em&gt;True&lt;/em&gt;.&lt;/p&gt;
 
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Get-TransportConfig | Format-List SmtpClientAuthenticationDisabled
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h2 id=&quot;habilitar-autenticación-smtp-en-cuentas-específicas&quot;&gt;Habilitar autenticación SMTP en cuentas específicas&lt;/h2&gt;
 
-&lt;p&gt;Para comprobar la configuración actual de la cuenta de usuario ejecutamos el siguientes comando, donde &lt;em&gt;usuario@contoso.com&lt;/em&gt; introducimos la cuenta de usuario a revisar.&lt;/p&gt;
+&lt;p&gt;Para comprobar la configuración actual de una cuenta de usuario ejecutamos el siguiente comando, donde &lt;em&gt;usuario@contoso.com&lt;/em&gt; es la cuenta a revisar.&lt;/p&gt;
 
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Get-CASMailbox -Identity Usuario@contoso.com | Format-List SmtpClientAuthenticationDisabled
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;Si nos carga el usuario con el valor en blanco o &lt;em&gt;$True&lt;/em&gt; ejecutamos el siguiente comando para habilitar la autenticación &lt;strong&gt;SMTP&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;Si el resultado aparece en blanco o como &lt;em&gt;$True&lt;/em&gt;, ejecutamos el siguiente comando para habilitar la autenticación &lt;strong&gt;SMTP&lt;/strong&gt;.&lt;/p&gt;
 
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Set-CASMailbox -Identity sean@contoso.com -SmtpClientAuthenticationDisabled $false 
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;strong&gt;Referencia:&lt;/strong&gt; &lt;a href=&quot;https://docs.microsoft.com/es-es/exchange/clients-and-mobile-in-exchange-online/authenticated-client-smtp-submission&quot;&gt;Microsoft Learn&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Referencia:&lt;/strong&gt; &lt;a href=&quot;https://learn.microsoft.com/es-es/exchange/clients-and-mobile-in-exchange-online/authenticated-client-smtp-submission&quot;&gt;Microsoft Learn&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;conclusión&quot;&gt;Conclusión&lt;/h2&gt;
+
+&lt;p&gt;La autenticación SMTP AUTH en Microsoft 365 es necesaria en ciertos escenarios —impresoras, aplicaciones legacy, formularios web— pero debe activarse de forma quirurgíca, solo en los buzones que la requieran.&lt;/p&gt;
+
+&lt;p&gt;Los puntos clave a recordar:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Deshabilita SMTP globalmente a nivel de tenant como punto de partida.&lt;/li&gt;
+  &lt;li&gt;Habilita SMTP únicamente en los buzones que lo necesiten con &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Set-CASMailbox&lt;/code&gt;.&lt;/li&gt;
+  &lt;li&gt;Si tu tenant usa valores predeterminados de seguridad, AUTH SMTP ya estará bloqueado por defecto.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;¿Tienes alguna duda sobre la configuración en tu entorno? Déjame un comentario.&lt;/p&gt;
 </description>
                 <pubDate>Wed, 24 May 2023 14:01:35 +0200</pubDate>
                 <link>http://localhost:4000/configurar-la-autenticacion-smtp-en-cuentas-de-microsoft-365</link>

@@ -1,15 +1,15 @@
 ---
 layout: post
 title:  Actualizando a una versión superior de Windows Server en una máquina virtual de Azure
-description: Te enseño como actualizar a una versión superior de Windows Server sobre una propia máquina virtual de Azure.
+description: Te enseño cómo actualizar a una versión superior de Windows Server sobre una máquina virtual de Azure.
 date:   2023-07-10 11:00:00 +0300
 image:  '/images/100723/windows-server-logo.webp'
 tags:   [Azure, Windows Server]
 ---
 
-Si en algún momento te has plantado actualizar la versión de **Windows Server** en una máquina virtual de **Azure**, probablemente hayas decidido pasar por levantar una máquina de cero con la nueva versión, posteriormente hacer una migración de roles, datos, cambios de IP, DNS, etc.
+Si en algún momento te has planteado actualizar la versión de **Windows Server** en una máquina virtual de **Azure**, probablemente hayas optado por levantar una máquina desde cero con la nueva versión y migrar después roles, datos, direcciones IP, DNS, etc.
 
-En **Azure** no es posible asociar una ISO a una unidad DVD/CD-ROM en una máquina virtual pero existe una alternativa que te voy a mostrar a continuación.
+En **Azure** no es posible asociar una ISO a una unidad DVD/CD-ROM en una máquina virtual, pero existe una alternativa más directa: un disco administrado de actualización. Te la muestro paso a paso.
 
 ### Tabla de contenidos
 1. [Arquitectura y contenido](#arquitectura-y-contenido)
@@ -28,11 +28,13 @@ El escenario sobre el que voy a trabajar tiene la siguiente infraestructura, un 
 - Actualmente se admite la actualización a **Windows Server 2016**, **2019** y **2022**.
 - La versión mínima funcional para la actualización es **Windows Server 2012**.
 - Las versiones no admitidas para una actualización son **Windows Server 2008 R2 Standard** y **Datacenter**.
-- El disco del sistema operativo debe tener suficiente espacio libre para la actualizacón, mínimo 32 GB.
+- El disco del sistema operativo debe tener suficiente espacio libre para la actualización, mínimo 32 GB.
 - El software antivirus y firewall deben estar deshabilitados porque pueden interferir durante el proceso de actualización y producir errores.
 - La máquina virtual debe estar configurada para la licencia por volumen de **Windows Server**.
-- El disco de la máquina virtual debe ser administrador, de lo contrario se debe migrar a discos administrados.
-- Realizar un snapshot de los discos de la máquina virtual antes de comenzar con el proceso de actualización para, en caso de error, volver al estado anterior de la máquina virtual.
+- El disco de la máquina virtual debe ser **administrado**; si no lo es, migrarlo antes de continuar.
+- **Realizar un snapshot de los discos** de la máquina virtual antes de comenzar. En caso de error, permitirá restaurar el estado anterior.
+
+> **Importante:** no omitas el snapshot. Si el proceso falla y la máquina no arranca, es la única forma de recuperarla sin pérdida de datos.
 - Seguir la ruta de actualizaciones admitidas:
 
   | Actualización desde / a | Windows Server 2012 R2 | Windows Server 2016 | Windows Server 2019 | Windows Server 2022 |
@@ -144,13 +146,13 @@ Una vez adjuntado el disco a la máquina virtual podemos ver que contiene una ca
 
 ## Ejecutando upgrade a Windows Server 2019 Datacenter
 
-Para comenzar el proceso de actualización tenemos que abrir una consola de **PowerShell** en la máquina que queremos ejecutar esta y situanos en el directorio donde se encuentran los archivos para la actualización del sistema operativo, en mi caso es *F:\Windows Server 2019* y ejecutar el siguiente comando:
+Para comenzar el proceso de actualización, abre una consola de **PowerShell** en la máquina que quieres actualizar y sitúate en el directorio donde se encuentran los archivos de actualización. En mi caso es *F:\Windows Server 2019*. Ejecuta el siguiente comando:
 
 ```powershell
 .\setup.exe /auto upgrade /dynamicupdate disable
 ```
 
-Se abrirá el asistente de instalación de **Windows Server XXXX**, seleccionamos la edición a la que queremos actualizar:
+Se abrirá el asistente de instalación de **Windows Server 2019**. Selecciona la edición a la que quieres actualizar:
 
 ![Asistente de instalación Windows Server 2019](/images/100723/windows-server-2019-setup.webp)
 
@@ -158,12 +160,21 @@ Comenzará el proceso de actualización:
 
 ![Actualizando a Windows Server 2019](/images/100723/installing-windows-server-2019.webp)
 
-Si durante el proceso de instalación se reinicia la máquina perderemos la conexión y podremos visualizar el proceso de actualización desde los diagnósticos de arranque en **Azure**:
+Durante el proceso de instalación la máquina se reiniciará y se perderá la conexión RDP. Puedes seguir el progreso desde los **diagnósticos de arranque** en el portal de Azure:
 
 ![Diagnósticos de arranque actualización a Windows Server 2019](/images/100723/bootdiagnostics-windows-server-2019-setup.webp)
 
-Una vez finalizado el proceso de actualización y tengamos disponible nuestra máquina virtual, podremos observar que esta ya se encuentra actualizada con la nueva versión de **Windows Server**, mantiene toda la información y roles, además que seguirá unida al dominio.
+Una vez finalizado el proceso, la máquina virtual estará disponible con la nueva versión de **Windows Server**, conservando toda la información, los roles configurados y la unión al dominio.
 
 ![Comprobando el dominio de la máquina virtual](/images/100723/findstr.webp)
 
-Si el proceso de actualización falla y la máquina entra en un estado de inactividad (no arranca), podremos restaurar el snapshot realizado antes del upgrade y repetir el proceso.
+## Conclusión
+
+Actualizar Windows Server en Azure sin levantar una nueva máquina es perfectamente viable gracias al disco administrado de actualización. El proceso es limpio, conserva roles y datos, y evita la complejidad de una migración completa.
+
+Los puntos clave a recordar:
+- Comprueba la ruta de actualización admitida antes de empezar.
+- Haz siempre un snapshot previo.
+- Si el proceso falla, restaura el snapshot y analiza los logs antes de repetirlo.
+
+¿Has tenido que actualizar Windows Server en Azure? Cuéntame tu experiencia en los comentarios.

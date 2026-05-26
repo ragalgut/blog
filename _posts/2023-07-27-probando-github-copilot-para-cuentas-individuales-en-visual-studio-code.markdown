@@ -7,7 +7,7 @@ image:  '/images/270723/copilot-github.webp'
 tags:   [GitHub, Copilot, Terraform]
 ---
 
-Al final me he decidido y he dado el paso a probar esta herramienta de IA. Últimamente trabajo mucho con **Terraform** y tengo curiosidad de saber cómo funciona y cómo me puede ayudar en mi día a día. GitHub ofrece dos versiones de **Copilot**, una para cuentas individuales y otra para empresas. Para cuentas individuales ofrecen una prueba de 30 días: [https://github.com/features/copilot](https://github.com/features/copilot)
+Al final me he decidido y he dado el paso a probar esta herramienta de IA. Últimamente trabajo mucho con **Terraform** —una herramienta de infraestructura como código (IaC) que permite definir y desplegar recursos en la nube de forma declarativa— y tengo curiosidad de saber cómo funciona Copilot y cómo me puede ayudar en mi día a día. GitHub ofrece dos versiones de **Copilot**, una para cuentas individuales y otra para empresas. Para cuentas individuales ofrecen una prueba de 30 días: [https://github.com/features/copilot](https://github.com/features/copilot)
 
   | Copilot for Individuals | Copilot for Business |
 |-------------------------|------------------------|
@@ -18,13 +18,17 @@ Al final me he decidido y he dado el paso a probar esta herramienta de IA. Últi
 | Filters out common vulnerable coding patterns | Corporate proxy support |
 | Blocks suggestions matching public code | Copilot Chat beta |
 
-Tengo mi entorno preparado, he instalado la extensión **GitHub Copilot** en VS Code y conectado con [github.com](github.com). He creado un archivo *main.tf*, he comenzado a escribir y ha comenzado la acción. 
+### Primeros pasos: configurando el bloque terraform
 
-Lo primero que he querido configurar es el bloque *terraform* para configurar *required_version*. Tras escribirlo, automáticamente me lo ha sugerido. Las sugerencias las muestra con un tono grisaceo, basta con tabular para aceptarla o seguir escribiendo para que de forma automática estas cambien adaptándose al código que estamos configurando.
+Tengo mi entorno preparado, he instalado la extensión **GitHub Copilot** en VS Code y conectado con [github.com](github.com). He creado un archivo *main.tf*, he comenzado a escribir y ha comenzado la acción.
+
+Lo primero que he querido configurar es el bloque *terraform* para configurar *required_version*. Tras escribirlo, automáticamente me lo ha sugerido. Las sugerencias las muestra con un tono grisáceo; basta con tabular para aceptarlas o seguir escribiendo para que de forma automática cambien adaptándose al código que estamos configurando.
 
 ![](/images/270723/github-copilot-terraform-00.webp)
 
-Aquí comienza lo bueno, al presionar enter dos veces para comenzar a escribir el siguiente bloque de código ya me está sugiriendo la creación del bloque *provider*. En este caso me lo configura con *aws* pero yo lo edito para que sea *azurerm*.
+### Sugerencias en cadena
+
+Aquí comienza lo bueno: al presionar Enter dos veces para comenzar a escribir el siguiente bloque de código, ya me está sugiriendo la creación del bloque *provider*. En este caso me lo configura con *aws* pero yo lo edito para que sea *azurerm*.
 
 Vuelvo a repetir, presiono enter dos veces y me sugiere la creación de un grupo de recursos, con el nombre y la localización definidas.
 
@@ -34,7 +38,7 @@ Si observamos no me ha sugerido el bloque *required_providers* ni *backend* dent
 
 ![](/images/270723/github-copilot-terraform-02.webp)
 
-Siguiendo aplicando este metodo, **Copilot** me ha sugerido los siguientes recursos que muestro a continuación.
+Aplicando este método, **Copilot** me ha sugerido los siguientes recursos:
 
 ```
 terraform {
@@ -157,7 +161,7 @@ resource "azurerm_virtual_machine" "vm" {
 
 Cada bloque que genera lo hace de manera inteligente, asocia unos recursos con otros, por ejemplo, el grupo de recursos de cada recurso (valga la redundancia) que me está sugiriendo lo está asociando al grupo de recursos que se ha configurado, lo mismo ocurre con la localización, todos van asociado a localización definida en el grupo de recursos, *West Europe*.
 
-Esta claro que no tiene porque ser 100% funcional el código que nos está generando porque tendremos que modificar los nombres y aplicar las configuraciones deseadas, pero, nos está ahorrando tener que redactar bastante código. Hasta ahora todo el código que nos ha sugerido **Copilot** no contiene variables.
+Está claro que no tiene por qué ser 100% funcional el código que nos está generando, ya que tendremos que modificar los nombres y aplicar las configuraciones deseadas. Aun así, nos está ahorrando escribir una cantidad considerable de código. Hasta ahora todo el código sugerido por **Copilot** no contiene variables.
 
 ### ¿Qué ocurre si defino el nombre de los recursos como variables?
 
@@ -171,7 +175,7 @@ Entonces voy a tomar la sugerencia como buena, pero voy a editar *address_space*
 
 Y así es, ¡qué maravilla!
 
- > Copilot aprende la forma en que vamos escribiendo el código.
+ > Copilot adapta sus sugerencias al estilo y convenciones que vas adoptando a lo largo del archivo.
 
 Voy a trabajar ahora con el archivo variables.tf y ver si es capaz de declarar todas las variables que son necesarias. El siguiente código es mi fichero *main.tf*.
 
@@ -243,4 +247,10 @@ En el fichero *variables.tf* comienzo escribiendo *variable* y automáticamente 
 
 ![](/images/270723/github-copilot-terraform-05.webp)
 
-Hasta aquí mis primeras pruebas con Copilot, la primera impresión ha sido ¡no quiero dejar de usarlo! ya sea para configurar mis módulos o configurar infraestructura en Azure. Es una herramienta que le da un vuelco a la productividad porque ahorras mucho tiempo 'picando código', pero siempre es necesario saber de la tecnología que vas a usar para adaptar el código a las necesidades del proyecto que vas a ejecutar y corregir posibles errores.
+### Conclusión
+
+Hasta aquí mis primeras pruebas con GitHub Copilot. La primera impresión ha sido clara: **no quiero dejar de usarlo**.
+
+Es una herramienta que acelera la productividad de forma notable, especialmente para tareas repetitivas como definir recursos de infraestructura en Azure. Aun así, es fundamental conocer la tecnología que se está usando: Copilot sugiere, pero tú revisas, adaptas y corriges.
+
+¿Lo has probado ya? Cuéntame tu experiencia en los comentarios.

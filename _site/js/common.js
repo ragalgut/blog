@@ -38,6 +38,8 @@ document.addEventListener("DOMContentLoaded", function() {
   if (dropdownToggle) {
     dropdownToggle.addEventListener("click", function(e) {
       e.preventDefault();
+      const parentItem = this.closest(".nav__item--has-dropdown");
+      parentItem.classList.toggle("is-open");
     });
   }
 

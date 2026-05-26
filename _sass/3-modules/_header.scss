@@ -227,12 +227,17 @@
     transform: none;
     box-shadow: none;
     border: none;
-    border-left: 2px solid var(--brand-color);
     opacity: 1;
     visibility: visible;
-    display: block;
     padding: 0 0 0 16px;
     margin-top: 4px;
+    display: none;
+  }
+}
+
+@media only screen and (max-width: $desktop) {
+  .nav__item--has-dropdown.is-open .nav__dropdown {
+    display: block;
   }
 }
 

@@ -50,6 +50,7 @@ layout: default
             <div class="post__meta-bottom">
               <a class="post__author" href="{{site.baseurl}}/about/">{{site.author.author__name}}</a>
               <time class="post__date" datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date_to_string }}</time>
+              <span class="post__reading-time">{% assign words = page.content | number_of_words %}{% assign reading_time = words | divided_by: 200 %}{% if reading_time == 0 %}1{% else %}{{ reading_time }}{% endif %} min de lectura</span>
             </div>
           </div>
   

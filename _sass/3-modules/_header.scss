@@ -235,12 +235,6 @@
   }
 }
 
-@media only screen and (max-width: $desktop) {
-  .nav__item--has-dropdown.is-open .nav__dropdown {
-    display: block;
-  }
-}
-
 .nav__dropdown-link {
   display: block;
   padding: 10px 20px;

@@ -36,10 +36,14 @@ document.addEventListener("DOMContentLoaded", function() {
   // Dropdown toggle en móvil
   const dropdownToggle = document.querySelector(".nav__link--dropdown");
   if (dropdownToggle) {
+    const dropdown = dropdownToggle.nextElementSibling;
     dropdownToggle.addEventListener("click", function(e) {
       e.preventDefault();
-      const parentItem = this.closest(".nav__item--has-dropdown");
-      parentItem.classList.toggle("is-open");
+      if (dropdown.style.display === "block") {
+        dropdown.style.display = "none";
+      } else {
+        dropdown.style.display = "block";
+      }
     });
   }
 

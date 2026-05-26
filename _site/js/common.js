@@ -37,14 +37,11 @@ document.addEventListener("DOMContentLoaded", function() {
   const dropdownToggle = document.querySelector(".nav__link--dropdown");
   if (dropdownToggle) {
     dropdownToggle.addEventListener("click", function(e) {
-      const isMobile = window.innerWidth <= 1024;
-      if (isMobile) {
-        e.preventDefault();
-        const dropdown = this.nextElementSibling;
-        dropdown.classList.toggle("is-open");
-        const expanded = this.getAttribute("aria-expanded") === "true";
-        this.setAttribute("aria-expanded", !expanded);
-      }
+      e.preventDefault();
+      const dropdown = this.nextElementSibling;
+      dropdown.classList.toggle("is-open");
+      const expanded = this.getAttribute("aria-expanded") === "true";
+      this.setAttribute("aria-expanded", String(!expanded));
     });
   }
 

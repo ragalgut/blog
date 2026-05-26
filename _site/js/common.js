@@ -166,4 +166,17 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   });
 
+
+  /* =======================
+  // Reading Progress Bar
+  ======================= */
+  const progressBar = document.querySelector('.reading-progress__bar');
+  if (progressBar) {
+    window.addEventListener('scroll', function() {
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      progressBar.style.width = (docHeight > 0 ? (scrollTop / docHeight) * 100 : 0) + '%';
+    });
+  }
+
 });

@@ -1,7 +1,7 @@
 #-------------------------------
 # Site Settings
-title: Ragalgut
-logo: # You can add own logo. For example '/images/logo.png'.
+title: ragalgut
+logo: '/images/logo.svg'
 description: Un espacio para compartir conocimientos técnicos relacionados con la tecnología.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://ragalgut.me" # the base hostname & protocol for your site, e.g. http://example.com

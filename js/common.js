@@ -38,10 +38,6 @@ document.addEventListener("DOMContentLoaded", function() {
   if (dropdownToggle) {
     dropdownToggle.addEventListener("click", function(e) {
       e.preventDefault();
-      const dropdown = this.nextElementSibling;
-      dropdown.classList.toggle("is-open");
-      const expanded = this.getAttribute("aria-expanded") === "true";
-      this.setAttribute("aria-expanded", String(!expanded));
     });
   }
 

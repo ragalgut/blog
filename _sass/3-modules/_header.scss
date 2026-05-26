@@ -227,14 +227,12 @@
     transform: none;
     box-shadow: none;
     border: none;
+    border-left: 2px solid var(--brand-color);
     opacity: 1;
     visibility: visible;
-    padding: 0;
-    display: none;
-
-    &.is-open {
-      display: block;
-    }
+    display: block;
+    padding: 0 0 0 16px;
+    margin-top: 4px;
   }
 }
 

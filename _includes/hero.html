@@ -17,7 +17,7 @@
               {% for social in site.social %}
               <li class="social__item">
                 <a class="social__link" href="{{social.link}}" target="_blank" rel="noopener"
-                  aria-label="{{social.label}} link"><i class="ion {{social.icon}}"></i></a>
+                  aria-label="{{social.label}} link">{% if social.icon == 'ion-logo-twitter' %}<svg class="social__x-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.737-8.835L1.254 2.25H8.08l4.253 5.622 5.911-5.622Zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>{% else %}<i class="ion {{social.icon}}"></i>{% endif %}</a>
               </li>
               {% endfor %}
             </ul>

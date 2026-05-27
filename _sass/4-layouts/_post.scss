@@ -182,10 +182,15 @@
     text-transform: capitalize;
     border: none;
     border-radius: 8px;
-    color: var(--heading-font-color);
-    transition: none;
+    color: var(--brand-color);
+    transition: background-color .2s ease, color .2s ease;
     background-color: var(--background-alt-color);
   
+    &:hover {
+      background-color: var(--brand-color);
+      color: #fff;
+    }
+
     &:last-child {
       margin-right: 0;
     }
@@ -344,10 +349,19 @@
       will-change: transform;
     }
 
+    .share__x-icon {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+      transition: transform .25s;
+      will-change: transform;
+    }
+
     &:hover {
       color: var(--heading-font-color);
 
-      i {
+      i,
+      .share__x-icon {
         transform: scale(1.1);
       }
     }

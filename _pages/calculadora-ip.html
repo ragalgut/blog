@@ -1,0 +1,102 @@
+---
+layout: page
+title: "Calculadora IP: subredes IPv4, IPv6 y VLSM"
+heading: Calculadora de subredes.
+eyebrow: Herramientas / Redes
+description: Calculadora de subredes IPv4 e IPv6 con CIDR, máscaras, VLSM, reservas de Azure y AWS, detección de solapamientos y agregación de redes. Sin enviar tus IP.
+intro: Calcula una red, planifica sus subredes y comprueba cómo encajan. IPv4, IPv6 y perfiles cloud, en tu navegador.
+focus_keyphrase: calculadora de subredes IP
+keywords: [calculadora IPv4, calculadora IPv6, direccionamiento IP, subnetting, CIDR, VLSM, subredes Azure, subredes AWS, solapamiento de redes]
+permalink: /calculadora-ip/
+tool_id: ip-addressing
+---
+<div class="ip-tool" data-ip-tool hidden>
+  <div class="ip-toolbar"><span class="ip-local"><span aria-hidden="true">●</span> Cálculo local · Sin enviar tus IP</span><a href="#ip-guide">Guía rápida <span aria-hidden="true">↓</span></a></div>
+  <div class="ip-tabs" role="tablist" aria-label="Funciones de direccionamiento IP">
+    <button id="ip-tab-calc" type="button" role="tab" aria-selected="true" aria-controls="ip-panel-calc" data-ip-tab="calc">Calculadora IP</button>
+    <button id="ip-tab-vlsm" type="button" role="tab" aria-selected="false" aria-controls="ip-panel-vlsm" tabindex="-1" data-ip-tab="vlsm">Planificador VLSM</button>
+    <button id="ip-tab-compare" type="button" role="tab" aria-selected="false" aria-controls="ip-panel-compare" tabindex="-1" data-ip-tab="compare">Comparar redes</button>
+  </div>
+  <section id="ip-panel-calc" role="tabpanel" aria-labelledby="ip-tab-calc" data-ip-panel="calc">
+    <div class="ip-panel-heading"><h2>Calcula tu red.</h2><p>Introduce una IP, una máscara o un CIDR completo. Se detecta IPv4 o IPv6 automáticamente.</p></div>
+    <form id="ip-calc-form" class="ip-form" novalidate>
+      <div class="ip-field ip-field--address"><label for="ip-address">Dirección IP o CIDR</label><input id="ip-address" type="text" value="192.168.1.42" placeholder="192.168.1.42 o 2001:db8::1/64" autocomplete="off" autocapitalize="none" spellcheck="false" aria-describedby="ip-input-hint ip-calc-error" maxlength="160" required></div>
+      <div class="ip-field"><label for="ip-mask">Prefijo o máscara</label><input id="ip-mask" type="text" value="/24" placeholder="/24 o 255.255.255.0" autocomplete="off" spellcheck="false" aria-describedby="ip-input-hint" maxlength="18"></div>
+      <div class="ip-field"><label for="ip-profile">Perfil de hosts</label><select id="ip-profile"><option value="standard">Estándar</option><option value="azure">Azure IPv4</option><option value="aws">AWS IPv4</option></select></div>
+      <button class="button button--primary" type="submit">Calcular <span aria-hidden="true">→</span></button>
+      <p class="ip-input-hint" id="ip-input-hint">Si pegas un CIDR completo, se utiliza su prefijo. También admite máscaras decimales en IPv4.</p>
+    </form>
+    <div class="ip-examples" aria-label="Ejemplos de cálculo"><span>Prueba:</span><button type="button" data-ip-example="private">IPv4 privada</button><button type="button" data-ip-example="ipv6">IPv6 /64</button><button type="button" data-ip-example="point">Enlace /31</button><button type="button" data-ip-example="azure">Azure /27</button></div>
+    <p id="ip-calc-error" class="ip-error" role="alert" hidden></p>
+    <p id="ip-calc-pending" class="ip-note" hidden>Los datos han cambiado. Pulsa «Calcular» para actualizar el resultado.</p>
+    <div id="ip-calc-result" hidden>
+      <section class="ip-result" aria-labelledby="ip-network-title">
+        <div class="ip-result-heading"><div><p class="home-eyebrow" id="ip-result-family">RED NORMALIZADA</p><h3 id="ip-network-title"></h3></div><button id="ip-copy-result" class="button" type="button">Copiar resumen</button></div>
+        <dl class="ip-stats" id="ip-stats"></dl>
+        <p id="ip-address-note" class="ip-note"></p>
+        <dl class="ip-facts" id="ip-facts"></dl>
+        <p id="ip-policy-note" class="ip-policy-note"></p>
+        <details class="ip-binary-details"><summary>Ver direcciones en binario</summary><p class="ip-binary-legend"><span>Bits de red</span> · Bits de host en gris</p><div id="ip-binary"></div></details>
+      </section>
+      <section class="ip-split" aria-labelledby="ip-split-title">
+        <div class="ip-section-heading"><div><h3 id="ip-split-title">Divide esta red.</h3><p>Subredes del mismo tamaño, con el perfil de hosts seleccionado.</p></div><form id="ip-split-form" class="ip-inline-form" novalidate><div class="ip-field"><label for="ip-split-prefix">Nuevo prefijo</label><input id="ip-split-prefix" type="number" min="24" max="32" value="26" inputmode="numeric" aria-describedby="ip-split-error"></div><button class="button" type="submit">Dividir</button></form></div>
+        <p id="ip-split-error" class="ip-error" role="alert" hidden></p>
+        <div id="ip-split-result" hidden>
+          <p id="ip-split-count" class="ip-note"></p>
+          <div class="ip-table-wrap" role="region" aria-label="Subredes calculadas, desplazamiento horizontal disponible" tabindex="0"><table class="ip-table"><caption class="visually-hidden">Subredes del mismo tamaño</caption><thead><tr><th scope="col">N.º</th><th scope="col">Red / CIDR</th><th scope="col" id="ip-split-first-label">Primer host</th><th scope="col" id="ip-split-last-label">Último host</th><th scope="col" id="ip-split-capacity-label">Hosts</th></tr></thead><tbody id="ip-split-rows"></tbody></table></div>
+          <div class="ip-pagination"><button id="ip-split-prev" class="button" type="button" aria-label="Página anterior de subredes">← Anterior</button><span id="ip-split-page"></span><button id="ip-split-next" class="button" type="button" aria-label="Página siguiente de subredes">Siguiente →</button></div>
+          <div class="ip-actions"><button id="ip-copy-subnets" class="button" type="button">Copiar esta página</button><button id="ip-export-subnets" class="button" type="button">CSV de esta página</button></div>
+        </div>
+      </section>
+    </div>
+  </section>
+  <section id="ip-panel-vlsm" role="tabpanel" aria-labelledby="ip-tab-vlsm" data-ip-panel="vlsm" hidden>
+    <div class="ip-panel-heading"><h2>De los hosts al plan.</h2><p>Indica cuántos hosts necesitas en cada subred. El plan asigna primero las redes más grandes, sin solapamientos.</p></div>
+    <form id="ip-vlsm-form" novalidate>
+      <div class="ip-vlsm-base"><div class="ip-field"><label for="ip-vlsm-network">Red base IPv4 / CIDR</label><input id="ip-vlsm-network" type="text" value="10.20.0.0/24" autocomplete="off" spellcheck="false" maxlength="160" aria-describedby="ip-vlsm-error"></div><div class="ip-field"><label for="ip-vlsm-profile">Perfil de hosts</label><select id="ip-vlsm-profile"><option value="standard">Estándar · LAN</option><option value="azure">Azure IPv4</option><option value="aws">AWS IPv4</option></select></div></div>
+      <fieldset class="ip-requests"><legend>Necesidades de cada subred</legend><div id="ip-vlsm-requests"></div><button id="ip-vlsm-add" class="button" type="button">+ Añadir subred</button></fieldset>
+      <p class="ip-note">Planificación LAN: mínimo /30 en estándar, /29 en Azure y /28 en AWS. Para enlaces /31 o direcciones /32, usa la calculadora.</p>
+      <button class="button button--primary" type="submit">Crear plan <span aria-hidden="true">→</span></button>
+    </form>
+    <p id="ip-vlsm-error" class="ip-error" role="alert" hidden></p>
+    <p id="ip-vlsm-pending" class="ip-note" hidden>Los datos han cambiado. Pulsa «Crear plan» para actualizar las asignaciones.</p>
+    <section id="ip-vlsm-result" class="ip-vlsm-result" aria-labelledby="ip-vlsm-result-title" hidden>
+      <div class="ip-section-heading"><div><p class="home-eyebrow">PLAN DE DIRECCIONAMIENTO</p><h3 id="ip-vlsm-result-title"></h3></div><div class="ip-actions"><button id="ip-copy-vlsm" class="button" type="button">Copiar plan</button><button id="ip-export-vlsm" class="button" type="button">Exportar CSV</button></div></div>
+      <p id="ip-vlsm-summary" class="ip-note"></p>
+      <div id="ip-vlsm-map" class="ip-vlsm-map"></div>
+      <ul id="ip-vlsm-legend" class="ip-map-legend"></ul>
+      <div class="ip-table-wrap" role="region" aria-label="Plan de subredes VLSM, desplazamiento horizontal disponible" tabindex="0"><table class="ip-table"><caption class="visually-hidden">Plan de subredes según la demanda de hosts</caption><thead><tr><th scope="col">Subred</th><th scope="col">Red / CIDR</th><th scope="col">Hosts pedidos</th><th scope="col">Hosts disponibles</th><th scope="col">Primer host</th><th scope="col">Último host</th></tr></thead><tbody id="ip-vlsm-rows"></tbody></table></div>
+      <div class="ip-free"><h3>Espacio libre</h3><p id="ip-vlsm-free-note" class="ip-note"></p><ul id="ip-vlsm-free" class="ip-cidr-list"></ul></div>
+    </section>
+  </section>
+  <section id="ip-panel-compare" role="tabpanel" aria-labelledby="ip-tab-compare" data-ip-panel="compare" hidden>
+    <div class="ip-panel-heading"><h2>Comprueba cómo encajan.</h2><p>Detecta solapamientos y agrupa redes contiguas sin añadir direcciones que no estén en la lista.</p></div>
+    <form id="ip-compare-form" novalidate><div class="ip-field"><label for="ip-networks">Redes IPv4 o IPv6, una por línea</label><textarea id="ip-networks" rows="6" maxlength="22000" autocomplete="off" autocapitalize="none" spellcheck="false" aria-describedby="ip-compare-hint ip-compare-error">10.0.0.0/25
+10.0.0.128/25
+10.0.0.64/26</textarea><p id="ip-compare-hint" class="ip-note">Hasta 128 redes. Una IP sin prefijo se interpreta como /32 o /128. IPv4 e IPv6 se comparan por separado.</p></div><button class="button button--primary" type="submit">Comparar y agrupar <span aria-hidden="true">→</span></button></form>
+    <p id="ip-compare-error" class="ip-error" role="alert" hidden></p>
+    <p id="ip-compare-pending" class="ip-note" hidden>La lista ha cambiado. Pulsa «Comparar y agrupar» para actualizar el resultado.</p>
+    <section id="ip-compare-result" class="ip-compare-result" aria-labelledby="ip-compare-title" hidden>
+      <h3 id="ip-compare-title">Resultado de la comparación</h3>
+      <p id="ip-compare-summary" class="ip-compare-summary"></p>
+      <div class="ip-section-heading"><div><h3>Agregación exacta</h3><p>El conjunto mínimo de CIDR que conserva todas las direcciones de entrada, sin incorporar huecos.</p></div><button id="ip-copy-aggregate" class="button" type="button">Copiar lista CIDR</button></div>
+      <ul id="ip-aggregate-list" class="ip-cidr-list"></ul>
+      <details class="ip-normalized"><summary>Ver redes de entrada normalizadas</summary><ol id="ip-normalized-list"></ol></details>
+      <div id="ip-overlaps" hidden><h3>Redes que se solapan</h3><p id="ip-overlap-count" class="ip-note"></p><div class="ip-table-wrap" role="region" aria-label="Solapamientos entre redes, desplazamiento horizontal disponible" tabindex="0"><table class="ip-table"><caption class="visually-hidden">Pares de redes que comparten direcciones</caption><thead><tr><th scope="col">Líneas</th><th scope="col">Primera red</th><th scope="col">Segunda red</th><th scope="col">Relación</th></tr></thead><tbody id="ip-overlap-rows"></tbody></table></div></div>
+    </section>
+  </section>
+  <p class="ip-status" id="ip-status" role="status" aria-live="polite" aria-atomic="true"></p>
+</div>
+<noscript><p class="tool-notice">Activa JavaScript para utilizar la calculadora de subredes en tu navegador. Tus direcciones no se envían a un servidor.</p></noscript>
+<section class="tool-explanation" id="ip-guide" aria-labelledby="ip-guide-title"><h2 id="ip-guide-title">Una guía rápida para elegir bien.</h2><div class="tool-facts">
+  <div><span class="home-eyebrow">01 / Calcular</span><h3>IP, máscara y CIDR</h3><p>Una /24 IPv4 tiene 256 direcciones. En una LAN estándar quedan 254 hosts tras excluir red y broadcast. Una /31 punto a punto y una /32 se tratan de forma distinta.</p></div>
+  <div><span class="home-eyebrow">02 / Planificar</span><h3>El tamaño que necesitas</h3><p>VLSM adapta cada bloque a su demanda. El perfil cloud descuenta las reservas del proveedor. El mapa muestra espacio asignado a subredes, no hosts ocupados.</p></div>
+  <div><span class="home-eyebrow">03 / Comprobar</span><h3>Sin solapamientos ni huecos</h3><p>Comprueba un plan antes de conectar redes. La agregación elimina duplicados y bloques contenidos, y une redes solo cuando puede representar exactamente el mismo espacio.</p></div>
+</div></section>
+<section class="tool-explanation prose" aria-labelledby="ip-criteria"><h2 id="ip-criteria">Criterios del cálculo</h2><ul>
+  <li><strong>IPv4 estándar:</strong> se excluyen red y broadcast hasta /30. En /31 se muestran los dos hosts para enlaces punto a punto; /32 representa una dirección.</li>
+  <li><strong>Azure y AWS IPv4:</strong> los perfiles descuentan las primeras cuatro direcciones y la última. Azure admite aquí /2–/29 y AWS /16–/28, según sus límites de subred.</li>
+  <li><strong>IPv6:</strong> admite prefijos /0–/128 y muestra el tamaño y los límites exactos del bloque. No hay broadcast. Las reservas de anycast y las restricciones de los proveedores requieren revisar el caso concreto.</li>
+  <li><strong>La clasificación es orientativa:</strong> identifica algunos rangos de uso especial de la IP introducida. No comprueba conectividad, disponibilidad pública, asignaciones de IANA ni políticas de un despliegue.</li>
+  <li><strong>Privacidad:</strong> esta página no carga analítica, no envía tus redes ni guarda un historial. Solo se copian o exportan resultados cuando pulsas sus botones.</li>
+</ul><p>Referencias: <a href="https://www.rfc-editor.org/rfc/rfc3021">RFC 3021 · Enlaces /31</a>, <a href="https://www.rfc-editor.org/rfc/rfc4291">RFC 4291 · IPv6</a>, <a href="https://learn.microsoft.com/en-us/azure/virtual-network/virtual-networks-faq#are-there-any-restrictions-on-using-ip-addresses-within-these-subnets">reservas de Azure</a> y <a href="https://docs.aws.amazon.com/vpc/latest/userguide/subnet-sizing.html">subredes de AWS</a>.</p></section>

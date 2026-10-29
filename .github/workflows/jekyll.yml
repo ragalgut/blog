@@ -29,8 +29,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Probar el generador
-        run: node --test tests/password-core.test.mjs
+      - name: Probar las herramientas
+        run: node --test tests/*.test.mjs
       - name: Probar artículos relacionados
         run: bundle exec ruby tests/related-posts_test.rb
       - name: Configurar Pages

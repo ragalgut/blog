@@ -4,3 +4,12 @@
   description: Crea contraseñas aleatorias con la longitud y los caracteres que necesites.
   note: Se genera en tu navegador
   script: /assets/js/password-generator.js
+  action: Abrir generador
+- id: ip-addressing
+  title: Calculadora de subredes IP
+  url: /calculadora-ip/
+  description: Calcula IPv4 e IPv6, planifica subredes VLSM y detecta solapamientos. Con perfiles de Azure y AWS.
+  note: Cálculo local · IPv4 e IPv6
+  script: /assets/js/ip-addressing.js
+  icon: network
+  action: Abrir calculadora

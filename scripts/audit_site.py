@@ -43,7 +43,7 @@ class Page(HTMLParser):
             if attrs.get('name') == 'description': self.descriptions.append(attrs.get('content', ''))
             if attrs.get('name') == 'robots' and 'noindex' in attrs.get('content', ''): self.noindex = True
             if attrs.get('http-equiv', '').lower() == 'content-security-policy': self.csp = attrs.get('content', '')
-        if 'data-password-tool' in attrs: self.tool = True
+        if 'data-password-tool' in attrs or 'data-ip-tool' in attrs: self.tool = True
         if tag == 'link' and attrs.get('rel') == 'canonical': self.canonicals.append(attrs.get('href', ''))
         if attrs.get('id'): self.ids.append(attrs['id'])
         for key in ['aria-labelledby', 'aria-describedby', 'aria-controls']:

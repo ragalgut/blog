@@ -1,6 +1,6 @@
 {% assign tool_heading = include.heading | default: 3 %}
 <article class="tool-card">
-  <div class="tool-card__icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="9" r="5"/><path d="m11.5 12.5 8 8 2-2-2-2 1.5-1.5-2-2-1.5 1.5-3-3"/><circle cx="6.5" cy="7.5" r=".7" fill="currentColor" stroke="none"/></svg></div>
+  <div class="tool-card__icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">{% if tool.icon == 'network' %}<rect x="8" y="2" width="8" height="6" rx="1"/><rect x="2" y="16" width="7" height="6" rx="1"/><rect x="15" y="16" width="7" height="6" rx="1"/><path d="M12 8v4M5.5 16v-4h13v4"/>{% else %}<circle cx="8" cy="9" r="5"/><path d="m11.5 12.5 8 8 2-2-2-2 1.5-1.5-2-2-1.5 1.5-3-3"/><circle cx="6.5" cy="7.5" r=".7" fill="currentColor" stroke="none"/>{% endif %}</svg></div>
   <div class="tool-card__copy"><p class="home-eyebrow">{{ tool.note }}</p><h{{ tool_heading }}><a href="{{ tool.url | relative_url }}">{{ tool.title }}</a></h{{ tool_heading }}><p>{{ tool.description }}</p></div>
-  <a class="button" href="{{ tool.url | relative_url }}">Abrir generador <span aria-hidden="true">↗</span></a>
+  <a class="button" href="{{ tool.url | relative_url }}">{{ tool.action | default: 'Abrir herramienta' }} <span aria-hidden="true">↗</span></a>
 </article>

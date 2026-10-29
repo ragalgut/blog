@@ -93,7 +93,7 @@ Usa `relative_url` para los recursos locales. Las canónicas y los datos sociale
 ```sh
 JEKYLL_ENV=production bundle exec jekyll build
 python3 scripts/audit_site.py _site
-node --test tests/password-core.test.mjs
+node --test tests/*.test.mjs
 ```
 
 Las pruebas de JavaScript requieren Node.js 22 o superior. La auditoría revisa títulos y descripciones únicos, una canónica y un H1 por página, jerarquía de encabezados, identificadores, alt y dimensiones de imágenes, enlaces y anclas internos, JSON-LD, índice de búsqueda, sitemap y feed. No sustituye la revisión editorial ni la comprobación de servicios externos.
@@ -135,7 +135,19 @@ El campo opcional `gallery` añade capturas ampliables de escritorio y móvil. C
 
 Añade a `_data/clients.yml` únicamente marcas reales que puedas mostrar, con el logo original y sus dimensiones. El bloque aparece al final de inicio y del listado de proyectos.
 
-El catálogo de herramientas está en `_data/tools.yml`; cada herramienta enlaza su página y su módulo de interacción. Por ahora solo incluye el generador de contraseñas.
+El catálogo de herramientas está en `_data/tools.yml`; cada entrada define su página, módulo, texto de apertura y, opcionalmente, icono. Incluye el generador de contraseñas y la calculadora IP. La portada, el menú y el listado se actualizan desde ese catálogo.
+
+## Calculadora de subredes IP
+
+`/calculadora-ip/` admite IPv4 e IPv6, prefijos CIDR y máscaras decimales IPv4. `assets/js/ip-core.mjs` contiene la lógica sin acceso al DOM; `ip-addressing.js` gestiona formularios, tablas, portapapeles y CSV. Los cálculos usan enteros exactos y no envían ni persisten direcciones. La página no carga analítica y aplica la política de recursos locales de las herramientas.
+
+- La calculadora trata /31 IPv4 como punto a punto y /32 como ruta de host. IPv6 muestra límites y tamaño del bloque, sin equipararlos a hosts asignables.
+- Los perfiles IPv4 de Azure y AWS descuentan cinco direcciones y respetan los límites documentados de prefijo. No validan las políticas de despliegue de cada servicio ni excepciones como BYOIP.
+- La división uniforme calcula solo 16 subredes por página, incluso para bloques IPv6 muy grandes. La exportación indica expresamente que corresponde a esa página.
+- VLSM admite 1–32 demandas IPv4, asigna de mayor a menor y devuelve el espacio libre como CIDR exactos. El mínimo estándar es /30 para LAN; los enlaces /31 se calculan en la primera pestaña.
+- La comparación acepta hasta 128 redes, separa familias y muestra hasta 100 pares solapados. La agregación conserva exactamente el espacio de entrada, sin incluir huecos.
+
+Los CSV incluyen los datos calculados y neutralizan los nombres que podrían interpretarse como fórmulas. Las pruebas de `tests/ip-core.test.mjs` cubren límites, máscaras inválidas, IPv6, reservas cloud, paginación, VLSM, agregación y exportación. GitHub Actions ejecuta todas las pruebas de herramientas antes de publicar.
 
 ## Imagen para compartir la portada
 

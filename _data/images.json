@@ -490,6 +490,21 @@
       }
     ]
   },
+  "/images/badges/azure-ai-apps-agents-developer-associate.webp": {
+    "width": 800,
+    "height": 800,
+    "fallback": "/images/responsive/badges/azure-ai-apps-agents-developer-associate-200.webp",
+    "variants": [
+      {
+        "src": "/images/responsive/badges/azure-ai-apps-agents-developer-associate-100.webp",
+        "width": 100
+      },
+      {
+        "src": "/images/responsive/badges/azure-ai-apps-agents-developer-associate-200.webp",
+        "width": 200
+      }
+    ]
+  },
   "/images/badges/azure-devops-engineer.png": {
     "width": 600,
     "height": 600,
@@ -535,6 +550,21 @@
       }
     ]
   },
+  "/images/badges/claude-certified-architect-foundations.webp": {
+    "width": 604,
+    "height": 604,
+    "fallback": "/images/responsive/badges/claude-certified-architect-foundations-200.webp",
+    "variants": [
+      {
+        "src": "/images/responsive/badges/claude-certified-architect-foundations-100.webp",
+        "width": 100
+      },
+      {
+        "src": "/images/responsive/badges/claude-certified-architect-foundations-200.webp",
+        "width": 200
+      }
+    ]
+  },
   "/images/badges/github-foundations-certification.webp": {
     "width": 1024,
     "height": 1024,
@@ -561,6 +591,21 @@
       },
       {
         "src": "/images/responsive/badges/google-cloud-engineer-associate-200.webp",
+        "width": 200
+      }
+    ]
+  },
+  "/images/badges/microsoft-certified-trainer-2026.webp": {
+    "width": 680,
+    "height": 680,
+    "fallback": "/images/responsive/badges/microsoft-certified-trainer-2026-200.webp",
+    "variants": [
+      {
+        "src": "/images/responsive/badges/microsoft-certified-trainer-2026-100.webp",
+        "width": 100
+      },
+      {
+        "src": "/images/responsive/badges/microsoft-certified-trainer-2026-200.webp",
         "width": 200
       }
     ]

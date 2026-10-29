@@ -16,7 +16,20 @@
       </div>
     </div>
   </div>
-  <div class="home-portrait">
-    {% include responsive-image.html src=site.author.avatar alt=site.author.name width=192 height=192 sizes='(max-width: 580px) 150px, (max-width: 820px) 170px, 192px' loading='eager' priority='high' %}
+  <div class="home-intro__profile">
+    <div class="home-portrait">
+      {% include responsive-image.html src=site.author.avatar alt=site.author.name width=192 height=192 sizes='(max-width: 580px) 150px, (max-width: 820px) 170px, 192px' loading='eager' priority='high' %}
+    </div>
+    {% assign featured_credential = site.data.certifications | where: 'featured_home', true | first %}
+    {% if featured_credential %}
+    <a class="home-credential" href="{{ featured_credential.url | escape }}" target="_blank" rel="noopener noreferrer" aria-label="Verificar {{ featured_credential.name | escape }} (abre en otra pestaña)">
+      {% include responsive-image.html src=featured_credential.image alt='' width=56 height=56 sizes='56px' loading='eager' %}
+      <span class="home-credential__copy">
+        <span class="home-credential__year">MCT · {{ featured_credential.year }}</span>
+        <span class="home-credential__name">{{ featured_credential.short_name | escape }}</span>
+        <span class="home-credential__verify">Ver credencial <span aria-hidden="true">↗</span></span>
+      </span>
+    </a>
+    {% endif %}
   </div>
 </section>

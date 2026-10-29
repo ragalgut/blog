@@ -1,0 +1,67 @@
+- id: mct-2026
+  name: Microsoft Certified Trainer (MCT) 2026
+  short_name: Microsoft Certified Trainer
+  year: 2026
+  featured_home: true
+  image: /images/badges/microsoft-certified-trainer-2026.webp
+  url: https://www.credly.com/badges/7e13ce5d-5918-4891-9e8e-515e5660e765
+
+- id: claude-architect-foundations
+  name: Claude Certified Architect - Foundations
+  image: /images/badges/claude-certified-architect-foundations.webp
+  url: https://www.credly.com/badges/9ea8f3e7-6eed-44c5-9aa0-28960878f177
+
+- id: azure-ai-apps-agents-developer
+  name: "Microsoft Certified: Azure AI Apps and Agents Developer Associate"
+  image: /images/badges/azure-ai-apps-agents-developer-associate.webp
+  url: https://learn.microsoft.com/api/credentials/share/es-es/ragalgut/CFB245A9E609149A?sharingId=F553C2C92E8AC757
+
+- id: azure-administrator
+  name: Azure Administrator Associate
+  image: /images/badges/azure-administrator-associate.png
+  url: https://learn.microsoft.com/api/credentials/share/es-es/ragalgut/E0BE56E50D89A278?sharingId=F553C2C92E8AC757
+
+- id: azure-solutions-architect
+  name: Azure Solutions Architect Expert
+  image: /images/badges/azure-solutions-architect-expert.png
+  url: https://learn.microsoft.com/api/credentials/share/es-es/ragalgut/BCF2B417E015E62B?sharingId=F553C2C92E8AC757
+
+- id: azure-network-engineer
+  name: Azure Network Engineer Associate
+  image: /images/badges/azure-network-engineer.png
+  url: https://learn.microsoft.com/api/credentials/share/es-es/ragalgut/1832D350990C343C?sharingId=F553C2C92E8AC757
+
+- id: azure-devops-engineer
+  name: Azure DevOps Engineer Expert
+  image: /images/badges/azure-devops-engineer.png
+  url: https://learn.microsoft.com/api/credentials/share/es-es/ragalgut/FA07B846333466E4?sharingId=F553C2C92E8AC757
+
+- id: terraform-associate
+  name: HashiCorp Terraform Associate
+  image: /images/badges/terraform-associate-003.png
+  url: https://www.credly.com/badges/684d6822-155c-4ce5-ac24-5be192c5961c/public_url
+
+- id: microsoft365-fundamentals
+  name: Microsoft 365 Fundamentals
+  image: /images/badges/microsoft365-fundamentals.png
+  url: https://learn.microsoft.com/api/credentials/share/es-es/ragalgut/5609ABCDF9D1F9E4?sharingId=F553C2C92E8AC757
+
+- id: google-cloud-engineer
+  name: Associate Cloud Engineer
+  image: /images/badges/google-cloud-engineer-associate.png
+  url: https://www.credly.com/badges/8c0d581d-9c37-4ba5-8a6d-f58e88a12c70/public_url
+
+- id: github-foundations
+  name: GitHub Foundations
+  image: /images/badges/github-foundations-certification.webp
+  url: https://www.credly.com/badges/a21d88a0-d39a-471e-aa2a-60fde054a92b/public_url
+
+- id: architect-professional-development
+  name: L1 Architect – Professional Development
+  image: /images/badges/open-group-professional-development-l1.png
+  url: https://www.credly.com/badges/24ea5ed6-36fe-4477-b3a3-8b6513f6d4e4/public_url
+
+- id: architect-professional-communication
+  name: L1 Architect – Professional Communication
+  image: /images/badges/open-group-professional-communication-l1.png
+  url: https://www.credly.com/badges/f7672e80-21b7-4d40-a36c-af25d325e7fa/public_url

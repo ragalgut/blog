@@ -22,6 +22,7 @@ Abre http://127.0.0.1:4000/. Los cambios en `_config.yml` y los plugins requiere
 - `_data/topics.yml`: las tres familias editoriales y sus descripciones.
 - `_projects/`: fichas de proyectos, con su propia colección y URLs.
 - `_data/clients.yml` y `_data/tools.yml`: marcas del bloque de clientes y catálogo de herramientas.
+- `_data/certifications.yml`: credenciales de Acerca de y la destacada en la cabecera de inicio.
 - `_plugins/related-posts.rb`: selección de artículos por tecnologías compartidas, tema y fecha.
 - `_posts/` e `images/`: artículos y medios.
 - `scripts/` y `tests/`: auditoría del sitio generado y pruebas del generador.
@@ -76,6 +77,8 @@ editorial_review:
 ```
 
 El contacto profesional de Acerca de y del pie utiliza el enlace de LinkedIn definido en `_config.yml`.
+
+Las certificaciones se mantienen en `_data/certifications.yml`, con su nombre, imagen y enlace público de verificación. La entrada con `featured_home: true` aparece también junto al retrato de la portada; incluye `short_name` y `year` para ese bloque. Al renovar el MCT, actualiza esa misma entrada y su insignia.
 
 Usa imágenes WebP o SVG, con texto alternativo descriptivo. Indica sus dimensiones reales para reservar espacio durante la carga. En Markdown, coloca los atributos justo después de la imagen:
 

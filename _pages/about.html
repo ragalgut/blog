@@ -3,15 +3,15 @@ layout: page
 title: Rafael Galante, arquitecto de soluciones cloud
 heading: Rafael Galante, arquitecto cloud.
 eyebrow: Acerca de mí
-description: Rafael Galante, arquitecto cloud en Kyndryl especializado en Azure y automatización. Diseño y desarrollo web en WordPress para empresas.
+description: Rafael Galante, arquitecto cloud en Kyndryl y Microsoft Certified Trainer. Azure, automatización y diseño web en WordPress para empresas.
 focus_keyphrase: Rafael Galante arquitecto cloud
-keywords: [arquitecto de soluciones cloud, infraestructura en Azure, automatización DevOps, diseño web en WordPress]
+keywords: [arquitecto de soluciones cloud, infraestructura en Azure, automatización DevOps, diseño web en WordPress, Microsoft Certified Trainer, certificaciones cloud e IA]
 permalink: /acerca-de/
 ---
 
 <div class="about-intro">
   {% include responsive-image.html src=site.author.avatar alt=site.author.name width=180 height=180 class='about-portrait' sizes='(max-width: 580px) 165px, 180px' loading='eager' %}
-  <p>Me llamo <strong>Rafael Galante Gutiérrez</strong>, trabajo como <strong>Arquitecto de Soluciones Cloud en Kyndryl</strong>, especializado en el diseño y despliegue de infraestructura en Azure. Mi trabajo combina la arquitectura de soluciones escalables y seguras con la automatización mediante Terraform y la integración de flujos DevOps.</p>
+  <p>Me llamo <strong>Rafael Galante Gutiérrez</strong>, trabajo como <strong>Arquitecto de Soluciones Cloud en Kyndryl</strong>, especializado en el diseño y despliegue de infraestructura en Azure. Mi trabajo combina la arquitectura de soluciones escalables y seguras con la automatización mediante Terraform y la integración de flujos DevOps. También soy <strong>Microsoft Certified Trainer (MCT) 2026</strong>.</p>
   <p>También <strong>diseño y desarrollo webs en WordPress para empresas</strong>. Me encargo del diseño, la estructura y el desarrollo, adaptando cada web a la actividad y las necesidades del cliente. En <a href="{{ '/proyectos/' | relative_url }}">mis proyectos</a> cuento cómo he abordado trabajos como Moima Patrimonio y Alugan.</p>
   <p>ragalgut.me es un proyecto web basado en Jekyll y alojado en GitHub Pages. Nació con la idea de tener un espacio personal donde compartir proyectos, artículos técnicos y mi experiencia profesional en el mundo de la nube.</p>
 </div>
@@ -74,68 +74,14 @@ permalink: /acerca-de/
   </div>
 </div>
 
-<h2 class="about-section-title">Certificaciones</h2>
+<h2 class="about-section-title" id="certificaciones">Certificaciones</h2>
 
 <div class="about-badges">
-
-  <a class="about-badge" href="https://learn.microsoft.com/api/credentials/share/es-es/ragalgut/E0BE56E50D89A278?sharingId=F553C2C92E8AC757" target="_blank" rel="noopener">
-    {% include responsive-image.html src="/images/badges/azure-administrator-associate.png" alt="Azure Administrator Associate" width=100 height=100 class='about-badge__img' sizes='92px' %}
-    <span class="about-badge__name">Azure Administrator Associate</span>
-    <span class="about-badge__verify">Verificar →</span>
+  {% for certification in site.data.certifications %}
+  <a class="about-badge" href="{{ certification.url | escape }}" target="_blank" rel="noopener noreferrer">
+    {% include responsive-image.html src=certification.image alt=certification.name width=100 height=100 class='about-badge__img' sizes='92px' %}
+    <span class="about-badge__name">{{ certification.name | escape }}</span>
+    <span class="about-badge__verify">Verificar <span aria-hidden="true">↗</span></span>
   </a>
-
-  <a class="about-badge" href="https://learn.microsoft.com/api/credentials/share/es-es/ragalgut/BCF2B417E015E62B?sharingId=F553C2C92E8AC757" target="_blank" rel="noopener">
-    {% include responsive-image.html src="/images/badges/azure-solutions-architect-expert.png" alt="Azure Solutions Architect Expert" width=100 height=100 class='about-badge__img' sizes='92px' %}
-    <span class="about-badge__name">Azure Solutions Architect Expert</span>
-    <span class="about-badge__verify">Verificar →</span>
-  </a>
-
-  <a class="about-badge" href="https://learn.microsoft.com/api/credentials/share/es-es/ragalgut/1832D350990C343C?sharingId=F553C2C92E8AC757" target="_blank" rel="noopener">
-    {% include responsive-image.html src="/images/badges/azure-network-engineer.png" alt="Azure Network Engineer Associate" width=100 height=100 class='about-badge__img' sizes='92px' %}
-    <span class="about-badge__name">Azure Network Engineer Associate</span>
-    <span class="about-badge__verify">Verificar →</span>
-  </a>
-
-  <a class="about-badge" href="https://learn.microsoft.com/api/credentials/share/es-es/ragalgut/FA07B846333466E4?sharingId=F553C2C92E8AC757" target="_blank" rel="noopener">
-    {% include responsive-image.html src="/images/badges/azure-devops-engineer.png" alt="Azure DevOps Engineer Expert" width=100 height=100 class='about-badge__img' sizes='92px' %}
-    <span class="about-badge__name">Azure DevOps Engineer Expert</span>
-    <span class="about-badge__verify">Verificar →</span>
-  </a>
-
-  <a class="about-badge" href="https://www.credly.com/badges/684d6822-155c-4ce5-ac24-5be192c5961c/public_url" target="_blank" rel="noopener">
-    {% include responsive-image.html src="/images/badges/terraform-associate-003.png" alt="HashiCorp Terraform Associate" width=100 height=100 class='about-badge__img' sizes='92px' %}
-    <span class="about-badge__name">HashiCorp Terraform Associate</span>
-    <span class="about-badge__verify">Verificar →</span>
-  </a>
-
-  <a class="about-badge" href="https://learn.microsoft.com/api/credentials/share/es-es/ragalgut/5609ABCDF9D1F9E4?sharingId=F553C2C92E8AC757" target="_blank" rel="noopener">
-    {% include responsive-image.html src="/images/badges/microsoft365-fundamentals.png" alt="Microsoft 365 Fundamentals" width=100 height=100 class='about-badge__img' sizes='92px' %}
-    <span class="about-badge__name">Microsoft 365 Fundamentals</span>
-    <span class="about-badge__verify">Verificar →</span>
-  </a>
-
-  <a class="about-badge" href="https://www.credly.com/badges/8c0d581d-9c37-4ba5-8a6d-f58e88a12c70/public_url" target="_blank" rel="noopener">
-    {% include responsive-image.html src="/images/badges/google-cloud-engineer-associate.png" alt="Associate Cloud Engineer" width=100 height=100 class='about-badge__img' sizes='92px' %}
-    <span class="about-badge__name">Associate Cloud Engineer</span>
-    <span class="about-badge__verify">Verificar →</span>
-  </a>
-
-  <a class="about-badge" href="https://www.credly.com/badges/a21d88a0-d39a-471e-aa2a-60fde054a92b/public_url" target="_blank" rel="noopener">
-    {% include responsive-image.html src="/images/badges/github-foundations-certification.webp" alt="GitHub Foundations" width=100 height=100 class='about-badge__img' sizes='92px' %}
-    <span class="about-badge__name">GitHub Foundations</span>
-    <span class="about-badge__verify">Verificar →</span>
-  </a>
-
-  <a class="about-badge" href="https://www.credly.com/badges/24ea5ed6-36fe-4477-b3a3-8b6513f6d4e4/public_url" target="_blank" rel="noopener">
-    {% include responsive-image.html src="/images/badges/open-group-professional-development-l1.png" alt="L1 Architect - Professional Development" width=100 height=100 class='about-badge__img' sizes='92px' %}
-    <span class="about-badge__name">L1 Architect – Professional Development</span>
-    <span class="about-badge__verify">Verificar →</span>
-  </a>
-
-  <a class="about-badge" href="https://www.credly.com/badges/f7672e80-21b7-4d40-a36c-af25d325e7fa/public_url" target="_blank" rel="noopener">
-    {% include responsive-image.html src="/images/badges/open-group-professional-communication-l1.png" alt="L1 Architect - Professional Communication" width=100 height=100 class='about-badge__img' sizes='92px' %}
-    <span class="about-badge__name">L1 Architect – Professional Communication</span>
-    <span class="about-badge__verify">Verificar →</span>
-  </a>
-
+  {% endfor %}
 </div>

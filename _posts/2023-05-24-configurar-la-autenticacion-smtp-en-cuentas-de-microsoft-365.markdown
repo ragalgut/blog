@@ -1,87 +1,93 @@
 ---
 layout: post
 title:  Configurar la autenticación SMTP en cuentas de Microsoft 365
-description: Te explico cómo habilitar la autenticación SMTP AUTH en cuentas específicas de Microsoft 365, minimizando el riesgo de seguridad.
+description: Configurar SMTP AUTH en Microsoft 365 y Exchange Online con PowerShell. Deshabilita la autenticación global y habilítala solo en las cuentas necesarias.
 date:   2023-05-24 15:01:35 +0300
 image:  '/images/activar-desactivar-smtp.webp'
+seo_title: "SMTP AUTH en Microsoft 365: configuración por cuenta"
+focus_keyphrase: autenticación SMTP en Microsoft 365
+keywords: [SMTP AUTH, Exchange Online, configurar SMTP con PowerShell]
+image_alt: Ilustración de activación y desactivación de SMTP en Microsoft 365
+image_width: 1075
+image_height: 768
 tags:   [Microsoft 365, Exchange Online]
+topic: cloud
+last_modified_at: 2026-10-29 09:06:00 +0100
+editorial_review:
+  date: 2026-10-29
+  note: "Revisión documental de SMTP AUTH, OAuth y configuración por buzón. Los comandos se han contrastado con Microsoft Learn; no se ha realizado una prueba de envío en un tenant."
+  sources:
+    - title: "Microsoft Learn: habilitar o deshabilitar SMTP AUTH"
+      url: https://learn.microsoft.com/en-us/exchange/clients-and-mobile-in-exchange-online/authenticated-client-smtp-submission
+    - title: "Microsoft Learn: autenticación SMTP con OAuth"
+      url: https://learn.microsoft.com/en-us/exchange/client-developer/legacy-protocols/how-to-authenticate-an-imap-pop-smtp-application-by-using-oauth
+    - title: "Microsoft Learn: módulo Exchange Online PowerShell"
+      url: https://learn.microsoft.com/en-us/powershell/exchange/exchange-online-powershell-v2
+    - title: "Exchange Team: calendario de retirada de autenticación básica SMTP AUTH"
+      url: https://techcommunity.microsoft.com/blog/exchange/updated-exchange-online-smtp-auth-basic-authentication-deprecation-timeline/4489835
 ---
 
-**SMTP** es un protocolo usado para el envío y recepción de correos presente en aplicaciones, servidores de correo, impresoras multifuncionales, formularios web, clientes **POP3** e **IMAP4**, etc. El puerto que utiliza es **TCP 587**.
+**SMTP** permite enviar correo. En Exchange Online, SMTP AUTH suele utilizar el puerto TCP 587 y puede autenticarse mediante OAuth; activar el protocolo no obliga a utilizar usuario y contraseña.
 
-Las cuentas de **Microsoft 365** con licencia para **Exchange Online** permiten habilitar la autenticación **SMTP (AUTH SMTP)**, pero solo se recomienda en cuentas que lo requieran, ya que por defecto usan una autenticación más moderna y segura.
+{% include article-toc.html %}
 
-## Tabla de contenidos
-1. [Requisitos y conexión a Exchange Online](#requisitos-para-activar-o-deshabilitar-smtp-y-conexión-a-exchange-online-mediante-powershell)
-2. [Deshabilitar autenticación SMTP globalmente](#deshabilitar-autenticación-smtp-globalmente)
-3. [Habilitar autenticación SMTP en cuentas específicas](#habilitar-autenticación-smtp-en-cuentas-específicas)
+## Objetivo
 
-> Si tienes habilitados los valores predeterminados de seguridad en el tenant de tu empresa, AUTH SMTP está deshabilitado por defecto en todas las cuentas de Microsoft 365.
+Mantener SMTP AUTH deshabilitado en la organización y habilitarlo únicamente en el buzón que lo necesite, después de revisar las dependencias existentes.
 
-## Requisitos para activar o desactivar SMTP y conexión a Exchange Online mediante PowerShell
+## Requisitos y conexión a Exchange Online {#requisitos-para-activar-o-desactivar-smtp-y-conexión-a-exchange-online-mediante-powershell}
 
-1. Tener habilitada la ejecución de scripts.
+Necesitas un buzón de Exchange Online, permisos administrativos para modificar su configuración y una aplicación compatible con el método de autenticación elegido. Revisa los requisitos de PowerShell del [módulo ExchangeOnlineManagement](https://learn.microsoft.com/en-us/powershell/exchange/exchange-online-powershell-v2).
 
-   ```
-   Set-ExecutionPolicy RemoteSigned
-   ```
+> **Antes de empezar:** SMTP AUTH y autenticación básica son conceptos distintos. La aplicación debe configurar OAuth por separado. Los valores predeterminados de seguridad y las políticas de autenticación pueden bloquear el acceso aunque el buzón permita SMTP AUTH. Revisa la política del tenant antes de cambiarla.
 
-2. Tener instalado el módulo de **PowerShell Exchange Online**.
+Instala el módulo para tu usuario, sin fijar la versión antigua del laboratorio:
 
-   ```
-   Install-Module -Name ExchangeOnlineManagement -RequiredVersion 3.1.0
-   ```
-3. Cargamos el módulo ejecutando el siguiente comando.
+```powershell
+Install-Module -Name ExchangeOnlineManagement -Scope CurrentUser
+Import-Module ExchangeOnlineManagement
+Connect-ExchangeOnline -UserPrincipalName admin@contoso.com
+```
 
-   ```
-   Import-Module ExchangeOnlineManagement
-   ```
-4. Para establecer una conexión como administrador con **Exchange Online** ejecutamos el siguiente comando, donde *admin@contoso.com* es la cuenta de administrador.
-
-   ```
-   Connect-ExchangeOnline -UserPrincipalName admin@contoso.com
-   ```
-
+Sustituye `admin@contoso.com` por tu cuenta autorizada. No es necesario cambiar globalmente la política de ejecución de scripts como paso rutinario.
 
 ## Deshabilitar autenticación SMTP globalmente
 
-Para deshabilitar **SMTP** globalmente en la empresa, ejecutamos el siguiente comando.
+Consulta primero el estado actual y las aplicaciones que dependen de él. Tras evaluar el impacto, deshabilita el protocolo a nivel de organización:
 
-```
-Set-TransportConfig -SmtpClientAuthenticationDisabled $true
-```
-
-Para comprobar que se ha deshabilitado la autenticación **SMTP**, ejecutamos el siguiente comando y verificamos que el valor de la propiedad *SmtpClientAuthenticationDisabled* sea *True*.
-
-```
+```powershell
 Get-TransportConfig | Format-List SmtpClientAuthenticationDisabled
+Set-TransportConfig -SmtpClientAuthenticationDisabled $true
 ```
 
 ## Habilitar autenticación SMTP en cuentas específicas
 
-Para comprobar la configuración actual de una cuenta de usuario ejecutamos el siguiente comando, donde *usuario@contoso.com* es la cuenta a revisar.
+En este ejemplo el buzón es `usuario@contoso.com`. Consulta su configuración y habilita la excepción:
 
-```
-Get-CASMailbox -Identity Usuario@contoso.com | Format-List SmtpClientAuthenticationDisabled
-```
-
-Si el resultado aparece en blanco o como *$True*, ejecutamos el siguiente comando para habilitar la autenticación **SMTP**.
-
-
-```
-Set-CASMailbox -Identity sean@contoso.com -SmtpClientAuthenticationDisabled $false 
+```powershell
+Get-CASMailbox -Identity usuario@contoso.com | Format-List SmtpClientAuthenticationDisabled
+Set-CASMailbox -Identity usuario@contoso.com -SmtpClientAuthenticationDisabled $false
 ```
 
+`$false` permite SMTP AUTH, `$true` lo bloquea y `$null` hace que el buzón herede la configuración de la organización.
 
-**Referencia:** [Microsoft Learn](https://learn.microsoft.com/es-es/exchange/clients-and-mobile-in-exchange-online/authenticated-client-smtp-submission)
+Para retirar la excepción y volver a heredar la política global:
+
+```powershell
+Set-CASMailbox -Identity usuario@contoso.com -SmtpClientAuthenticationDisabled $null
+```
+
+## Verificación final
+
+Comprueba ambos ámbitos después del cambio:
+
+```powershell
+Get-TransportConfig | Format-List SmtpClientAuthenticationDisabled
+Get-CASMailbox -Identity usuario@contoso.com | Format-List SmtpClientAuthenticationDisabled
+```
+
+Para este escenario, el resultado esperado es `True` en la organización y `False` en el buzón autorizado. Esto comprueba la configuración, pero no el envío: haz una prueba desde la aplicación con OAuth y revisa sus registros si falla. La [documentación de OAuth para SMTP](https://learn.microsoft.com/en-us/exchange/client-developer/legacy-protocols/how-to-authenticate-an-imap-pop-smtp-application-by-using-oauth) detalla el registro de la aplicación, los permisos y el uso del token.
 
 ## Conclusión
 
-La autenticación SMTP AUTH en Microsoft 365 es necesaria en ciertos escenarios —impresoras, aplicaciones legacy, formularios web— pero debe activarse de forma quirurgíca, solo en los buzones que la requieran.
-
-Los puntos clave a recordar:
-- Deshabilita SMTP globalmente a nivel de tenant como punto de partida.
-- Habilita SMTP únicamente en los buzones que lo necesiten con `Set-CASMailbox`.
-- Si tu tenant usa valores predeterminados de seguridad, AUTH SMTP ya estará bloqueado por defecto.
-
-¿Tienes alguna duda sobre la configuración en tu entorno? Déjame un comentario.
+Limita la excepción al buzón necesario y documenta qué aplicación la utiliza. Si el cliente solo admite autenticación básica, revisa su migración y el [calendario oficial de retirada](https://techcommunity.microsoft.com/blog/exchange/updated-exchange-online-smtp-auth-basic-authentication-deprecation-timeline/4489835) antes de plantear esta configuración como solución.

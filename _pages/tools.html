@@ -1,0 +1,12 @@
+---
+layout: default
+title: Herramientas online de Rafael Galante
+description: Herramientas para el día a día. Genera contraseñas aleatorias en tu navegador, eligiendo su longitud y los tipos de caracteres.
+focus_keyphrase: herramientas online
+keywords: [utilidades web, generador de contraseñas, herramientas en el navegador]
+permalink: /herramientas/
+---
+<div class="site-shell tools-page">
+  <header class="page-heading"><p class="home-eyebrow">Herramientas</p><h1>Utilidades para el día a día.</h1><p class="page-lead">Pequeñas herramientas que resuelven tareas concretas. Empiezo con una que uso a menudo: crear contraseñas.</p></header>
+  {% for tool in site.data.tools %}{% include tool-card.html heading=2 %}{% endfor %}
+</div>

@@ -1,0 +1,19 @@
+{% if page.gallery.size > 0 %}
+<section class="project-gallery" id="galeria" aria-labelledby="galeria-title">
+  <h2 id="galeria-title">La web, en detalle.</h2>
+  <p class="project-gallery__intro">Una página interior y la portada en formato móvil.</p>
+  <div class="project-gallery__grid">
+    {% for capture in page.gallery %}
+    {% assign capture_sizes = '(max-width: 580px) calc(100vw - 44px), (max-width: 820px) calc(100vw - 288px), (max-width: 1004px) calc(100vw - 336px), 668px' %}
+    {% if capture.format == 'mobile' %}{% assign capture_sizes = '(max-width: 284px) calc(100vw - 44px), (max-width: 580px) 240px, 200px' %}{% endif %}
+    <figure class="project-gallery__item{% if capture.format == 'mobile' %} project-gallery__item--mobile{% endif %}">
+      <div class="project-gallery__frame">
+        {% unless capture.format == 'mobile' %}<div class="project-browser" aria-hidden="true"><span></span><span></span><span></span></div>{% endunless %}
+        {% include responsive-image.html src=capture.image alt=capture.alt width=capture.width height=capture.height sizes=capture_sizes zoom=true %}
+      </div>
+      <figcaption><span>{{ capture.label | escape }}</span><a href="{{ capture.url }}" target="_blank" rel="noopener noreferrer" aria-label="Ver {{ capture.label | escape }} en {{ page.client | escape }}">Ver página <span aria-hidden="true">↗</span></a></figcaption>
+    </figure>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}

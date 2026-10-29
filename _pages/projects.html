@@ -1,0 +1,15 @@
+---
+layout: default
+title: Proyectos de diseño y desarrollo web en WordPress
+description: Proyectos de diseño y desarrollo web en WordPress de Rafael Galante. Descubre las webs de Moima Patrimonio y Alugan, adaptadas a cada empresa.
+focus_keyphrase: proyectos de desarrollo web
+keywords: [portfolio WordPress, diseño web para empresas, webs a medida]
+permalink: /proyectos/
+---
+<div class="site-shell projects-page">
+  <header class="page-heading"><p class="home-eyebrow">Proyectos</p><h1>Webs con un propósito.</h1><p class="page-lead">Diseño y desarrollo para dar forma a las necesidades de cada cliente. Aquí cuento el trabajo detrás de cada web.</p></header>
+  <div class="project-list">{% assign projects = site.projects | sort: 'order' %}{% for project in projects %}{% include project-card.html heading=2 %}{% endfor %}</div>
+  {% assign contact = site.social | where: 'label', 'LinkedIn' | first %}
+  <div class="project-contact"><p>El siguiente proyecto empieza con una conversación.</p><a class="section-link" href="{{ contact.url }}">Hablemos por LinkedIn <span aria-hidden="true">↗</span></a></div>
+</div>
+{% include clients.html %}

@@ -1,0 +1,17 @@
+{% assign month_index = post.date | date: '%-m' | minus: 1 %}
+{% assign short_months = 'ene,feb,mar,abr,may,jun,jul,ago,sep,oct,nov,dic' | split: ',' %}
+{% assign heading_level = include.heading | default: 3 %}
+{% assign card_topic = site.data.topics | where: 'id', post.topic | first %}
+<article class="article-card"{% if include.archive %} data-archive-topic="{{ post.topic }}" data-archive-tags="{{ post.tags | jsonify | escape }}" data-archive-date="{{ post.date | date_to_xmlschema }}" data-archive-year="{{ post.date | date: '%Y' }}"{% endif %}>
+  {% if post.image %}
+  <a class="article-cover" href="{{ post.url | relative_url }}" tabindex="-1" aria-hidden="true">
+    {% include responsive-image.html src=post.image alt=post.image_alt width=post.image_width height=post.image_height sizes='(max-width: 580px) calc(100vw - 44px), (max-width: 820px) calc((100vw - 84px) / 2), (max-width: 1244px) calc((100vw - 160px) / 3), 362px' %}
+  </a>
+  {% endif %}
+  <div class="article-card__meta">
+    {% if card_topic %}<a class="article-card__topics" href="{{ '/articulos/' | relative_url }}?tema={{ card_topic.id }}">{{ card_topic.title }}</a><span aria-hidden="true">/</span>{% endif %}
+    <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%-d' }} {{ short_months[month_index] }} {{ post.date | date: '%Y' }}</time>
+  </div>
+  <h{{ heading_level }} class="article-card__title"><a href="{{ post.url | relative_url }}">{{ post.title | escape }}</a></h{{ heading_level }}>
+  {% if post.description %}<p class="article-card__description">{{ post.description | escape }}</p>{% endif %}
+</article>

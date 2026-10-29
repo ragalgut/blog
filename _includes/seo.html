@@ -1,0 +1,77 @@
+{%- assign seo_title = page.seo_title | default: page.title | default: site.title -%}
+{%- assign seo_description = page.description | default: site.description | strip_html | normalize_whitespace -%}
+{%- assign canonical_url = page.url | replace: 'index.html', '' | absolute_url -%}
+{%- assign seo_image_path = page.image | default: site.author.avatar -%}
+{%- assign seo_image = seo_image_path | absolute_url -%}
+{%- assign seo_image_info = site.data.images[seo_image_path] -%}
+{%- assign seo_image_alt = page.image_alt | default: site.author.name -%}
+{%- assign seo_keywords = page.keywords | join: ', ' -%}
+{%- assign seo_topic = site.data.topics | where: 'id', page.topic | first -%}
+{%- if page.focus_keyphrase -%}{%- assign seo_keywords = seo_keywords | prepend: ', ' | prepend: page.focus_keyphrase -%}{%- endif -%}
+<title>{{ seo_title | escape }}{% unless seo_title == site.title %} | {{ site.title | escape }}{% endunless %}</title>
+<meta name="description" content="{{ seo_description | escape }}">
+{% if page.noindex %}<meta name="robots" content="noindex, follow">{% endif %}
+<link rel="canonical" href="{{ canonical_url }}">
+<meta property="og:locale" content="es_ES">
+<meta property="og:site_name" content="{{ site.title | escape }}">
+<meta property="og:type" content="{% if page.layout == 'post' %}article{% else %}website{% endif %}">
+<meta property="og:title" content="{{ seo_title | escape }}">
+<meta property="og:description" content="{{ seo_description | escape }}">
+<meta property="og:url" content="{{ canonical_url }}">
+<meta property="og:image" content="{{ seo_image }}">
+<meta property="og:image:alt" content="{{ seo_image_alt | escape }}">
+{% if seo_image_info %}<meta property="og:image:width" content="{{ seo_image_info.width }}">
+<meta property="og:image:height" content="{{ seo_image_info.height }}">{% endif %}
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ seo_title | escape }}">
+<meta name="twitter:description" content="{{ seo_description | escape }}">
+<meta name="twitter:image" content="{{ seo_image }}">
+<meta name="twitter:image:alt" content="{{ seo_image_alt | escape }}">
+{% if page.layout == 'post' %}
+<meta property="article:published_time" content="{{ page.date | date_to_xmlschema }}">
+{% if page.last_modified_at %}<meta property="article:modified_time" content="{{ page.last_modified_at | date_to_xmlschema }}">{% endif %}
+<meta name="author" content="{{ site.author.name | escape }}">
+{% endif %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": {{ '/#website' | absolute_url | jsonify }},
+      "url": {{ '/' | absolute_url | jsonify }},
+      "name": {{ site.title | jsonify }},
+      "description": {{ site.description | jsonify }},
+      "inLanguage": "es",
+      "author": {"@id": {{ '/acerca-de/#rafael' | absolute_url | jsonify }}}
+    },
+    {
+      "@type": "Person",
+      "@id": {{ '/acerca-de/#rafael' | absolute_url | jsonify }},
+      "name": {{ site.author.name | jsonify }},
+      "url": {{ '/acerca-de/' | absolute_url | jsonify }},
+      "image": {{ site.author.avatar | absolute_url | jsonify }},
+      "jobTitle": "Arquitecto de soluciones cloud",
+      "sameAs": [{% for social in site.social %}{{ social.url | jsonify }}{% unless forloop.last %},{% endunless %}{% endfor %}]
+    },
+    {
+      "@type": "{% if page.layout == 'post' %}BlogPosting{% elsif page.url == '/acerca-de/' %}AboutPage{% else %}WebPage{% endif %}",
+      "@id": {{ canonical_url | append: '#content' | jsonify }},
+      "url": {{ canonical_url | jsonify }},
+      "name": {{ seo_title | jsonify }},
+      "description": {{ seo_description | jsonify }},
+      "inLanguage": "es",
+      "isPartOf": {"@id": {{ '/#website' | absolute_url | jsonify }}},
+      "image": {{ seo_image | jsonify }},
+      "keywords": {{ seo_keywords | jsonify }}{% if page.layout == 'post' %},
+      "headline": {{ page.title | jsonify }},
+      "articleSection": {{ seo_topic.title | jsonify }},
+      "datePublished": {{ page.date | date_to_xmlschema | jsonify }},
+      "dateModified": {{ page.last_modified_at | default: page.date | date_to_xmlschema | jsonify }},
+      "mainEntityOfPage": {{ canonical_url | jsonify }},
+      "author": {"@id": {{ '/acerca-de/#rafael' | absolute_url | jsonify }}},
+      "publisher": {"@id": {{ '/acerca-de/#rafael' | absolute_url | jsonify }}}{% endif %}
+    }
+  ]
+}
+</script>

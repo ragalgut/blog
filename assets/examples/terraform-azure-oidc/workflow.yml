@@ -1,0 +1,102 @@
+name: Terraform con Azure OIDC
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: terraform-azure-state
+  cancel-in-progress: false
+
+env:
+  TF_IN_AUTOMATION: 'true'
+  TF_INPUT: 'false'
+  ARM_USE_OIDC: 'true'
+  ARM_USE_AZUREAD: 'true'
+  ARM_CLIENT_ID: ${{ vars.AZURE_CLIENT_ID }}
+  ARM_TENANT_ID: ${{ vars.AZURE_TENANT_ID }}
+  ARM_SUBSCRIPTION_ID: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+  BACKEND_ACCOUNT: ${{ vars.TF_STATE_ACCOUNT }}
+  BACKEND_CONTAINER: ${{ vars.TF_STATE_CONTAINER }}
+  BACKEND_KEY: ${{ vars.TF_STATE_KEY }}
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    environment: plan
+    outputs:
+      changes: ${{ steps.plan.outputs.changes }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - uses: hashicorp/setup-terraform@v4
+        with:
+          terraform_version: '1.14.6'
+          terraform_wrapper: false
+      - name: Comprobar formato
+        run: terraform fmt -check
+      - name: Inicializar backend
+        shell: bash
+        run: |
+          test -f .terraform.lock.hcl
+          terraform init -lockfile=readonly \
+            -backend-config="storage_account_name=$BACKEND_ACCOUNT" \
+            -backend-config="container_name=$BACKEND_CONTAINER" \
+            -backend-config="key=$BACKEND_KEY"
+      - name: Validar configuración
+        run: terraform validate
+      - name: Generar plan
+        id: plan
+        shell: bash
+        run: |
+          set +e
+          terraform plan -detailed-exitcode -out=tfplan
+          code=$?
+          set -e
+          case "$code" in
+            0) echo "changes=false" >> "$GITHUB_OUTPUT" ;;
+            2) echo "changes=true" >> "$GITHUB_OUTPUT" ;;
+            *) exit "$code" ;;
+          esac
+      - name: Guardar el plan
+        if: steps.plan.outputs.changes == 'true'
+        uses: actions/upload-artifact@v7
+        with:
+          name: tfplan-${{ github.run_id }}-${{ github.run_attempt }}
+          path: tfplan
+          retention-days: 1
+          if-no-files-found: error
+
+  apply:
+    needs: plan
+    if: needs.plan.outputs.changes == 'true'
+    runs-on: ubuntu-latest
+    environment: apply
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - uses: hashicorp/setup-terraform@v4
+        with:
+          terraform_version: '1.14.6'
+          terraform_wrapper: false
+      - name: Inicializar el mismo backend
+        shell: bash
+        run: |
+          test -f .terraform.lock.hcl
+          terraform init -lockfile=readonly \
+            -backend-config="storage_account_name=$BACKEND_ACCOUNT" \
+            -backend-config="container_name=$BACKEND_CONTAINER" \
+            -backend-config="key=$BACKEND_KEY"
+      - name: Recuperar el plan aprobado
+        uses: actions/download-artifact@v8
+        with:
+          name: tfplan-${{ github.run_id }}-${{ github.run_attempt }}
+      - name: Aplicar el plan guardado
+        run: terraform apply -input=false tfplan

@@ -1,36 +1,76 @@
 ---
 layout: post
 title:  Automatizar despliegues en Azure con Terraform y GitHub Actions
-description: En este post voy a mostrar cómo automatizar el despliegue de infraestructura en Azure con Terraform y un workflow de GitHub Actions.
+description: Laboratorio de Terraform en Azure con GitHub Actions y OpenID. Arquitectura, backend, plan y apply, con revisión de los límites del workflow original.
 date:   2023-06-28 11:00:00 +0300
 image:  '/images/github-actions-workflow-terraform.webp'
+seo_title: "Terraform en Azure con GitHub Actions y OpenID"
+focus_keyphrase: Terraform en Azure con GitHub Actions
+keywords: [infraestructura como código, automatización de Azure, despliegues con OpenID]
+image_alt: Flujo de GitHub Actions para desplegar infraestructura de Terraform en Azure
+image_width: 1024
+image_height: 600
 tags:   [Terraform, Azure, GitHub, OpenID]
+topic: automatizacion
+last_modified_at: 2026-10-29 10:06:00 +0100
+editorial_review:
+  date: 2026-10-29
+  note: "El laboratorio original de 2023 conserva sus capturas. Se añade un ejemplo revisado con terraform fmt, terraform validate y actionlint comprobados en local. La autenticación y el despliegue en Azure siguen pendientes de una prueba real."
+  sources:
+    - title: "GitHub Docs: OpenID Connect con Azure"
+      url: https://docs.github.com/en/actions/how-tos/secure-your-work/security-harden-deployments/oidc-in-azure
+    - title: "GitHub Docs: referencia de claims OIDC"
+      url: https://docs.github.com/en/actions/reference/security/oidc
+    - title: "GitHub: retirada de las acciones de artefactos v3"
+      url: https://github.blog/changelog/2024-04-16-deprecation-notice-v3-of-the-artifact-actions/
+    - title: "HashiCorp: backend azurerm"
+      url: https://developer.hashicorp.com/terraform/language/backend/azurerm
+    - title: "GitHub Docs: protecciones de entornos"
+      url: https://docs.github.com/en/actions/reference/workflows-and-actions/deployments-and-environments
+    - title: "GitHub Docs: huellas de las claves SSH"
+      url: https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/githubs-ssh-key-fingerprints
+    - title: "Código del workflow original revisado"
+      url: https://github.com/ragalgut/az-tf-deployment-oidc/blob/main/.github/workflows/tf-plan-apply.yml
 ---
 
-La mejor forma de hacer despliegues con **Terraform** es automatizar todo el proceso que va desde *terraform init* a *terraform apply*, con un proceso previo de aprobación antes de aplicar los cambios y una conexión a **Azure** haciendo uso de identidades federadas para **OpenID** con el objetivo de no almacenar credenciales en **GitHub**.
+En este laboratorio automatizo el proceso de *terraform init* a *terraform apply*, con aprobación previa y una conexión a **Azure** mediante **OpenID Connect**. OIDC evita almacenar un secreto de cliente de Azure; las claves SSH para descargar módulos son una credencial independiente.
 
 En este artículo te muestro cómo automatizar despliegues de infraestructura en **Azure** con **módulos de Terraform** usando un workflow de **GitHub Actions**, descargando los módulos a través de **SSH** y realizando la conexión con identidades federadas para **OpenID**.
 
-### Tabla de contenidos
-1. [Arquitectura y contenido](#arquitectura-y-contenido)
-2. [Configurar backend en Azure](#configurar-backend-en-azure)
-3. [Configurar identidades federadas para OpenID](#configurar-identidades-federadas-para-openid)
-4. [Configurar clave pública y privada](#configurar-clave-pública-y-privada)
-5. [Crear entornos en GitHub](#crear-entornos-en-github)
-6. [Agregar secretos en GitHub](#agregar-secretos-en-github)
-7. [Puesta en marcha del workflow](#puesta-en-marcha-del-workflow)
+
+{% include article-toc.html %}
+
+## Objetivo
+
+Comprender la separación entre plan y aplicación, la autenticación federada y el estado remoto de Terraform a partir del laboratorio de 2023.
+
+> **Estado del ejemplo:** el repositorio original sigue usando `actions/upload-artifact@v3` y `actions/download-artifact@v3`, retiradas en GitHub.com. El workflow necesita migrar a versiones admitidas antes de ejecutarse. Las capturas muestran la ejecución original; esta revisión no incluye un nuevo despliegue.
+
+### Ejemplo revisado para GitHub.com
+
+He preparado una alternativa descargable con acciones actuales, el mismo plan entre ambos jobs y autenticación OIDC para Azure y el estado remoto. Este ejemplo despliega un grupo de recursos directamente, por lo que elimina los pasos y secretos SSH del laboratorio original.
+
+- [Configuración de Terraform main.tf]({{ '/assets/examples/terraform-azure-oidc/main.tf' | relative_url }})
+- [Workflow de GitHub Actions]({{ '/assets/examples/terraform-azure-oidc/workflow.yml' | relative_url }})
+- [Instrucciones y requisitos del ejemplo]({{ '/assets/examples/terraform-azure-oidc/LEEME.md' | relative_url }})
+
+La validación local de este ejemplo no sustituye una prueba de autenticación y despliegue en Azure. El resto del artículo conserva el recorrido y las capturas originales de 2023.
+
+## Requisitos
+
+Necesitas acceso administrativo para configurar la identidad y sus permisos en Azure, un backend de estado y permisos para configurar el repositorio y sus entornos. Fija versiones compatibles de Terraform y proveedores; revisa también las versiones de las acciones del workflow. El job que solicite un token OIDC debe declarar `id-token: write` y el checkout necesita `contents: read`.
 
 ## Arquitectura y contenido
 
-![Arquitectura](/images/280623/diagrama.svg)
+![Arquitectura de despliegue de Terraform en Azure mediante GitHub Actions y OpenID]({{ '/images/280623/diagrama.svg' | relative_url }}){: width="819" height="556" loading="lazy" decoding="async"}
 
-Los recursos que vamos a crear en **Azure** para poner en marcha este escenario son un grupo de recursos *lab-rg*, una cuenta de almacenamiento *labaztfbackend* y un contenedor privado *tbackend*. En el contenedor *tbackend* es donde va a estar almacenado el archivo de estado *terraform.tfstate* con la infraestructura de **Azure** gestionada por **Terraform**. En **Azure AD** también hay que crear un registro de aplicación *tf-sp-terraform*, configurar dos identidades federadas *plan* y *apply* para **OpenID Connect** y dar permisos de colaborador al registro de aplicación *tf-sp-terraform* sobre la suscripción para que pueda crear, eliminar o administrar los recursos de **Azure**.
+Los recursos que vamos a crear en **Azure** para poner en marcha este escenario son un grupo de recursos *lab-rg*, una cuenta de almacenamiento *labaztfbackend* y un contenedor privado *tbackend*. En el contenedor *tbackend* es donde va a estar almacenado el archivo de estado *terraform.tfstate* con la infraestructura de **Azure** gestionada por **Terraform**. En **Microsoft Entra ID** (antes Azure AD) creo el registro de aplicación *tf-sp-terraform* y dos credenciales federadas para los entornos *plan* y *apply*. La identidad necesita permisos sobre los recursos que va a administrar. En el laboratorio crea grupos de recursos, por lo que ese permiso debe existir a nivel de suscripción; para otras cargas reduce el alcance al grupo de recursos o recurso necesario.
 
 Con un workflow de **GitHub Actions** vamos a automatizar el despliegue de un grupo de recursos llamado *rg-test00* con las etiquetas *test5* y *test6*.
 
-El siguiente repositorio [az-tf-deployment-oidc](https://github.com/ragalgut/az-tf-deployment-oidc) es la plantilla que vamos a usar para trabajar este escenario. Para usar la plantilla: *Use this template* > *Create a new repository*.
+El siguiente repositorio [az-tf-deployment-oidc](https://github.com/ragalgut/az-tf-deployment-oidc) contiene la plantilla original de 2023, que debes adaptar según las observaciones de esta revisión. Para copiarla: *Use this template* > *Create a new repository*.
 
-![Usar plantilla de GitHub](/images/280623/usar-template.webp)
+{% include responsive-image.html src="/images/280623/usar-template.webp" alt="Usar plantilla de GitHub" width=1908 height=592 zoom=true %}
 
 En la raíz del repositorio se encuentran los ficheros *main.tf* y *terraform.tfvars* donde está el código de **Terraform** del proyecto que vamos a desplegar, en este caso un grupo de recursos con un [módulo de Terraform](https://github.com/ragalgut/az-tf-module-resource-group).
 
@@ -48,7 +88,7 @@ Tenemos que crear en **Azure** un backend donde estará alojado el archivo de es
 
 Hay que crear una cuenta de almacenamiento y un contenedor privado. Para este escenario creo una cuenta de almacenamiento llamada *labaztfbackend* y un contenedor *tbackend*.
 
-![Azure Storage Account](/images/280623/cuenta-de-almacenamiento-azure.webp)
+{% include responsive-image.html src="/images/280623/cuenta-de-almacenamiento-azure.webp" alt="Azure Storage Account" width=2240 height=1106 zoom=true %}
 
 Posteriormente tendremos que editar el siguiente bloque de nuestro código *main.tf* y agregar el nombre del grupo de recursos, cuenta de almacenamiento y contenedor que hemos creado:
 
@@ -67,46 +107,46 @@ Referencia: [https://github.com/ragalgut/az-tf-deployment-oidc/blob/main/main.tf
 
 ## Configurar identidades federadas para OpenID
 
-Para la creación de una identidad federada para **OpenID** hay que crear un registro de aplicación en **Azure AD**. Para este escenario creo uno llamado *tf-sp-terraform* con acceso '*Solo cuentas de este directorio organizativo (solo de Default Directory: inquilino único)*'.
+Para la creación de una identidad federada para **OpenID** hay que crear un registro de aplicación en **Microsoft Entra ID**. Para este escenario creo uno llamado *tf-sp-terraform* con acceso '*Solo cuentas de este directorio organizativo (solo de Default Directory: inquilino único)*'.
 
-![Azure App Registration](/images/280623/registro-de-aplicacion.webp)
+{% include responsive-image.html src="/images/280623/registro-de-aplicacion.webp" alt="Azure App Registration" width=2216 height=866 zoom=true %}
 
 Posteriormente creamos dos identidades federadas de tipo entorno, llamadas *plan* y *apply*. En el workflow hay dos jobs configurados: uno encargado de ejecutar *Terraform Plan* y otro de ejecutar *Terraform Apply*. Cada job tiene configurado su entorno en **GitHub** (también llamados *plan* y *apply*), siendo el de *apply* el que incluye un proceso previo de aprobación para verificar el plan antes de aplicar los cambios. La identidad federada que crearemos en **Azure** será de tipo entorno para que los jobs validen correctamente con **Azure**.
 
 Para crear una identidad federada accedemos al registro de aplicación creado anteriormente > *Certificados y secretos* > *Credenciales federadas* > *Agregar credencial*.
 
-![Credenciales federadas para OpenID](/images/280623/credenciales-federadas-plan-apply-azure-openid.webp)
+{% include responsive-image.html src="/images/280623/credenciales-federadas-plan-apply-azure-openid.webp" alt="Credenciales federadas para OpenID" width=2644 height=702 zoom=true %}
 
 El escenario que tenemos que seleccionar es *Acciones de GitHub que implementan recursos de Azure*, la *Organización* es nuestro usuario de **github.com**, en el caso de **GitHub Enterprise** es el nombre de la organización, en *Repositorio* el nombre de nuestro repositorio, *Tipo de entidad* seleccionamos *Entorno* y por último indicamos el nombre de la identidad.
 
-El *Identificador de sujeto* y *Api token* que se muestra en la configuración es la que usa **github.com**. Para **GitHub Enterprise** hay que consultar con el administrador cuál es el identificador y el api token, y configurarlo en la identidad federada en **Azure**. 
+La confianza se configura con **emisor (`iss`), sujeto (`sub`) y audiencia (`aud`)**; no con un «API token». En GitHub.com el emisor es `https://token.actions.githubusercontent.com` y Azure recomienda la audiencia `api://AzureADTokenExchange`.
 
-> Cuando se ejecuta el workflow y da un fallo en la etapa de conexión con OpenID se puede ver en los logs cual es el identificador y api token que espera encontrar.
+El sujeto debe coincidir exactamente con el que emite tu repositorio y entorno. El formato histórico era `repo:ORGANIZACION/REPOSITORIO:environment:plan` (o `apply`). GitHub ha introducido sujetos con identificadores inmutables para repositorios nuevos, renombrados o transferidos desde julio de 2026. Comprueba el formato de tu repositorio en la [referencia OIDC](https://docs.github.com/en/actions/reference/security/oidc) antes de copiar el sujeto de estas capturas. GitHub Enterprise Server tiene particularidades propias.
 
-![Crear credencial](/images/280623/crear-credencial.webp)
+{% include responsive-image.html src="/images/280623/crear-credencial.webp" alt="Crear credencial" width=1900 height=1860 zoom=true %}
 
-Por último tenemos que **dar permisos de colaborador al registro de aplicación creado, en mi caso *tf-sp-terraform* sobre la suscripción que queremos administrar con Terraform**.
+Asigna a la identidad los roles de administración adecuados al alcance del despliegue. El acceso al estado es independiente: si utilizas autenticación de Entra ID en el backend, configura `use_azuread_auth = true` y concede el acceso de datos necesario, como **Storage Blob Data Contributor** sobre el contenedor. Configura la autenticación OIDC del backend según la [referencia azurerm](https://developer.hashicorp.com/terraform/language/backend/azurerm).
 
 ## Crear entornos en GitHub
 
 Para crear los dos entornos en **GitHub** vamos en nuestro repositorio a *Settings* > *Environments*.
 
-![Entornos GitHub](/images/280623/github-environments-plan-apply.webp)
+{% include responsive-image.html src="/images/280623/github-environments-plan-apply.webp" alt="Entornos GitHub" width=2392 height=1032 zoom=true %}
 
 Creamos un nuevo entorno desde *New environment* y le damos un nombre, para este escenario lo he llamado *plan*.
 
-![Nuevo entorno GitHub](/images/280623/new-environment-github.webp)
+{% include responsive-image.html src="/images/280623/new-environment-github.webp" alt="Nuevo entorno GitHub" width=1916 height=1092 zoom=true %}
 
 > Hay que tener en cuenta que el nombre del entorno de **GitHub** debe coincidir con el nombre del entorno configurado en la identidad federada para que pueda hacer conexión, además en este escenario se espera que los nombres sean *plan* y *apply* porque están configurados en cada job en el código del workflow. Referencia: [plan](https://github.com/ragalgut/az-tf-deployment-oidc/blob/main/.github/workflows/tf-plan-apply.yml#L23), [apply](https://github.com/ragalgut/az-tf-deployment-oidc/blob/main/.github/workflows/tf-plan-apply.yml#L92).
 
-El entorno *apply* debe tener marcada la opción *Required reviewers* y agregar un reviewer para el proceso de aprobación del job *Terraform Apply*, podemos ser nosotros mismos.
+Configura *Required reviewers* en el entorno *apply* si tu plan y la visibilidad del repositorio lo permiten. Comprueba también las ramas permitidas y la opción que impide la autoaprobación: si está activa, quien inicia el despliegue no puede aprobarlo. Consulta las [protecciones de entornos](https://docs.github.com/en/actions/reference/workflows-and-actions/deployments-and-environments).
 
-![Required reviewers environment GitHub](/images/280623/required-reviewers-environment-apply.webp)
+{% include responsive-image.html src="/images/280623/required-reviewers-environment-apply.webp" alt="Required reviewers environment GitHub" width=1982 height=1148 zoom=true %}
 
 
 ## Configurar clave pública y privada
 
-Para que *terraform init* pueda clonar el repositorio del módulo por **SSH** tenemos que generar un par de claves, la privada estará encriptada como variable en un secreto de **GitHub** y la pública estará unida en nuestro perfil de usuario. Este proceso lo detallo más adelante.
+Para que *terraform init* pueda clonar el repositorio del módulo por **SSH** tenemos que generar un par de claves, la privada estará encriptada como variable en un secreto de **GitHub** y la pública autorizará la lectura del módulo. Para un módulo privado, limita el acceso con una deploy key de solo lectura o una identidad equivalente. Para un módulo público puedes adaptar el origen a HTTPS y retirar los pasos y secretos SSH del workflow.
 
 ```
 ssh-keygen -t rsa
@@ -121,7 +161,7 @@ Referencia: [variables en el workflow](https://github.com/ragalgut/az-tf-deploym
 
 Para crear los secretos, tenemos que ir desde nuestro repositorio a *Settings* > *Secrets and variables* > *Actions* > *New repository secret*.
 
-![Secrets GitHub](/images/280623/secrets-github.webp)
+{% include responsive-image.html src="/images/280623/secrets-github.webp" alt="Secrets GitHub" width=2314 height=1940 zoom=true %}
 
 En la siguiente tabla encontrarás la información que debes agregar en cada secreto:
 
@@ -130,12 +170,12 @@ En la siguiente tabla encontrarás la información que debes agregar en cada sec
 | AZURE_CLIENT_ID        | El ID del registro de aplicación creado (cliente)                                                     |
 | AZURE_SUBSCRIPTION_ID  | ID de la suscripción a gestionar con Terraform                                                        |
 | AZURE_TENANT_ID        | ID del tenant de Azure. Este ID también se puede obtener de la información del registro de aplicación |
-| GIT_SSH_COMMAND        | ssh -o StrictHostKeyChecking=no -i $HOME/.ssh/id_rsa                                                  |
+| GIT_SSH_COMMAND        | ssh -o StrictHostKeyChecking=yes                                                  |
 | SSH_KEY_GITHUB_ACTIONS | Clave privada del par de claves generados anteriormente                                               |
 
 > Al copiar la clave privada debemos tener en cuenta que debe incluir las líneas completas *BEGIN OPENSSH PRIVATE KEY* y *END OPENSSH PRIVATE KEY*. Además debe haber una línea en blanco al final del todo.
 
-Por último hay que configurar la clave pública en nuestra cuenta de usuario en *Settings* > *SSH and GPG keys* > *New SSH key*.
+En el laboratorio original añadí la clave pública al perfil. Si usas una deploy key, configúrala en el repositorio del módulo con permiso de lectura. Antes de automatizar la conexión, prepara `known_hosts` y verifica las claves del servidor con las [huellas publicadas por GitHub](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/githubs-ssh-key-fingerprints). No desactives la comprobación del servidor.
 
 > La clave pública debe tener el formato indicado y una línea en blanco al final.
 
@@ -143,39 +183,45 @@ Por último hay que configurar la clave pública en nuestra cuenta de usuario en
 
 Para poner en marcha el workflow y ejecutar el despliegue en **Azure** tenemos que ir a *Actions* > *Terraform Plan/Apply*:
 
-![Ejecutar workflow GitHub Actions](/images/280623/ejecutar-workflow-github-actions.webp)
+{% include responsive-image.html src="/images/280623/ejecutar-workflow-github-actions.webp" alt="Ejecutar workflow GitHub Actions" width=2646 height=914 zoom=true %}
 
 Comenzará la ejecución del workflow, ejecutará cada job y sus diferentes etapas siempre que no exista un error en una de ellas. Si accedemos al workflow que está en ejecución podemos ver más detalles del job que se está ejecutando y los que están en espera.
 
-![Ejecutar workflow GitHub Actions](/images/280623/ejecutar-workflow-github-actions02.webp)
+{% include responsive-image.html src="/images/280623/ejecutar-workflow-github-actions02.webp" alt="Ejecutar workflow GitHub Actions" width=2646 height=998 zoom=true %}
 
 Aquí podemos ver ambos jobs *Terraform Plan* y *Terraform Apply*. Las líneas azules de los jobs hacen referencia a las etapas ejecutadas. Para tener más detalles de las etapas que se están ejecutando accedemos al job *Terraform Plan*.
 
-![Ejecutar workflow GitHub Actions](/images/280623/ejecutar-workflow-github-actions03.webp)
+{% include responsive-image.html src="/images/280623/ejecutar-workflow-github-actions03.webp" alt="Ejecutar workflow GitHub Actions" width=2644 height=1202 zoom=true %}
 
 Aquí podemos ver las etapas que están en proceso, completadas o con error. Si desplegamos *Terraform Plan* podemos tener el detalle de los recursos que se van a desplegar en **Azure**.
 
-![Ejecutar workflow GitHub Actions](/images/280623/ejecutar-workflow-github-actions04.webp)
+{% include responsive-image.html src="/images/280623/ejecutar-workflow-github-actions04.webp" alt="Ejecutar workflow GitHub Actions" width=2626 height=1528 zoom=true %}
 
 Aquí podemos ver que se va a desplegar un grupo de recursos con el nombre *rg-test00* con dos etiquetas *test5* y *test6*. El siguiente paso es aprobar o rechazar este despliegue, para ello vamos al job *Terraform Apply* que está pendiente de aprobación.
 
-![Ejecutar workflow GitHub Actions](/images/280623/ejecutar-workflow-github-actions05.webp)
+{% include responsive-image.html src="/images/280623/ejecutar-workflow-github-actions05.webp" alt="Ejecutar workflow GitHub Actions" width=2620 height=1662 zoom=true %}
 
 Para aprobar o rechazar tenemos que hacer clic en *Review pending deployments* y marcamos la acción que queramos llevar a cabo, en este escenario voy aprobar el despliegue.
 
-![Ejecutar workflow GitHub Actions](/images/280623/ejecutar-workflow-github-actions07.webp)
+{% include responsive-image.html src="/images/280623/ejecutar-workflow-github-actions07.webp" alt="Ejecutar workflow GitHub Actions" width=2642 height=1404 zoom=true %}
 
 Una vez finalizadas las etapas podemos ver que los recursos se han desplegado correctamente en **Azure**.
 
-![Ejecutar workflow GitHub Actions](/images/280623/ejecutar-workflow-github-actions08.webp)
+{% include responsive-image.html src="/images/280623/ejecutar-workflow-github-actions08.webp" alt="Ejecutar workflow GitHub Actions" width=2632 height=1602 zoom=true %}
+
+## Verificación final
+
+Antes de un nuevo despliegue, verifica que las acciones utilizadas siguen admitidas y que los jobs `plan` y `apply` usan las mismas versiones y dependencias bloqueadas. Comprueba que el plan guardado se transfiere como artefacto y que `apply` aplica ese archivo después de la aprobación. El plan puede contener datos sensibles: limita el acceso y la retención del artefacto.
+
+Después de aplicar en tu entorno de pruebas, revisa los recursos y ejecuta otro `terraform plan` para comprobar que no quedan cambios inesperados. No imprimas tokens OIDC, claves ni contenido sensible del estado en los registros.
 
 ## Conclusión
 
-Con esta configuración tienes un pipeline de Terraform completamente automatizado en **Azure**: sin credenciales almacenadas, con un proceso de aprobación manual antes del `apply` y con la trazabilidad que ofrece **GitHub Actions**.
+El laboratorio muestra un flujo de Terraform con autenticación federada en Azure y una aprobación previa al `apply`. Su arquitectura sigue siendo una referencia útil; el workflow original requiere las adaptaciones indicadas antes de reutilizarlo.
 
 Los puntos clave de este escenario:
 - **OpenID Connect** elimina la necesidad de gestionar secrets de larga duración en Azure.
 - Los entornos de GitHub permiten añadir revisores obligatorios antes de desplegar.
-- El backend en Azure Storage garantiza que el estado de Terraform esté centralizado y versionado.
+- El backend en Azure Storage centraliza el estado; el versionado y la recuperación requieren configurar expresamente la protección del almacenamiento.
 
 ¿Tienes dudas sobre alguno de los pasos o has encontrado algún problema al configurarlo? Déjame un comentario.

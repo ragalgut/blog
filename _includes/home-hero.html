@@ -1,0 +1,22 @@
+<section class="home-intro" aria-labelledby="home-title">
+  <div class="home-intro__copy">
+    <p class="home-eyebrow">{{ site.author.name }}</p>
+    <h1 id="home-title">Cloud, código<br>y proyectos reales.</h1>
+    <p class="home-description">Soy <strong>{{ site.author.bio }}</strong>. Escribo sobre Azure y automatización, y <strong>diseño y desarrollo webs en WordPress para empresas</strong>.</p>
+    <div class="home-intro__links">
+      <a class="button button--primary" href="{{ '/proyectos/' | relative_url }}">Ver mis proyectos <span aria-hidden="true">→</span></a>
+      <div class="home-intro__secondary">
+        <a class="home-about" href="{{ '/acerca-de/' | relative_url }}">Más sobre mí <span aria-hidden="true">↗</span></a>
+        {% assign linkedin = site.social | where: 'label', 'LinkedIn' | first %}
+        {% if linkedin %}
+        <div class="home-socials">
+          <a class="social-link" href="{{ linkedin.url }}" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn de {{ site.author.name }}" title="LinkedIn">{% include social-icon.html name='LinkedIn' %}</a>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  <div class="home-portrait">
+    {% include responsive-image.html src=site.author.avatar alt=site.author.name width=192 height=192 sizes='(max-width: 580px) 150px, (max-width: 820px) 170px, 192px' loading='eager' priority='high' %}
+  </div>
+</section>

@@ -1,0 +1,13 @@
+{% assign project_heading = include.heading | default: 3 %}
+<article class="project-card">
+  <a class="project-card__visual" href="{{ project.url | relative_url }}" tabindex="-1" aria-hidden="true">
+    <div class="project-browser" aria-hidden="true"><span></span><span></span><span></span></div>
+    {% include responsive-image.html src=project.image alt=project.image_alt width=project.image_width height=project.image_height sizes='(max-width: 580px) calc(100vw - 44px), (max-width: 820px) calc(100vw - 56px), 650px' %}
+  </a>
+  <div class="project-card__copy">
+    <p class="home-eyebrow">Desarrollo web · {{ project.technologies | join: ' · ' }}</p>
+    <h{{ project_heading }}><a href="{{ project.url | relative_url }}">{{ project.title }}</a></h{{ project_heading }}>
+    <p>{{ project.summary }}</p>
+    <a class="section-link" href="{{ project.url | relative_url }}">Conocer el proyecto <span aria-hidden="true">→</span></a>
+  </div>
+</article>

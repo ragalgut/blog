@@ -1,15 +1,14 @@
 ---
 layout: page
+title: Página no encontrada
+heading: Esta página no está por aquí.
+eyebrow: Error 404
+description: La página que buscas no existe o ha cambiado de dirección. Vuelve al inicio o explora el archivo de artículos de ragalgut.me.
 permalink: /404.html
+noindex: true
+sitemap: false
 ---
-
-<div class="container">
-  <div class="row">
-    <div class="col col-12">
-      <div class="error">
-        <h2 class="error__title">404</h2>
-        <p class="error__text">La página solicitada no pudo ser encontrada.</p>
-      </div>
-    </div>
-  </div>
+<div class="error-page">
+  <p>Puede que el enlace esté incompleto o que la página haya cambiado de dirección.</p>
+  <div class="error-links"><a class="button button--primary" href="{{ '/' | relative_url }}">Volver al inicio</a><a class="button" href="{{ '/articulos/' | relative_url }}">Explorar artículos</a></div>
 </div>

@@ -1,27 +1,15 @@
 <!DOCTYPE html>
-<html lang="es">
-   <!-- SEO tags -->
-{% seo %} 
-
+<html lang="{{ site.lang }}">
 {% include head.html %}
-
 <body>
-
-  {% if site.google-analytics %}
-    {% include google-analytics.html %}
-  {% endif %}
-
+  <a class="skip-link" href="#site-main">Saltar al contenido</a>
   {% include header.html %}
-
-  <!-- begin content -->
-  <main class="content" aria-label="Content">
-    {{ content }}
-  </main>
-  <!-- end content -->
-
+  <main id="site-main" tabindex="-1">{{ content }}</main>
   {% include footer.html %}
-  <script src="{{ site.baseurl }}/js/scripts.js"></script>
-  <script src="{{ site.baseurl }}/js/common.js"></script>
+  <script src="{{ '/assets/js/site.js' | relative_url }}" defer></script>
+  {% if page.article_archive %}<script src="{{ '/assets/js/archive.js' | relative_url }}" defer></script>{% endif %}
+  {% assign active_tool = site.data.tools | where: 'id', page.tool_id | first %}
+  {% if active_tool.script %}<script src="{{ active_tool.script | relative_url }}" type="module"></script>{% endif %}
+  {% if jekyll.environment == 'production' and site.google_analytics and page.tool_id == nil %}{% include google-analytics.html %}{% endif %}
 </body>
-
 </html>

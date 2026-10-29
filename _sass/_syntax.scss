@@ -1,0 +1,12 @@
+.highlight {
+  .c, .c1, .cm, .cp, .cs { color: var(--color-muted); font-style: italic; }
+  .k, .kd, .kn, .kp, .kr, .kt, .o, .ow { color: var(--color-blue); font-weight: 600; }
+  .s, .s1, .s2, .sb, .sc, .sd, .se, .sh, .si, .sr, .ss, .sx { color: #a12b59; }
+  .m, .mi, .mf, .mh, .mo, .il, .na, .nb, .nc, .nf, .nn, .nt, .nv { color: #345b91; }
+  .gd { background: #ffe8e8; color: #9e2020; }
+  .gi { background: #e2f2e7; color: #246333; }
+}
+[data-theme="dark"] .highlight {
+  .s, .s1, .s2, .sb, .sc, .sd, .se, .sh, .si, .sr, .ss, .sx { color: #f5a2c3; }
+  .m, .mi, .mf, .mh, .mo, .il, .na, .nb, .nc, .nf, .nn, .nt, .nv { color: #a7c6f5; }
+}

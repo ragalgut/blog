@@ -1,0 +1,22 @@
+---
+layout: default
+---
+<article class="site-shell project-detail">
+  <header class="project-heading">
+    <nav class="breadcrumbs" aria-label="Ruta de navegación"><a href="{{ '/' | relative_url }}">Inicio</a><span aria-hidden="true">/</span><a href="{{ '/proyectos/' | relative_url }}">Proyectos</a></nav>
+    <p class="home-eyebrow">Diseño y desarrollo web</p><h1>{{ page.title }}</h1><p class="page-lead">{{ page.summary }}</p>
+    <a class="button button--primary" href="{{ page.website }}" target="_blank" rel="noopener noreferrer">Visitar la web <span aria-hidden="true">↗</span></a>
+  </header>
+  <div class="project-detail__visual"><div class="project-browser" aria-hidden="true"><span></span><span></span><span></span></div>{% include responsive-image.html src=page.image alt=page.image_alt width=page.image_width height=page.image_height loading='eager' priority='high' sizes='(max-width: 580px) calc(100vw - 44px), (max-width: 820px) calc(100vw - 56px), (max-width: 1244px) calc(100vw - 104px), 1140px' %}</div>
+  <dl class="project-facts"><div><dt>Cliente</dt><dd>{{ page.client }}</dd></div><div><dt>Sector</dt><dd>{{ page.sector }}</dd></div><div><dt>Mi trabajo</dt><dd>{{ page.role }}</dd></div><div><dt>Tecnología</dt><dd>{{ page.technologies | join: ', ' }}</dd></div></dl>
+  <div class="prose">{{ content }}</div>
+  {% include project-gallery.html %}
+  {% if page.deliverables.size > 0 %}
+  <section class="project-results" id="resultado" aria-labelledby="resultado-title">
+    <p class="home-eyebrow">Proyecto entregado</p>
+    <h2 id="resultado-title">El resultado</h2>
+    <ul>{% for deliverable in page.deliverables %}<li><h3>{{ deliverable.title | escape }}</h3><p>{{ deliverable.description | escape }}</p></li>{% endfor %}</ul>
+  </section>
+  {% endif %}
+  <div class="project-contact"><a class="section-link" href="{{ '/proyectos/' | relative_url }}"><span aria-hidden="true">←</span> Todos los proyectos</a><a class="section-link" href="{{ page.website }}" target="_blank" rel="noopener noreferrer">Ver {{ page.client }} <span aria-hidden="true">↗</span></a></div>
+</article>

@@ -1,0 +1,8 @@
+{% if page.editorial_review %}
+<aside class="editorial-review prose" aria-labelledby="revision-editorial">
+  <h2 id="revision-editorial">Revisión y fuentes</h2>
+  <p class="editorial-review__date">Fuentes revisadas el <time datetime="{{ page.editorial_review.date | date: '%Y-%m-%d' }}">{% include date-es.html date=page.editorial_review.date %}</time>.</p>
+  <p>{{ page.editorial_review.note | escape }}</p>
+  <ul>{% for source in page.editorial_review.sources %}<li><a href="{{ source.url | escape }}">{{ source.title | escape }}</a></li>{% endfor %}</ul>
+</aside>
+{% endif %}

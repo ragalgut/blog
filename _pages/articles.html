@@ -1,0 +1,78 @@
+---
+layout: default
+title: Artículos sobre cloud, Azure y desarrollo web
+description: Guías y experiencias sobre cloud, automatización y desarrollo web. Encuentra artículos por tema, tecnología, año y palabra clave.
+focus_keyphrase: artículos sobre cloud y desarrollo web
+keywords: [guías de Azure, tutoriales de Terraform, automatización]
+permalink: /articulos/
+article_archive: true
+---
+
+<div class="site-shell" data-article-archive>
+  <header class="archive-heading">
+    <p class="home-eyebrow">El archivo</p>
+    <h1>Todos los artículos.</h1>
+    <p>Guías, notas y experiencias sobre cloud, automatización y desarrollo web.</p>
+  </header>
+
+  <form class="archive-filters" role="search" aria-label="Filtrar artículos" hidden>
+    <div class="archive-field archive-field--query">
+      <label for="archive-query">Buscar</label>
+      <input id="archive-query" type="search" name="q" placeholder="Título, tema o palabra clave" autocomplete="off" aria-controls="archive-results">
+    </div>
+    <div class="archive-field archive-field--select">
+      <label for="archive-topic">Tema</label>
+      <select id="archive-topic" name="tema" aria-controls="archive-results">
+        <option value="">Todos los temas</option>
+        {% for topic in site.data.topics %}<option value="{{ topic.id }}">{{ topic.title | escape }}</option>{% endfor %}
+      </select>
+    </div>
+    <div class="archive-field archive-field--select">
+      <label for="archive-technology">Tecnología</label>
+      <select id="archive-technology" name="tecnologia" aria-controls="archive-results">
+        <option value="">Todas las tecnologías</option>
+        {% assign archive_technologies = site.tags | sort %}
+        {% for technology in archive_technologies %}<option value="{{ technology[0] | escape }}">{{ technology[0] | escape }}</option>{% endfor %}
+      </select>
+    </div>
+    <div class="archive-field archive-field--select">
+      <label for="archive-year">Año</label>
+      <select id="archive-year" name="ano" aria-controls="archive-results">
+        <option value="">Todos los años</option>
+        {% assign archive_years = site.posts | group_by_exp: 'post', 'post.date | date: "%Y"' | sort: 'name' | reverse %}
+        {% for year in archive_years %}<option value="{{ year.name }}">{{ year.name }}</option>{% endfor %}
+      </select>
+    </div>
+    <div class="archive-field archive-field--select">
+      <label for="archive-order">Orden</label>
+      <select id="archive-order" name="orden" aria-controls="archive-results">
+        <option value="recientes">Más recientes</option>
+        <option value="antiguos">Más antiguos</option>
+      </select>
+    </div>
+  </form>
+
+  <div class="archive-summary">
+    <p class="archive-count" role="status" aria-live="polite" aria-atomic="true">{{ site.posts.size }} {% if site.posts.size == 1 %}artículo{% else %}artículos{% endif %}</p>
+    <button class="archive-reset" type="button" data-archive-reset hidden>Limpiar filtros <span aria-hidden="true">↺</span></button>
+  </div>
+
+  <noscript><p class="archive-noscript">Aquí tienes todos los artículos. Activa JavaScript para usar la búsqueda y los filtros.</p></noscript>
+  <div class="article-grid" id="archive-results">
+    {% for post in site.posts %}
+      {% include article-card.html archive=true heading=2 %}
+    {% endfor %}
+  </div>
+
+  <div class="archive-empty" hidden>
+    <h2>No hay artículos que coincidan.</h2>
+    <p>Prueba con otra búsqueda o cambia los filtros.</p>
+    <button class="archive-reset" type="button" data-archive-reset>Restablecer filtros <span aria-hidden="true">↺</span></button>
+  </div>
+
+  <nav class="archive-pagination" aria-label="Paginación del archivo" hidden>
+    <button type="button" data-archive-previous><span aria-hidden="true">←</span> Anterior</button>
+    <span data-archive-page></span>
+    <button type="button" data-archive-next>Siguiente <span aria-hidden="true">→</span></button>
+  </nav>
+</div>

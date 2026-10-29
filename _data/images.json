@@ -1,0 +1,920 @@
+{
+  "/images/100723/azure-disk-upgrade-windows-server-2019-datacenter.webp": {
+    "width": 2648,
+    "height": 920,
+    "fallback": "/images/responsive/100723/azure-disk-upgrade-windows-server-2019-datacenter-740.webp",
+    "variants": [
+      {
+        "src": "/images/responsive/100723/azure-disk-upgrade-windows-server-2019-datacenter-740.webp",
+        "width": 740
+      },
+      {
+        "src": "/images/responsive/100723/azure-disk-upgrade-windows-server-2019-datacenter-1480.webp",
+        "width": 1480
+      }
+    ]
+  },
+  "/images/100723/bootdiagnostics-windows-server-2019-setup.webp": {
+    "width": 1932,
+    "height": 1578,
+    "fallback": "/images/responsive/100723/bootdiagnostics-windows-server-2019-setup-740.webp",
+    "variants": [
+      {
+        "src": "/images/responsive/100723/bootdiagnostics-windows-server-2019-setup-740.webp",
+        "width": 740
+      },
+      {
+        "src": "/images/responsive/100723/bootdiagnostics-windows-server-2019-setup-1480.webp",
+        "width": 1480
+      }
+    ]
+  },
+  "/images/100723/files-upgrade-to-windows-server-2019-datacenter.webp": {
+    "width": 2250,
+    "height": 1270,
+    "fallback": "/images/responsive/100723/files-upgrade-to-windows-server-2019-datacenter-740.webp",
+    "variants": [
+      {
+        "src": "/images/responsive/100723/files-upgrade-to-windows-server-2019-datacenter-740.webp",
+        "width": 740
+      },
+      {
+        "src": "/images/responsive/100723/files-upgrade-to-windows-server-2019-datacenter-1480.webp",
+        "width": 1480
+      }
+    ]
+  },
+  "/images/100723/findstr.webp": {
+    "width": 1958,
+    "height": 1026,
+    "fallback": "/images/responsive/100723/findstr-740.webp",
+    "variants": [
+      {
+        "src": "/images/responsive/100723/findstr-740.webp",
+        "width": 740
+      },
+      {
+        "src": "/images/responsive/100723/findstr-1480.webp",
+        "width": 1480
+      }
+    ]
+  },
+  "/images/100723/installing-windows-server-2019.webp": {
+    "width": 2196,
+    "height": 716,
+    "fallback": "/images/responsive/100723/installing-windows-server-2019-740.webp",
+    "variants": [
+      {
+        "src": "/images/responsive/100723/installing-windows-server-2019-740.webp",
+        "width": 740
+      },
+      {
+        "src": "/images/responsive/100723/installing-windows-server-2019-1480.webp",
+        "width": 1480
+      }
+    ]
+  },
+  "/images/100723/outputs-azure-cloud-shell.webp": {
+    "width": 2648,
+    "height": 1790,
+    "fallback": "/images/responsive/100723/outputs-azure-cloud-shell-740.webp",
+    "variants": [
+      {
+        "src": "/images/responsive/100723/outputs-azure-cloud-shell-740.webp",
+        "width": 740
+      },
+      {
+        "src": "/images/responsive/100723/outputs-azure-cloud-shell-1480.webp",
+        "width": 1480
+      }
+    ]
+  },
+  "/images/100723/windows-server-2019-setup.webp": {
+    "width": 1400,
+    "height": 1110,
+    "fallback": "/images/responsive/100723/windows-server-2019-setup-740.webp",
+    "variants": [
+      {
+        "src": "/images/responsive/100723/windows-server-2019-setup-740.webp",
+        "width": 740
+      }
+    ]
+  },
+  "/images/100723/windows-server-logo.webp": {
+    "width": 1740,
+    "height": 920,
+    "fallback": "/images/responsive/100723/windows-server-logo-800.webp",
+    "variants": [
+      {
+        "src": "/images/responsive/100723/windows-server-logo-400.webp",
+        "width": 400
+      },
+      {
+        "src": "/images/responsive/100723/windows-server-logo-800.webp",
+        "width": 800
+      },
+      {
+        "src": "/images/responsive/100723/windows-server-logo-1200.webp",
+        "width": 1200
+      }
+    ]
+  },
+  "/images/270723/copilot-github.webp": {
+    "width": 1200,
+    "height": 630,
+    "fallback": "/images/responsive/270723/copilot-github-800.webp",
+    "variants": [
+      {
+        "src": "/images/responsive/270723/copilot-github-400.webp",
+        "width": 400
+      },
+      {
+        "src": "/images/responsive/270723/copilot-github-800.webp",
+        "width": 800
+      }
+    ]
+  },
+  "/images/270723/github-copilot-terraform-00.webp": {
+    "width": 1504,
+    "height": 692,
+    "fallback": "/images/responsive/270723/github-copilot-terraform-00-740.webp",
+    "variants": [
+      {
+        "src": "/images/responsive/270723/github-copilot-terraform-00-740.webp",
+        "width": 740
+      },
+      {
+        "src": "/images/responsive/270723/github-copilot-terraform-00-1480.webp",
+        "width": 1480
+      }
+    ]
+  },
+  "/images/270723/github-copilot-terraform-01.webp": {
+    "width": 1474,
+    "height": 644,
+    "fallback": "/images/responsive/270723/github-copilot-terraform-01-740.webp",
+    "variants": [
+      {
+        "src": "/images/responsive/270723/github-copilot-terraform-01-740.webp",
+        "width": 740
+      }
+    ]
+  },
+  "/images/270723/github-copilot-terraform-02.webp": {
+    "width": 1888,
+    "height": 1110,
+    "fallback": "/images/responsive/270723/github-copilot-terraform-02-740.webp",
+    "variants": [
+      {
+        "src": "/images/responsive/270723/github-copilot-terraform-02-740.webp",
+        "width": 740
+      },
+      {
+        "src": "/images/responsive/270723/github-copilot-terraform-02-1480.webp",
+        "width": 1480
+      }
+    ]
+  },
+  "/images/270723/github-copilot-terraform-03.webp": {
+    "width": 1960,
+    "height": 1306,
+    "fallback": "/images/responsive/270723/github-copilot-terraform-03-740.webp",
+    "variants": [
+      {
+        "src": "/images/responsive/270723/github-copilot-terraform-03-740.webp",
+        "width": 740
+      },
+      {
+        "src": "/images/responsive/270723/github-copilot-terraform-03-1480.webp",
+        "width": 1480
+      }
+    ]
+  },
+  "/images/270723/github-copilot-terraform-04.webp": {
+    "width": 1904,
+    "height": 550,
+    "fallback": "/images/responsive/270723/github-copilot-terraform-04-740.webp",
+    "variants": [
+      {
+        "src": "/images/responsive/270723/github-copilot-terraform-04-740.webp",
+        "width": 740
+      },
+      {
+        "src": "/images/responsive/270723/github-copilot-terraform-04-1480.webp",
+        "width": 1480
+      }
+    ]
+  },
+  "/images/270723/github-copilot-terraform-05.webp": {
+    "width": 1948,
+    "height": 1580,
+    "fallback": "/images/responsive/270723/github-copilot-terraform-05-740.webp",
+    "variants": [
+      {
+        "src": "/images/responsive/270723/github-copilot-terraform-05-740.webp",
+        "width": 740
+      },
+      {
+        "src": "/images/responsive/270723/github-copilot-terraform-05-1480.webp",
+        "width": 1480
+      }
+    ]
+  },
+  "/images/280623/crear-credencial.webp": {
+    "width": 1900,
+    "height": 1860,
+    "fallback": "/images/responsive/280623/crear-credencial-740.webp",
+    "variants": [
+      {
+        "src": "/images/responsive/280623/crear-credencial-740.webp",
+        "width": 740
+      },
+      {
+        "src": "/images/responsive/280623/crear-credencial-1480.webp",
+        "width": 1480
+      }
+    ]
+  },
+  "/images/280623/credenciales-federadas-plan-apply-azure-openid.webp": {
+    "width": 2644,
+    "height": 702,
+    "fallback": "/images/responsive/280623/credenciales-federadas-plan-apply-azure-openid-740.webp",
+    "variants": [
+      {
+        "src": "/images/responsive/280623/credenciales-federadas-plan-apply-azure-openid-740.webp",
+        "width": 740
+      },
+      {
+        "src": "/images/responsive/280623/credenciales-federadas-plan-apply-azure-openid-1480.webp",
+        "width": 1480
+      }
+    ]
+  },
+  "/images/280623/cuenta-de-almacenamiento-azure.webp": {
+    "width": 2240,
+    "height": 1106,
+    "fallback": "/images/responsive/280623/cuenta-de-almacenamiento-azure-740.webp",
+    "variants": [
+      {
+        "src": "/images/responsive/280623/cuenta-de-almacenamiento-azure-740.webp",
+        "width": 740
+      },
+      {
+        "src": "/images/responsive/280623/cuenta-de-almacenamiento-azure-1480.webp",
+        "width": 1480
+      }
+    ]
+  },
+  "/images/280623/ejecutar-workflow-github-actions.webp": {
+    "width": 2646,
+    "height": 914,
+    "fallback": "/images/responsive/280623/ejecutar-workflow-github-actions-740.webp",
+    "variants": [
+      {
+        "src": "/images/responsive/280623/ejecutar-workflow-github-actions-740.webp",
+        "width": 740
+      },
+      {
+        "src": "/images/responsive/280623/ejecutar-workflow-github-actions-1480.webp",
+        "width": 1480
+      }
+    ]
+  },
+  "/images/280623/ejecutar-workflow-github-actions02.webp": {
+    "width": 2646,
+    "height": 998,
+    "fallback": "/images/responsive/280623/ejecutar-workflow-github-actions02-740.webp",
+    "variants": [
+      {
+        "src": "/images/responsive/280623/ejecutar-workflow-github-actions02-740.webp",
+        "width": 740
+      },
+      {
+        "src": "/images/responsive/280623/ejecutar-workflow-github-actions02-1480.webp",
+        "width": 1480
+      }
+    ]
+  },
+  "/images/280623/ejecutar-workflow-github-actions03.webp": {
+    "width": 2644,
+    "height": 1202,
+    "fallback": "/images/responsive/280623/ejecutar-workflow-github-actions03-740.webp",
+    "variants": [
+      {
+        "src": "/images/responsive/280623/ejecutar-workflow-github-actions03-740.webp",
+        "width": 740
+      },
+      {
+        "src": "/images/responsive/280623/ejecutar-workflow-github-actions03-1480.webp",
+        "width": 1480
+      }
+    ]
+  },
+  "/images/280623/ejecutar-workflow-github-actions04.webp": {
+    "width": 2626,
+    "height": 1528,
+    "fallback": "/images/responsive/280623/ejecutar-workflow-github-actions04-740.webp",
+    "variants": [
+      {
+        "src": "/images/responsive/280623/ejecutar-workflow-github-actions04-740.webp",
+        "width": 740
+      },
+      {
+        "src": "/images/responsive/280623/ejecutar-workflow-github-actions04-1480.webp",
+        "width": 1480
+      }
+    ]
+  },
+  "/images/280623/ejecutar-workflow-github-actions05.webp": {
+    "width": 2620,
+    "height": 1662,
+    "fallback": "/images/responsive/280623/ejecutar-workflow-github-actions05-740.webp",
+    "variants": [
+      {
+        "src": "/images/responsive/280623/ejecutar-workflow-github-actions05-740.webp",
+        "width": 740
+      },
+      {
+        "src": "/images/responsive/280623/ejecutar-workflow-github-actions05-1480.webp",
+        "width": 1480
+      }
+    ]
+  },
+  "/images/280623/ejecutar-workflow-github-actions07.webp": {
+    "width": 2642,
+    "height": 1404,
+    "fallback": "/images/responsive/280623/ejecutar-workflow-github-actions07-740.webp",
+    "variants": [
+      {
+        "src": "/images/responsive/280623/ejecutar-workflow-github-actions07-740.webp",
+        "width": 740
+      },
+      {
+        "src": "/images/responsive/280623/ejecutar-workflow-github-actions07-1480.webp",
+        "width": 1480
+      }
+    ]
+  },
+  "/images/280623/ejecutar-workflow-github-actions08.webp": {
+    "width": 2632,
+    "height": 1602,
+    "fallback": "/images/responsive/280623/ejecutar-workflow-github-actions08-740.webp",
+    "variants": [
+      {
+        "src": "/images/responsive/280623/ejecutar-workflow-github-actions08-740.webp",
+        "width": 740
+      },
+      {
+        "src": "/images/responsive/280623/ejecutar-workflow-github-actions08-1480.webp",
+        "width": 1480
+      }
+    ]
+  },
+  "/images/280623/github-environments-plan-apply.webp": {
+    "width": 2392,
+    "height": 1032,
+    "fallback": "/images/responsive/280623/github-environments-plan-apply-740.webp",
+    "variants": [
+      {
+        "src": "/images/responsive/280623/github-environments-plan-apply-740.webp",
+        "width": 740
+      },
+      {
+        "src": "/images/responsive/280623/github-environments-plan-apply-1480.webp",
+        "width": 1480
+      }
+    ]
+  },
+  "/images/280623/new-environment-github.webp": {
+    "width": 1916,
+    "height": 1092,
+    "fallback": "/images/responsive/280623/new-environment-github-740.webp",
+    "variants": [
+      {
+        "src": "/images/responsive/280623/new-environment-github-740.webp",
+        "width": 740
+      },
+      {
+        "src": "/images/responsive/280623/new-environment-github-1480.webp",
+        "width": 1480
+      }
+    ]
+  },
+  "/images/280623/registro-de-aplicacion.webp": {
+    "width": 2216,
+    "height": 866,
+    "fallback": "/images/responsive/280623/registro-de-aplicacion-740.webp",
+    "variants": [
+      {
+        "src": "/images/responsive/280623/registro-de-aplicacion-740.webp",
+        "width": 740
+      },
+      {
+        "src": "/images/responsive/280623/registro-de-aplicacion-1480.webp",
+        "width": 1480
+      }
+    ]
+  },
+  "/images/280623/required-reviewers-environment-apply.webp": {
+    "width": 1982,
+    "height": 1148,
+    "fallback": "/images/responsive/280623/required-reviewers-environment-apply-740.webp",
+    "variants": [
+      {
+        "src": "/images/responsive/280623/required-reviewers-environment-apply-740.webp",
+        "width": 740
+      },
+      {
+        "src": "/images/responsive/280623/required-reviewers-environment-apply-1480.webp",
+        "width": 1480
+      }
+    ]
+  },
+  "/images/280623/secrets-github.webp": {
+    "width": 2314,
+    "height": 1940,
+    "fallback": "/images/responsive/280623/secrets-github-740.webp",
+    "variants": [
+      {
+        "src": "/images/responsive/280623/secrets-github-740.webp",
+        "width": 740
+      },
+      {
+        "src": "/images/responsive/280623/secrets-github-1480.webp",
+        "width": 1480
+      }
+    ]
+  },
+  "/images/280623/usar-template.webp": {
+    "width": 1908,
+    "height": 592,
+    "fallback": "/images/responsive/280623/usar-template-740.webp",
+    "variants": [
+      {
+        "src": "/images/responsive/280623/usar-template-740.webp",
+        "width": 740
+      },
+      {
+        "src": "/images/responsive/280623/usar-template-1480.webp",
+        "width": 1480
+      }
+    ]
+  },
+  "/images/activar-desactivar-smtp.webp": {
+    "width": 1075,
+    "height": 768,
+    "fallback": "/images/responsive/activar-desactivar-smtp-800.webp",
+    "variants": [
+      {
+        "src": "/images/responsive/activar-desactivar-smtp-400.webp",
+        "width": 400
+      },
+      {
+        "src": "/images/responsive/activar-desactivar-smtp-800.webp",
+        "width": 800
+      }
+    ]
+  },
+  "/images/badges/azure-administrator-associate.png": {
+    "width": 600,
+    "height": 600,
+    "fallback": "/images/responsive/badges/azure-administrator-associate-200.webp",
+    "variants": [
+      {
+        "src": "/images/responsive/badges/azure-administrator-associate-100.webp",
+        "width": 100
+      },
+      {
+        "src": "/images/responsive/badges/azure-administrator-associate-200.webp",
+        "width": 200
+      }
+    ]
+  },
+  "/images/badges/azure-devops-engineer.png": {
+    "width": 600,
+    "height": 600,
+    "fallback": "/images/responsive/badges/azure-devops-engineer-200.webp",
+    "variants": [
+      {
+        "src": "/images/responsive/badges/azure-devops-engineer-100.webp",
+        "width": 100
+      },
+      {
+        "src": "/images/responsive/badges/azure-devops-engineer-200.webp",
+        "width": 200
+      }
+    ]
+  },
+  "/images/badges/azure-network-engineer.png": {
+    "width": 512,
+    "height": 512,
+    "fallback": "/images/responsive/badges/azure-network-engineer-200.webp",
+    "variants": [
+      {
+        "src": "/images/responsive/badges/azure-network-engineer-100.webp",
+        "width": 100
+      },
+      {
+        "src": "/images/responsive/badges/azure-network-engineer-200.webp",
+        "width": 200
+      }
+    ]
+  },
+  "/images/badges/azure-solutions-architect-expert.png": {
+    "width": 600,
+    "height": 600,
+    "fallback": "/images/responsive/badges/azure-solutions-architect-expert-200.webp",
+    "variants": [
+      {
+        "src": "/images/responsive/badges/azure-solutions-architect-expert-100.webp",
+        "width": 100
+      },
+      {
+        "src": "/images/responsive/badges/azure-solutions-architect-expert-200.webp",
+        "width": 200
+      }
+    ]
+  },
+  "/images/badges/github-foundations-certification.webp": {
+    "width": 1024,
+    "height": 1024,
+    "fallback": "/images/responsive/badges/github-foundations-certification-200.webp",
+    "variants": [
+      {
+        "src": "/images/responsive/badges/github-foundations-certification-100.webp",
+        "width": 100
+      },
+      {
+        "src": "/images/responsive/badges/github-foundations-certification-200.webp",
+        "width": 200
+      }
+    ]
+  },
+  "/images/badges/google-cloud-engineer-associate.png": {
+    "width": 1040,
+    "height": 1040,
+    "fallback": "/images/responsive/badges/google-cloud-engineer-associate-200.webp",
+    "variants": [
+      {
+        "src": "/images/responsive/badges/google-cloud-engineer-associate-100.webp",
+        "width": 100
+      },
+      {
+        "src": "/images/responsive/badges/google-cloud-engineer-associate-200.webp",
+        "width": 200
+      }
+    ]
+  },
+  "/images/badges/microsoft365-fundamentals.png": {
+    "width": 512,
+    "height": 512,
+    "fallback": "/images/responsive/badges/microsoft365-fundamentals-200.webp",
+    "variants": [
+      {
+        "src": "/images/responsive/badges/microsoft365-fundamentals-100.webp",
+        "width": 100
+      },
+      {
+        "src": "/images/responsive/badges/microsoft365-fundamentals-200.webp",
+        "width": 200
+      }
+    ]
+  },
+  "/images/badges/open-group-professional-communication-l1.png": {
+    "width": 512,
+    "height": 512,
+    "fallback": "/images/responsive/badges/open-group-professional-communication-l1-200.webp",
+    "variants": [
+      {
+        "src": "/images/responsive/badges/open-group-professional-communication-l1-100.webp",
+        "width": 100
+      },
+      {
+        "src": "/images/responsive/badges/open-group-professional-communication-l1-200.webp",
+        "width": 200
+      }
+    ]
+  },
+  "/images/badges/open-group-professional-development-l1.png": {
+    "width": 512,
+    "height": 512,
+    "fallback": "/images/responsive/badges/open-group-professional-development-l1-200.webp",
+    "variants": [
+      {
+        "src": "/images/responsive/badges/open-group-professional-development-l1-100.webp",
+        "width": 100
+      },
+      {
+        "src": "/images/responsive/badges/open-group-professional-development-l1-200.webp",
+        "width": 200
+      }
+    ]
+  },
+  "/images/badges/terraform-associate-003.png": {
+    "width": 680,
+    "height": 680,
+    "fallback": "/images/responsive/badges/terraform-associate-003-200.webp",
+    "variants": [
+      {
+        "src": "/images/responsive/badges/terraform-associate-003-100.webp",
+        "width": 100
+      },
+      {
+        "src": "/images/responsive/badges/terraform-associate-003-200.webp",
+        "width": 200
+      }
+    ]
+  },
+  "/images/clients/alugan.webp": {
+    "width": 340,
+    "height": 221,
+    "fallback": "/images/clients/alugan.webp",
+    "variants": []
+  },
+  "/images/commit-actions-github-pages.webp": {
+    "width": 1422,
+    "height": 72,
+    "fallback": "/images/responsive/commit-actions-github-pages-740.webp",
+    "variants": [
+      {
+        "src": "/images/responsive/commit-actions-github-pages-740.webp",
+        "width": 740
+      }
+    ]
+  },
+  "/images/config-dns-zone-github-pages.webp": {
+    "width": 743,
+    "height": 573,
+    "fallback": "/images/responsive/config-dns-zone-github-pages-740.webp",
+    "variants": [
+      {
+        "src": "/images/responsive/config-dns-zone-github-pages-740.webp",
+        "width": 740
+      }
+    ]
+  },
+  "/images/configure-jekyll-github-pages.webp": {
+    "width": 986,
+    "height": 652,
+    "fallback": "/images/responsive/configure-jekyll-github-pages-740.webp",
+    "variants": [
+      {
+        "src": "/images/responsive/configure-jekyll-github-pages-740.webp",
+        "width": 740
+      }
+    ]
+  },
+  "/images/create-new-public-repository-github.webp": {
+    "width": 1019,
+    "height": 752,
+    "fallback": "/images/responsive/create-new-public-repository-github-740.webp",
+    "variants": [
+      {
+        "src": "/images/responsive/create-new-public-repository-github-740.webp",
+        "width": 740
+      }
+    ]
+  },
+  "/images/custom-domain-github-pages.webp": {
+    "width": 979,
+    "height": 595,
+    "fallback": "/images/responsive/custom-domain-github-pages-740.webp",
+    "variants": [
+      {
+        "src": "/images/responsive/custom-domain-github-pages-740.webp",
+        "width": 740
+      }
+    ]
+  },
+  "/images/github-actions-workflow-terraform.webp": {
+    "width": 1024,
+    "height": 600,
+    "fallback": "/images/responsive/github-actions-workflow-terraform-800.webp",
+    "variants": [
+      {
+        "src": "/images/responsive/github-actions-workflow-terraform-400.webp",
+        "width": 400
+      },
+      {
+        "src": "/images/responsive/github-actions-workflow-terraform-800.webp",
+        "width": 800
+      }
+    ]
+  },
+  "/images/github-pages-live.webp": {
+    "width": 992,
+    "height": 234,
+    "fallback": "/images/responsive/github-pages-live-740.webp",
+    "variants": [
+      {
+        "src": "/images/responsive/github-pages-live-740.webp",
+        "width": 740
+      }
+    ]
+  },
+  "/images/install-ruby-devkit1.webp": {
+    "width": 698,
+    "height": 570,
+    "fallback": "/images/install-ruby-devkit1.webp",
+    "variants": []
+  },
+  "/images/install-ruby-devkit2.webp": {
+    "width": 698,
+    "height": 571,
+    "fallback": "/images/install-ruby-devkit2.webp",
+    "variants": []
+  },
+  "/images/install-ruby-devkit3.webp": {
+    "width": 696,
+    "height": 569,
+    "fallback": "/images/install-ruby-devkit3.webp",
+    "variants": []
+  },
+  "/images/install-ruby-devkit4.webp": {
+    "width": 1101,
+    "height": 636,
+    "fallback": "/images/responsive/install-ruby-devkit4-740.webp",
+    "variants": [
+      {
+        "src": "/images/responsive/install-ruby-devkit4-740.webp",
+        "width": 740
+      }
+    ]
+  },
+  "/images/jekyll-github.webp": {
+    "width": 1774,
+    "height": 1180,
+    "fallback": "/images/responsive/jekyll-github-800.webp",
+    "variants": [
+      {
+        "src": "/images/responsive/jekyll-github-400.webp",
+        "width": 400
+      },
+      {
+        "src": "/images/responsive/jekyll-github-800.webp",
+        "width": 800
+      },
+      {
+        "src": "/images/responsive/jekyll-github-1200.webp",
+        "width": 1200
+      }
+    ]
+  },
+  "/images/myblog.webp": {
+    "width": 972,
+    "height": 928,
+    "fallback": "/images/responsive/myblog-740.webp",
+    "variants": [
+      {
+        "src": "/images/responsive/myblog-740.webp",
+        "width": 740
+      }
+    ]
+  },
+  "/images/profile-ragalgut.jpeg": {
+    "width": 800,
+    "height": 800,
+    "fallback": "/images/responsive/profile-ragalgut-384.webp",
+    "variants": [
+      {
+        "src": "/images/responsive/profile-ragalgut-192.webp",
+        "width": 192
+      },
+      {
+        "src": "/images/responsive/profile-ragalgut-384.webp",
+        "width": 384
+      }
+    ]
+  },
+  "/images/projects/alugan-movil.webp": {
+    "width": 390,
+    "height": 700,
+    "fallback": "/images/projects/alugan-movil.webp",
+    "variants": []
+  },
+  "/images/projects/alugan-productos.webp": {
+    "width": 1280,
+    "height": 720,
+    "fallback": "/images/responsive/projects/alugan-productos-800.webp",
+    "variants": [
+      {
+        "src": "/images/responsive/projects/alugan-productos-400.webp",
+        "width": 400
+      },
+      {
+        "src": "/images/responsive/projects/alugan-productos-800.webp",
+        "width": 800
+      },
+      {
+        "src": "/images/responsive/projects/alugan-productos-1200.webp",
+        "width": 1200
+      }
+    ]
+  },
+  "/images/projects/alugan.webp": {
+    "width": 1280,
+    "height": 720,
+    "fallback": "/images/responsive/projects/alugan-800.webp",
+    "variants": [
+      {
+        "src": "/images/responsive/projects/alugan-400.webp",
+        "width": 400
+      },
+      {
+        "src": "/images/responsive/projects/alugan-800.webp",
+        "width": 800
+      },
+      {
+        "src": "/images/responsive/projects/alugan-1200.webp",
+        "width": 1200
+      }
+    ]
+  },
+  "/images/projects/moima-movil.webp": {
+    "width": 390,
+    "height": 700,
+    "fallback": "/images/projects/moima-movil.webp",
+    "variants": []
+  },
+  "/images/projects/moima-patrimonio.webp": {
+    "width": 1280,
+    "height": 720,
+    "fallback": "/images/responsive/projects/moima-patrimonio-800.webp",
+    "variants": [
+      {
+        "src": "/images/responsive/projects/moima-patrimonio-400.webp",
+        "width": 400
+      },
+      {
+        "src": "/images/responsive/projects/moima-patrimonio-800.webp",
+        "width": 800
+      },
+      {
+        "src": "/images/responsive/projects/moima-patrimonio-1200.webp",
+        "width": 1200
+      }
+    ]
+  },
+  "/images/projects/moima-trabajos.webp": {
+    "width": 1280,
+    "height": 720,
+    "fallback": "/images/responsive/projects/moima-trabajos-800.webp",
+    "variants": [
+      {
+        "src": "/images/responsive/projects/moima-trabajos-400.webp",
+        "width": 400
+      },
+      {
+        "src": "/images/responsive/projects/moima-trabajos-800.webp",
+        "width": 800
+      },
+      {
+        "src": "/images/responsive/projects/moima-trabajos-1200.webp",
+        "width": 1200
+      }
+    ]
+  },
+  "/images/push-myblog-jekyll.webp": {
+    "width": 1282,
+    "height": 791,
+    "fallback": "/images/responsive/push-myblog-jekyll-740.webp",
+    "variants": [
+      {
+        "src": "/images/responsive/push-myblog-jekyll-740.webp",
+        "width": 740
+      }
+    ]
+  },
+  "/images/settings-github-pages.webp": {
+    "width": 1503,
+    "height": 826,
+    "fallback": "/images/responsive/settings-github-pages-740.webp",
+    "variants": [
+      {
+        "src": "/images/responsive/settings-github-pages-740.webp",
+        "width": 740
+      },
+      {
+        "src": "/images/responsive/settings-github-pages-1480.webp",
+        "width": 1480
+      }
+    ]
+  },
+  "/images/social/ragalgut.png": {
+    "width": 1200,
+    "height": 630,
+    "fallback": "/images/social/ragalgut.png",
+    "variants": []
+  },
+  "/images/source-github-pages.webp": {
+    "width": 987,
+    "height": 677,
+    "fallback": "/images/responsive/source-github-pages-740.webp",
+    "variants": [
+      {
+        "src": "/images/responsive/source-github-pages-740.webp",
+        "width": 740
+      }
+    ]
+  }
+}

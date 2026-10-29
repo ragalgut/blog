@@ -1,0 +1,10 @@
+- name: Moima Patrimonio
+  url: https://moimapatrimonio.com/
+  logo: /images/clients/moima-patrimonio.svg
+  logo_width: 2171
+  logo_height: 965
+- name: Alugan
+  url: https://alugan.es/
+  logo: /images/clients/alugan.webp
+  logo_width: 340
+  logo_height: 221

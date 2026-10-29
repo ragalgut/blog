@@ -1,20 +1,50 @@
 ---
 layout: default
-image: '/images/01.jpg'
+title: Cloud y diseño web en WordPress con Rafael Galante
+description: Rafael Galante, arquitecto cloud en Kyndryl. Artículos sobre Azure y automatización, diseño web en WordPress y proyectos reales para empresas.
+focus_keyphrase: arquitectura cloud y desarrollo web
+keywords: [Azure, Terraform, automatización, diseño web en WordPress, proyectos web]
+image: /images/social/ragalgut.png
+image_alt: ragalgut.me, Cloud, código y proyectos reales. Rafael Galante Gutiérrez, Azure, automatización y WordPress.
 ---
-
-{% include hero.html %}
-
-<div class="container">
-  <div class="row animate">
-    {% if site.posts.size > 0 %}
-      {% for post in paginator.posts %}
-        {% include article.html %}
-      {% endfor %}
-    {% endif %}
-  </div>
+<div class="site-shell">
+  {% include home-hero.html %}
+  <nav class="home-jump-nav" aria-label="Secciones de la portada">
+    <p>En esta web</p>
+    <ul>
+      <li><a href="#articulos">Artículos <span aria-hidden="true">↓</span></a></li>
+      <li><a href="#proyectos">Proyectos <span aria-hidden="true">↓</span></a></li>
+      <li><a href="#herramientas">Herramientas <span aria-hidden="true">↓</span></a></li>
+    </ul>
+  </nav>
 </div>
-
-{% include pagination.html %}
-
-{% include section-tags.html %}
+<section class="home-section home-articles" id="articulos" aria-labelledby="articulos-title">
+  <div class="site-shell">
+    <header class="home-section__header">
+      <div><p class="home-section__label"><span aria-hidden="true">01 /</span> Artículos</p><h2 id="articulos-title">Últimos artículos</h2></div>
+      <a class="section-link" href="{{ '/articulos/' | relative_url }}">Ver todos los artículos <span aria-hidden="true">→</span></a>
+    </header>
+    <div class="article-grid">
+      {% for post in site.posts limit: 6 %}{% include article-card.html %}{% endfor %}
+    </div>
+  </div>
+</section>
+<section class="home-section home-projects" id="proyectos" aria-labelledby="proyectos-title">
+  <div class="site-shell">
+    <header class="home-section__header">
+      <div><p class="home-section__label"><span aria-hidden="true">02 /</span> Proyectos</p><h2 id="proyectos-title">Proyectos con nombre propio.</h2></div>
+      <a class="section-link" href="{{ '/proyectos/' | relative_url }}">Ver proyectos <span aria-hidden="true">→</span></a>
+    </header>
+    {% assign home_projects = site.projects | sort: 'order' %}{% for project in home_projects limit: 2 %}{% include project-card.html %}{% endfor %}
+  </div>
+</section>
+<section class="home-section home-tools" id="herramientas" aria-labelledby="herramientas-title">
+  <div class="site-shell home-tools__inner">
+    <header class="home-section__header">
+      <div><p class="home-section__label"><span aria-hidden="true">03 /</span> Herramientas</p><h2 id="herramientas-title">Herramientas a mano.</h2></div>
+      <a class="section-link" href="{{ '/herramientas/' | relative_url }}">Ver herramientas <span aria-hidden="true">→</span></a>
+    </header>
+    <div class="home-tools__list">{% for tool in site.data.tools %}{% include tool-card.html %}{% endfor %}</div>
+  </div>
+</section>
+{% include clients.html %}

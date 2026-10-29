@@ -1,0 +1,8 @@
+{% if site.data.clients.size > 0 %}
+<section class="client-strip" aria-labelledby="clientes">
+  <div class="site-shell client-strip__inner">
+    <div><p class="home-eyebrow">Clientes</p><h2 id="clientes">Han confiado en mí.</h2></div>
+    <ul class="client-strip__brands">{% for client in site.data.clients %}<li><a href="{{ client.url }}" target="_blank" rel="noopener noreferrer" title="Visitar {{ client.name }}"><img src="{{ client.logo | relative_url }}" alt="{{ client.name }}" width="{{ client.logo_width }}" height="{{ client.logo_height }}" loading="lazy" decoding="async"></a></li>{% endfor %}</ul>
+  </div>
+</section>
+{% endif %}

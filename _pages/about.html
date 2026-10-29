@@ -1,248 +1,141 @@
 ---
 layout: page
-title: Acerca de
+title: Rafael Galante, arquitecto de soluciones cloud
+heading: Rafael Galante, arquitecto cloud.
+eyebrow: Acerca de mí
+description: Rafael Galante, arquitecto cloud en Kyndryl especializado en Azure y automatización. Diseño y desarrollo web en WordPress para empresas.
+focus_keyphrase: Rafael Galante arquitecto cloud
+keywords: [arquitecto de soluciones cloud, infraestructura en Azure, automatización DevOps, diseño web en WordPress]
 permalink: /acerca-de/
 ---
 
 <div class="about-intro">
-  <p>ragalgut.me es un proyecto web basado en Jekyll y alojado en GitHub Pages. Nació con la idea de tener un espacio personal donde compartir proyectos, artículos técnicos y mi experiencia profesional en el mundo de la nube.</p>
+  {% include responsive-image.html src=site.author.avatar alt=site.author.name width=180 height=180 class='about-portrait' sizes='(max-width: 580px) 165px, 180px' loading='eager' %}
   <p>Me llamo <strong>Rafael Galante Gutiérrez</strong>, trabajo como <strong>Arquitecto de Soluciones Cloud en Kyndryl</strong>, especializado en el diseño y despliegue de infraestructura en Azure. Mi trabajo combina la arquitectura de soluciones escalables y seguras con la automatización mediante Terraform y la integración de flujos DevOps.</p>
+  <p>También <strong>diseño y desarrollo webs en WordPress para empresas</strong>. Me encargo del diseño, la estructura y el desarrollo, adaptando cada web a la actividad y las necesidades del cliente. En <a href="{{ '/proyectos/' | relative_url }}">mis proyectos</a> cuento cómo he abordado trabajos como Moima Patrimonio y Alugan.</p>
+  <p>ragalgut.me es un proyecto web basado en Jekyll y alojado en GitHub Pages. Nació con la idea de tener un espacio personal donde compartir proyectos, artículos técnicos y mi experiencia profesional en el mundo de la nube.</p>
 </div>
 
-<!-- Experiencia laboral -->
+{% assign contact = site.social | where: 'label', 'LinkedIn' | first %}
+{% if contact %}
+<section class="about-contact" aria-labelledby="contacto">
+  <div><h2 id="contacto">Hablemos.</h2><p>Para conectar profesionalmente o conversar sobre cloud, automatización y desarrollo web, puedes encontrarme en LinkedIn.</p></div>
+  <a class="button button--primary" href="{{ contact.url }}">Contactar por LinkedIn <span aria-hidden="true">↗</span></a>
+</section>
+{% endif %}
+
 <h2 class="about-section-title">Experiencia laboral</h2>
 
-<div class="about-timeline">
-
-  <div class="about-timeline__item">
-    <div class="about-timeline__date">09/2021 – Actualidad</div>
-    <div class="about-timeline__content">
-      <h3 class="about-timeline__role">Cloud Solutions Architect</h3>
-      <span class="about-timeline__company">Kyndryl</span>
-    </div>
+<div class="about-timeline__item">
+  <div class="about-timeline__date">09/2021 – Actualidad</div>
+  <div>
+    <h3 class="about-timeline__role">Cloud Solutions Architect</h3>
+    <span class="about-timeline__company">Kyndryl</span>
   </div>
-
-  <div class="about-timeline__item">
-    <div class="about-timeline__date">04/2021 – 09/2021</div>
-    <div class="about-timeline__content">
-      <h3 class="about-timeline__role">Azure Engineer</h3>
-      <span class="about-timeline__company">ViewNext</span>
-    </div>
-  </div>
-
-  <div class="about-timeline__item">
-    <div class="about-timeline__date">06/2018 – 11/2019</div>
-    <div class="about-timeline__content">
-      <h3 class="about-timeline__role">Azure &amp; Microsoft 365 Consultant · Technical Support Manager</h3>
-      <span class="about-timeline__company">Ozein Cloud Services</span>
-    </div>
-  </div>
-
-  <div class="about-timeline__item">
-    <div class="about-timeline__date">07/2017 – 06/2018</div>
-    <div class="about-timeline__content">
-      <h3 class="about-timeline__role">Head of Mobility Area &amp; Systems Specialist</h3>
-      <span class="about-timeline__company">Indra — Heineken Spain</span>
-    </div>
-  </div>
-
-  <div class="about-timeline__item">
-    <div class="about-timeline__date">03/2016 – 07/2017</div>
-    <div class="about-timeline__content">
-      <h3 class="about-timeline__role">Modern Workplace Service</h3>
-      <span class="about-timeline__company">Indra — Heineken Spain</span>
-    </div>
-  </div>
-
-  <div class="about-timeline__item">
-    <div class="about-timeline__date">10/2011 – 03/2016</div>
-    <div class="about-timeline__content">
-      <h3 class="about-timeline__role">2nd Level Technician</h3>
-      <span class="about-timeline__company">Indra — Heineken Spain (Outsourcing)</span>
-    </div>
-  </div>
-
 </div>
 
-<!-- Certificaciones -->
+<div class="about-timeline__item">
+  <div class="about-timeline__date">04/2021 – 09/2021</div>
+  <div>
+    <h3 class="about-timeline__role">Azure Engineer</h3>
+    <span class="about-timeline__company">ViewNext</span>
+  </div>
+</div>
+
+<div class="about-timeline__item">
+  <div class="about-timeline__date">06/2018 – 11/2019</div>
+  <div>
+    <h3 class="about-timeline__role">Azure &amp; Microsoft 365 Consultant · Technical Support Manager</h3>
+    <span class="about-timeline__company">Ozein Cloud Services</span>
+  </div>
+</div>
+
+<div class="about-timeline__item">
+  <div class="about-timeline__date">07/2017 – 06/2018</div>
+  <div>
+    <h3 class="about-timeline__role">Head of Mobility Area &amp; Systems Specialist</h3>
+    <span class="about-timeline__company">Indra — Heineken Spain</span>
+  </div>
+</div>
+
+<div class="about-timeline__item">
+  <div class="about-timeline__date">03/2016 – 07/2017</div>
+  <div>
+    <h3 class="about-timeline__role">Modern Workplace Service</h3>
+    <span class="about-timeline__company">Indra — Heineken Spain</span>
+  </div>
+</div>
+
+<div class="about-timeline__item">
+  <div class="about-timeline__date">10/2011 – 03/2016</div>
+  <div>
+    <h3 class="about-timeline__role">2nd Level Technician</h3>
+    <span class="about-timeline__company">Indra — Heineken Spain (Outsourcing)</span>
+  </div>
+</div>
+
 <h2 class="about-section-title">Certificaciones</h2>
 
 <div class="about-badges">
 
   <a class="about-badge" href="https://learn.microsoft.com/api/credentials/share/es-es/ragalgut/E0BE56E50D89A278?sharingId=F553C2C92E8AC757" target="_blank" rel="noopener">
-    <img class="about-badge__img" src="/images/badges/azure-administrator-associate.png" alt="Azure Administrator Associate">
+    {% include responsive-image.html src="/images/badges/azure-administrator-associate.png" alt="Azure Administrator Associate" width=100 height=100 class='about-badge__img' sizes='92px' %}
     <span class="about-badge__name">Azure Administrator Associate</span>
     <span class="about-badge__verify">Verificar →</span>
   </a>
 
   <a class="about-badge" href="https://learn.microsoft.com/api/credentials/share/es-es/ragalgut/BCF2B417E015E62B?sharingId=F553C2C92E8AC757" target="_blank" rel="noopener">
-    <img class="about-badge__img" src="/images/badges/azure-solutions-architect-expert.png" alt="Azure Solutions Architect Expert">
+    {% include responsive-image.html src="/images/badges/azure-solutions-architect-expert.png" alt="Azure Solutions Architect Expert" width=100 height=100 class='about-badge__img' sizes='92px' %}
     <span class="about-badge__name">Azure Solutions Architect Expert</span>
     <span class="about-badge__verify">Verificar →</span>
   </a>
 
   <a class="about-badge" href="https://learn.microsoft.com/api/credentials/share/es-es/ragalgut/1832D350990C343C?sharingId=F553C2C92E8AC757" target="_blank" rel="noopener">
-    <img class="about-badge__img" src="/images/badges/azure-network-engineer.png" alt="Azure Network Engineer Associate">
+    {% include responsive-image.html src="/images/badges/azure-network-engineer.png" alt="Azure Network Engineer Associate" width=100 height=100 class='about-badge__img' sizes='92px' %}
     <span class="about-badge__name">Azure Network Engineer Associate</span>
     <span class="about-badge__verify">Verificar →</span>
   </a>
 
   <a class="about-badge" href="https://learn.microsoft.com/api/credentials/share/es-es/ragalgut/FA07B846333466E4?sharingId=F553C2C92E8AC757" target="_blank" rel="noopener">
-    <img class="about-badge__img" src="/images/badges/azure-devops-engineer.png" alt="Azure DevOps Engineer Expert">
+    {% include responsive-image.html src="/images/badges/azure-devops-engineer.png" alt="Azure DevOps Engineer Expert" width=100 height=100 class='about-badge__img' sizes='92px' %}
     <span class="about-badge__name">Azure DevOps Engineer Expert</span>
     <span class="about-badge__verify">Verificar →</span>
   </a>
 
   <a class="about-badge" href="https://www.credly.com/badges/684d6822-155c-4ce5-ac24-5be192c5961c/public_url" target="_blank" rel="noopener">
-    <img class="about-badge__img" src="/images/badges/terraform-associate-003.png" alt="HashiCorp Terraform Associate">
+    {% include responsive-image.html src="/images/badges/terraform-associate-003.png" alt="HashiCorp Terraform Associate" width=100 height=100 class='about-badge__img' sizes='92px' %}
     <span class="about-badge__name">HashiCorp Terraform Associate</span>
     <span class="about-badge__verify">Verificar →</span>
   </a>
 
   <a class="about-badge" href="https://learn.microsoft.com/api/credentials/share/es-es/ragalgut/5609ABCDF9D1F9E4?sharingId=F553C2C92E8AC757" target="_blank" rel="noopener">
-    <img class="about-badge__img" src="/images/badges/microsoft365-fundamentals.png" alt="Microsoft 365 Fundamentals">
+    {% include responsive-image.html src="/images/badges/microsoft365-fundamentals.png" alt="Microsoft 365 Fundamentals" width=100 height=100 class='about-badge__img' sizes='92px' %}
     <span class="about-badge__name">Microsoft 365 Fundamentals</span>
     <span class="about-badge__verify">Verificar →</span>
   </a>
 
   <a class="about-badge" href="https://www.credly.com/badges/8c0d581d-9c37-4ba5-8a6d-f58e88a12c70/public_url" target="_blank" rel="noopener">
-    <img class="about-badge__img" src="/images/badges/google-cloud-engineer-associate.png" alt="Associate Cloud Engineer">
+    {% include responsive-image.html src="/images/badges/google-cloud-engineer-associate.png" alt="Associate Cloud Engineer" width=100 height=100 class='about-badge__img' sizes='92px' %}
     <span class="about-badge__name">Associate Cloud Engineer</span>
     <span class="about-badge__verify">Verificar →</span>
   </a>
 
   <a class="about-badge" href="https://www.credly.com/badges/a21d88a0-d39a-471e-aa2a-60fde054a92b/public_url" target="_blank" rel="noopener">
-    <img class="about-badge__img" src="/images/badges/github-foundations-certification.webp" alt="GitHub Foundations">
+    {% include responsive-image.html src="/images/badges/github-foundations-certification.webp" alt="GitHub Foundations" width=100 height=100 class='about-badge__img' sizes='92px' %}
     <span class="about-badge__name">GitHub Foundations</span>
     <span class="about-badge__verify">Verificar →</span>
   </a>
 
   <a class="about-badge" href="https://www.credly.com/badges/24ea5ed6-36fe-4477-b3a3-8b6513f6d4e4/public_url" target="_blank" rel="noopener">
-    <img class="about-badge__img" src="/images/badges/open-group-professional-development-l1.png" alt="L1 Architect - Professional Development">
+    {% include responsive-image.html src="/images/badges/open-group-professional-development-l1.png" alt="L1 Architect - Professional Development" width=100 height=100 class='about-badge__img' sizes='92px' %}
     <span class="about-badge__name">L1 Architect – Professional Development</span>
     <span class="about-badge__verify">Verificar →</span>
   </a>
 
   <a class="about-badge" href="https://www.credly.com/badges/f7672e80-21b7-4d40-a36c-af25d325e7fa/public_url" target="_blank" rel="noopener">
-    <img class="about-badge__img" src="/images/badges/open-group-professional-communication-l1.png" alt="L1 Architect - Professional Communication">
+    {% include responsive-image.html src="/images/badges/open-group-professional-communication-l1.png" alt="L1 Architect - Professional Communication" width=100 height=100 class='about-badge__img' sizes='92px' %}
     <span class="about-badge__name">L1 Architect – Professional Communication</span>
     <span class="about-badge__verify">Verificar →</span>
   </a>
 
 </div>
-
-<style>
-/* Intro */
-.about-intro {
-  margin-bottom: 40px;
-}
-
-.about-intro p {
-  font-size: 16px;
-  line-height: 1.8;
-  color: var(--text-color);
-  margin-bottom: 12px;
-}
-
-/* Section title */
-.about-section-title {
-  font-size: 22px;
-  font-weight: 700;
-  color: var(--heading-font-color);
-  margin: 40px 0 24px;
-  padding-bottom: 10px;
-  border-bottom: 2px solid var(--brand-color);
-  display: inline-block;
-}
-
-/* Timeline */
-.about-timeline {
-  position: relative;
-  padding-left: 28px;
-  border-left: 2px solid var(--border-color);
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-}
-
-.about-timeline__item {
-  position: relative;
-  padding: 0 0 28px 24px;
-}
-
-.about-timeline__item::before {
-  content: '';
-  position: absolute;
-  left: -7px;
-  top: 4px;
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: var(--brand-color);
-  border: 2px solid var(--background-color);
-}
-
-.about-timeline__date {
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--brand-color);
-  margin-bottom: 4px;
-}
-
-.about-timeline__role {
-  font-size: 16px;
-  font-weight: 700;
-  color: var(--heading-font-color);
-  margin: 0 0 4px;
-}
-
-.about-timeline__company {
-  font-size: 14px;
-  color: var(--text-alt-color);
-}
-
-/* Badges */
-.about-badges {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-  gap: 20px;
-}
-
-.about-badge {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  padding: 20px 12px;
-  background: var(--background-alt-color);
-  border: 1px solid var(--border-color);
-  border-radius: 10px;
-  text-align: center;
-  transition: transform .2s ease, box-shadow .2s ease;
-  text-decoration: none;
-}
-
-.about-badge:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 20px rgba(0,0,0,.1);
-}
-
-.about-badge__img {
-  width: 100px;
-  height: 100px;
-  object-fit: contain;
-}
-
-.about-badge__name {
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--heading-font-color);
-  line-height: 1.4;
-}
-
-.about-badge__verify {
-  font-size: 12px;
-  color: var(--brand-color);
-  font-weight: 600;
-}
-</style>

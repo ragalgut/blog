@@ -1,72 +1,65 @@
-#-------------------------------
-# Site Settings
-title: ragalgut
-logo: '/images/logo.svg'
-description: Un espacio para compartir conocimientos técnicos relacionados con la tecnología.
-baseurl: "" # the subpath of your site, e.g. /blog
-url: "https://ragalgut.me" # the base hostname & protocol for your site, e.g. http://example.com
-color_scheme: auto # You can choose three modes auto, light, and dark. By default, the auto mode is set, which means the user can choose the light or dark mode themself.
+title: ragalgut.me
+description: Artículos y proyectos de Rafael Galante sobre Azure, Terraform, automatización y desarrollo web. Experiencias de un arquitecto de soluciones cloud.
+lang: es
+url: "https://ragalgut.me"
+baseurl: ""
 
-
-#-------------------------------
-# Author Settings
 author:
-  author__name: Rafael Galante Gutiérrez
-  author__bio: Azure Engineer at Kyndryl
-  author__avatar: '/images/profile-ragalgut.jpeg'
+  name: Rafael Galante Gutiérrez
+  bio: arquitecto de soluciones cloud en Kyndryl
+  avatar: /images/profile-ragalgut.jpeg
 
 social:
-#- {icon: "ion-logo-facebook", link: "https://facebook.com"}
-#- {icon: "ion-logo-instagram", link: "https://instagram.com"}
-#- {icon: "ion-logo-pinterest", link: "https://pinterest.com"}
-#- {icon: "ion-logo-youtube", link: "https://youtube.com"}
-- {icon: "ion-logo-github", link: "https://github.com/ragalgut"}
-- {icon: "ion-logo-linkedin", link: "https://www.linkedin.com/in/ragalgut/"}
-- {icon: "ion-logo-twitter", link: "https://twitter.com/ragalgut"}
+  - label: GitHub
+    url: https://github.com/ragalgut
+  - label: LinkedIn
+    url: https://www.linkedin.com/in/ragalgut/
+  - label: X
+    url: https://twitter.com/ragalgut
 
+disqus_shortname: ragalgut
+google_analytics: G-Q1F6XGNYW1
 
-#-------------------------------
-# Newsletter
-mailchimp: enable # To enable the mailchimp form, use the value 'enable'. To disable the form, leave the field blank.
-mailchimp__identifier: ragagu.us11.list-manage.com/subscribe/post?u=5c523592f5bda733710584659&amp;id=148ee2d2d1 # Add your MailChimp form identifier. For example - frnla.us6.list-manage.com/subscribe/post?u=6314d69a3f315af7ce3fb00a0&amp;id=3038727cc3
-mailchimp__input__text: Suscríbete aquí
-mailchimp__button__text: Enviar
-
-
-#-------------------------------
-# Comment Section (Disqus)
-disqus-identifier: ragalgut # Add your shortname for Disqus Comment. For example demo-menca
-
-
-#-------------------------------
-# Google Analytics
-google-analytics: G-Q1F6XGNYW1 # GA Tracking Id
-
-
-#-------------------------------
-# Build Settings
 markdown: kramdown
+kramdown:
+  toc_levels: '2..3'
+highlighter: rouge
 permalink: /:title
+collections:
+  projects:
+    output: true
+    permalink: /proyectos/:name/
 plugins:
-  - jekyll-paginate
   - jekyll-sitemap
-  - jekyll-seo-tag
   - jekyll-feed
-
-paginate: 9
-paginate_path: "/page/:num"
-
-# Pages Path
-defaults:
-  - scope:
-      path: '_pages'
-    values:
-      permalink: /:basename:output_ext
-
 
 include:
   - _pages
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - scripts
+  - tests
+  - vendor
+  - .bundle
+
+defaults:
+  - scope:
+      path: ""
+      type: projects
+    values:
+      layout: project
+  - scope:
+      path: ""
+    values:
+      image: /images/profile-ragalgut.jpeg
+      image_alt: Rafael Galante Gutiérrez, arquitecto de soluciones cloud
 
 sass:
   sass_dir: _sass
   style: compressed
+  sourcemap: development
+
+feed:
+  posts_limit: 20

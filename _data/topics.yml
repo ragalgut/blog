@@ -1,0 +1,9 @@
+- id: cloud
+  title: Cloud
+  description: Arquitectura, administración y experiencias con Azure y Microsoft 365.
+- id: automatizacion
+  title: Automatización
+  description: Infraestructura como código, Terraform y flujos de trabajo con GitHub Actions.
+- id: desarrollo-web
+  title: Desarrollo web
+  description: Sitios web, publicación y herramientas para construir y mantener proyectos digitales.

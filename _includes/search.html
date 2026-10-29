@@ -1,24 +1,8 @@
-<!-- begin search -->
-<div class="search">
-  <div class="container">
-    <div class="row">
-      <div class="col col-12">
-        <div class="search__box">
-          <div class="search__group">
-            <div class="search__close">
-              <i class="ion ion-md-close"></i>
-            </div>
-            <label for="js-search-input" class="screen-reader-text">Buscar en el blog</label>
-            <input type="text" id="js-search-input" class="search__text" autocomplete="off" placeholder="Escribe para buscar...">
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="container">
-    <div class="row search-results-list" id="js-results-container"></div>
-  </div>
-
-</div>
-<!-- end search -->
+<dialog class="search-dialog" aria-labelledby="search-title" data-search-index="{{ '/search.json' | relative_url }}">
+  <div class="search-dialog__heading"><h2 id="search-title">Buscar artículos</h2><button class="icon-button" type="button" data-dialog-close aria-label="Cerrar búsqueda">×</button></div>
+  <label class="visually-hidden" for="site-search">Título, tema o palabra clave</label>
+  <input id="site-search" type="search" placeholder="Título, tema o palabra clave" autocomplete="off" aria-controls="search-results">
+  <p class="search-status" role="status" aria-live="polite">Escribe para buscar en todos los artículos.</p>
+  <div class="search-results" id="search-results"></div>
+  <a class="section-link" href="{{ '/articulos/' | relative_url }}">Ir al archivo de artículos <span aria-hidden="true">→</span></a>
+</dialog>

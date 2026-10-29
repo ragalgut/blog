@@ -1,0 +1,6 @@
+- id: passwords
+  title: Generador de contraseñas
+  url: /generador-contrasenas/
+  description: Crea contraseñas aleatorias con la longitud y los caracteres que necesites.
+  note: Se genera en tu navegador
+  script: /assets/js/password-generator.js

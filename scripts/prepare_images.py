@@ -31,9 +31,9 @@ def prepare():
             if 'social' in relative.parts:
                 widths = ()
             elif 'badges' in relative.parts:
-                widths = (100, 200)
+                widths = (100, 200, 300)
             elif source.name == 'profile-ragalgut.jpeg':
-                widths = (192, 384)
+                widths = (192, 384, 576)
             elif url in covers or 'projects' in relative.parts:
                 widths = (400, 800, 1200)
             else:

@@ -478,7 +478,7 @@
   "/images/badges/azure-administrator-associate.png": {
     "width": 600,
     "height": 600,
-    "fallback": "/images/responsive/badges/azure-administrator-associate-200.webp",
+    "fallback": "/images/responsive/badges/azure-administrator-associate-300.webp",
     "variants": [
       {
         "src": "/images/responsive/badges/azure-administrator-associate-100.webp",
@@ -487,13 +487,17 @@
       {
         "src": "/images/responsive/badges/azure-administrator-associate-200.webp",
         "width": 200
+      },
+      {
+        "src": "/images/responsive/badges/azure-administrator-associate-300.webp",
+        "width": 300
       }
     ]
   },
   "/images/badges/azure-ai-apps-agents-developer-associate.webp": {
     "width": 800,
     "height": 800,
-    "fallback": "/images/responsive/badges/azure-ai-apps-agents-developer-associate-200.webp",
+    "fallback": "/images/responsive/badges/azure-ai-apps-agents-developer-associate-300.webp",
     "variants": [
       {
         "src": "/images/responsive/badges/azure-ai-apps-agents-developer-associate-100.webp",
@@ -502,13 +506,17 @@
       {
         "src": "/images/responsive/badges/azure-ai-apps-agents-developer-associate-200.webp",
         "width": 200
+      },
+      {
+        "src": "/images/responsive/badges/azure-ai-apps-agents-developer-associate-300.webp",
+        "width": 300
       }
     ]
   },
   "/images/badges/azure-devops-engineer.png": {
     "width": 600,
     "height": 600,
-    "fallback": "/images/responsive/badges/azure-devops-engineer-200.webp",
+    "fallback": "/images/responsive/badges/azure-devops-engineer-300.webp",
     "variants": [
       {
         "src": "/images/responsive/badges/azure-devops-engineer-100.webp",
@@ -517,13 +525,17 @@
       {
         "src": "/images/responsive/badges/azure-devops-engineer-200.webp",
         "width": 200
+      },
+      {
+        "src": "/images/responsive/badges/azure-devops-engineer-300.webp",
+        "width": 300
       }
     ]
   },
   "/images/badges/azure-network-engineer.png": {
     "width": 512,
     "height": 512,
-    "fallback": "/images/responsive/badges/azure-network-engineer-200.webp",
+    "fallback": "/images/responsive/badges/azure-network-engineer-300.webp",
     "variants": [
       {
         "src": "/images/responsive/badges/azure-network-engineer-100.webp",
@@ -532,13 +544,17 @@
       {
         "src": "/images/responsive/badges/azure-network-engineer-200.webp",
         "width": 200
+      },
+      {
+        "src": "/images/responsive/badges/azure-network-engineer-300.webp",
+        "width": 300
       }
     ]
   },
   "/images/badges/azure-solutions-architect-expert.png": {
     "width": 600,
     "height": 600,
-    "fallback": "/images/responsive/badges/azure-solutions-architect-expert-200.webp",
+    "fallback": "/images/responsive/badges/azure-solutions-architect-expert-300.webp",
     "variants": [
       {
         "src": "/images/responsive/badges/azure-solutions-architect-expert-100.webp",
@@ -547,13 +563,17 @@
       {
         "src": "/images/responsive/badges/azure-solutions-architect-expert-200.webp",
         "width": 200
+      },
+      {
+        "src": "/images/responsive/badges/azure-solutions-architect-expert-300.webp",
+        "width": 300
       }
     ]
   },
   "/images/badges/claude-certified-architect-foundations.webp": {
     "width": 604,
     "height": 604,
-    "fallback": "/images/responsive/badges/claude-certified-architect-foundations-200.webp",
+    "fallback": "/images/responsive/badges/claude-certified-architect-foundations-300.webp",
     "variants": [
       {
         "src": "/images/responsive/badges/claude-certified-architect-foundations-100.webp",
@@ -562,13 +582,17 @@
       {
         "src": "/images/responsive/badges/claude-certified-architect-foundations-200.webp",
         "width": 200
+      },
+      {
+        "src": "/images/responsive/badges/claude-certified-architect-foundations-300.webp",
+        "width": 300
       }
     ]
   },
   "/images/badges/github-foundations-certification.webp": {
     "width": 1024,
     "height": 1024,
-    "fallback": "/images/responsive/badges/github-foundations-certification-200.webp",
+    "fallback": "/images/responsive/badges/github-foundations-certification-300.webp",
     "variants": [
       {
         "src": "/images/responsive/badges/github-foundations-certification-100.webp",
@@ -577,13 +601,17 @@
       {
         "src": "/images/responsive/badges/github-foundations-certification-200.webp",
         "width": 200
+      },
+      {
+        "src": "/images/responsive/badges/github-foundations-certification-300.webp",
+        "width": 300
       }
     ]
   },
   "/images/badges/google-cloud-engineer-associate.png": {
     "width": 1040,
     "height": 1040,
-    "fallback": "/images/responsive/badges/google-cloud-engineer-associate-200.webp",
+    "fallback": "/images/responsive/badges/google-cloud-engineer-associate-300.webp",
     "variants": [
       {
         "src": "/images/responsive/badges/google-cloud-engineer-associate-100.webp",
@@ -592,13 +620,17 @@
       {
         "src": "/images/responsive/badges/google-cloud-engineer-associate-200.webp",
         "width": 200
+      },
+      {
+        "src": "/images/responsive/badges/google-cloud-engineer-associate-300.webp",
+        "width": 300
       }
     ]
   },
   "/images/badges/microsoft-certified-trainer-2026.webp": {
     "width": 680,
     "height": 680,
-    "fallback": "/images/responsive/badges/microsoft-certified-trainer-2026-200.webp",
+    "fallback": "/images/responsive/badges/microsoft-certified-trainer-2026-300.webp",
     "variants": [
       {
         "src": "/images/responsive/badges/microsoft-certified-trainer-2026-100.webp",
@@ -607,13 +639,17 @@
       {
         "src": "/images/responsive/badges/microsoft-certified-trainer-2026-200.webp",
         "width": 200
+      },
+      {
+        "src": "/images/responsive/badges/microsoft-certified-trainer-2026-300.webp",
+        "width": 300
       }
     ]
   },
   "/images/badges/microsoft365-fundamentals.png": {
     "width": 512,
     "height": 512,
-    "fallback": "/images/responsive/badges/microsoft365-fundamentals-200.webp",
+    "fallback": "/images/responsive/badges/microsoft365-fundamentals-300.webp",
     "variants": [
       {
         "src": "/images/responsive/badges/microsoft365-fundamentals-100.webp",
@@ -622,13 +658,17 @@
       {
         "src": "/images/responsive/badges/microsoft365-fundamentals-200.webp",
         "width": 200
+      },
+      {
+        "src": "/images/responsive/badges/microsoft365-fundamentals-300.webp",
+        "width": 300
       }
     ]
   },
   "/images/badges/open-group-professional-communication-l1.png": {
     "width": 512,
     "height": 512,
-    "fallback": "/images/responsive/badges/open-group-professional-communication-l1-200.webp",
+    "fallback": "/images/responsive/badges/open-group-professional-communication-l1-300.webp",
     "variants": [
       {
         "src": "/images/responsive/badges/open-group-professional-communication-l1-100.webp",
@@ -637,13 +677,17 @@
       {
         "src": "/images/responsive/badges/open-group-professional-communication-l1-200.webp",
         "width": 200
+      },
+      {
+        "src": "/images/responsive/badges/open-group-professional-communication-l1-300.webp",
+        "width": 300
       }
     ]
   },
   "/images/badges/open-group-professional-development-l1.png": {
     "width": 512,
     "height": 512,
-    "fallback": "/images/responsive/badges/open-group-professional-development-l1-200.webp",
+    "fallback": "/images/responsive/badges/open-group-professional-development-l1-300.webp",
     "variants": [
       {
         "src": "/images/responsive/badges/open-group-professional-development-l1-100.webp",
@@ -652,13 +696,17 @@
       {
         "src": "/images/responsive/badges/open-group-professional-development-l1-200.webp",
         "width": 200
+      },
+      {
+        "src": "/images/responsive/badges/open-group-professional-development-l1-300.webp",
+        "width": 300
       }
     ]
   },
   "/images/badges/terraform-associate-003.png": {
     "width": 680,
     "height": 680,
-    "fallback": "/images/responsive/badges/terraform-associate-003-200.webp",
+    "fallback": "/images/responsive/badges/terraform-associate-003-300.webp",
     "variants": [
       {
         "src": "/images/responsive/badges/terraform-associate-003-100.webp",
@@ -667,6 +715,10 @@
       {
         "src": "/images/responsive/badges/terraform-associate-003-200.webp",
         "width": 200
+      },
+      {
+        "src": "/images/responsive/badges/terraform-associate-003-300.webp",
+        "width": 300
       }
     ]
   },
@@ -819,7 +871,7 @@
   "/images/profile-ragalgut.jpeg": {
     "width": 800,
     "height": 800,
-    "fallback": "/images/responsive/profile-ragalgut-384.webp",
+    "fallback": "/images/responsive/profile-ragalgut-576.webp",
     "variants": [
       {
         "src": "/images/responsive/profile-ragalgut-192.webp",
@@ -828,6 +880,10 @@
       {
         "src": "/images/responsive/profile-ragalgut-384.webp",
         "width": 384
+      },
+      {
+        "src": "/images/responsive/profile-ragalgut-576.webp",
+        "width": 576
       }
     ]
   },

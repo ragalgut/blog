@@ -31,6 +31,8 @@ jobs:
           node-version: '22'
       - name: Probar las herramientas
         run: node --test tests/*.test.mjs
+      - name: Contrastar cálculos IP con una referencia independiente
+        run: python3 tests/ip_reference_test.py
       - name: Probar artículos relacionados
         run: bundle exec ruby tests/related-posts_test.rb
       - name: Configurar Pages

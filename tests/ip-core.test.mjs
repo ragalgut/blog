@@ -122,6 +122,20 @@ test('VLSM puede ocupar una /0 completa sin errores de signo o capacidad', () =>
   assert.equal(result.rows[0].cidr,'0.0.0.0/0'); assert.equal(result.remaining,0n); assert.deepEqual(result.free,[]);
 });
 
+test('VLSM rechaza desbordamientos al final de IPv4 antes de normalizar la dirección', () => {
+  for (const [base, requests, profile] of [
+    ['255.255.255.252/30', [{name:'A',hosts:2},{name:'B',hosts:2}], 'standard'],
+    ['255.255.255.0/24', [{name:'Grande',hosts:300}], 'standard'],
+    ['0.0.0.0/0', [{name:'Todo',hosts:4294967294n},{name:'Extra',hosts:2}], 'standard'],
+    ['255.255.255.248/29', [{name:'A',hosts:3},{name:'B',hosts:1}], 'azure'],
+    ['255.255.255.240/28', [{name:'A',hosts:11},{name:'B',hosts:1}], 'aws']
+  ]) assert.throws(() => allocateVLSM(base, requests, profile), /Espacio insuficiente/, base);
+  const full = allocateVLSM('255.255.255.252/30', [{name:'Cabe',hosts:2}]);
+  assert.equal(full.rows[0].cidr, '255.255.255.252/30');
+  assert.equal(full.allocated, 4n);
+  assert.equal(full.remaining, 0n);
+});
+
 test('Comparación detecta duplicados, pertenencia y mezcla de familias sin falsos positivos', () => {
   const result = compareNetworks(['10.0.0.1/24','10.0.0.128/25','10.0.0.0/24','2001:db8::/64']);
   assert.equal(result.overlaps.length,3);

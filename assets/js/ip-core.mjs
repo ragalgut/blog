@@ -192,8 +192,10 @@ export function allocateVLSM(input, requests, profile = 'standard') {
   let cursor = parent.start;
   const rows = prepared.map(request => {
     const start = ((cursor + request.size - 1n) / request.size) * request.size;
+    if (start < parent.start || start + request.size - 1n > parent.end) {
+      throw new Error(`Espacio insuficiente en ${parent.cidr} para asignar «${request.name}». Reduce la demanda o amplía la red base.`);
+    }
     const subnet = analyzeNetwork(networkFromValue(start, request.prefix, 4), profile);
-    if (subnet.end > parent.end) throw new Error(`Espacio insuficiente en ${parent.cidr} para asignar «${request.name}». Reduce la demanda o amplía la red base.`);
     cursor = subnet.end + 1n;
     return { ...subnet, name: request.name, required: request.required, spare: subnet.capacity - request.required };
   });

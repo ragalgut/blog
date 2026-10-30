@@ -207,14 +207,14 @@ $('ip-vlsm-form').addEventListener('submit',event=>{
   }catch(exception){error('ip-vlsm-error',exception);}
 });
 $('ip-copy-vlsm').addEventListener('click',()=>{if(vlsm)copy([`Plan: ${vlsm.parent.cidr}`,...vlsm.rows.map(n=>`${n.name}: ${n.cidr} | ${n.required} hosts solicitados | ${n.capacity} disponibles | ${address(n.first,n)} - ${address(n.last,n)}`),`Libres: ${vlsm.free.map(n=>n.cidr).join(', ')||'sin espacio libre'}`].join('\n'),'Plan VLSM copiado.');});
-$('ip-export-vlsm').addEventListener('click',()=>{if(vlsm)downloadCSV('plan-vlsm.csv',[['Nombre','Red CIDR','Hosts solicitados','Hosts disponibles','Primer host','Último host'],...vlsm.rows.map(n=>[n.name,n.cidr,n.required,n.capacity,address(n.first,n),address(n.last,n)]),...vlsm.free.map(n=>['Espacio libre',n.cidr,'','',address(n.start,n),address(n.end,n)])]);});
+$('ip-export-vlsm').addEventListener('click',()=>{if(vlsm)downloadCSV('plan-vlsm.csv',[['Nombre','Red CIDR','Hosts solicitados','Hosts disponibles','Primer host de la subred','Último host de la subred'],...vlsm.rows.map(n=>[n.name,n.cidr,n.required,n.capacity,address(n.first,n),address(n.last,n)]),...vlsm.free.map(n=>['Espacio libre',n.cidr,'','','',''])]);});
 
 $('ip-compare-form').addEventListener('input',()=>{comparison=null;invalidate('ip-compare');});
 $('ip-compare-form').addEventListener('submit',event=>{
   event.preventDefault();comparison=null;clearError('ip-compare-error');$('ip-compare-result').hidden=true;$('ip-compare-pending').hidden=true;
+  const lines=$('ip-networks').value.split(/\r?\n/).map((text,index)=>({text:text.trim(),number:index+1})).filter(line=>line.text);
   try{
-    const inputs=$('ip-networks').value.split(/\r?\n/).map(line=>line.trim()).filter(Boolean);
-    comparison=compareNetworks(inputs);
+    comparison=compareNetworks(lines.map(line=>line.text));
     const {networks,overlaps,aggregated}=comparison;
     $('ip-compare-summary').textContent=`${networks.length} ${networks.length===1?'red':'redes'} de entrada · ${aggregated.length} CIDR tras agrupar. ${overlaps.length ? count(overlaps.length)+(overlaps.length===1?' par de redes se solapa.':' pares de redes se solapan.') : 'No hay solapamientos entre las redes de entrada.'}`;
     cidrs('ip-aggregate-list',aggregated);
@@ -223,7 +223,10 @@ $('ip-compare-form').addEventListener('submit',event=>{
     $('ip-overlap-count').textContent=overlaps.length>100?`Se muestran los primeros 100 de ${count(overlaps.length)} pares. Los números de línea corresponden a la lista normalizada.`:'Los números de línea corresponden a la lista normalizada.';
     rows('ip-overlap-rows',overlaps.slice(0,100).map(pair=>[`${pair.firstLine} / ${pair.secondLine}`,pair.first,pair.second,pair.relationship]));
     $('ip-compare-result').hidden=false;announce(`Comparación completa: ${overlaps.length} ${overlaps.length===1?'par':'pares'} con solapamiento; ${aggregated.length} CIDR agregados.`);
-  }catch(exception){error('ip-compare-error',exception);}
+  }catch(exception){
+    const message=exception.message.replace(/^Línea (\d+):/,(_,index)=>`Línea ${lines[Number(index)-1].number}:`);
+    error('ip-compare-error',{message});
+  }
 });
 $('ip-copy-aggregate').addEventListener('click',()=>{if(comparison)copy(comparison.aggregated.map(n=>n.cidr).join('\n'),'Lista CIDR agregada copiada.');});
 

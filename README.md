@@ -17,15 +17,15 @@ Abre http://127.0.0.1:4000/. Los cambios en `_config.yml` y los plugins requiere
 
 - `_layouts/` y `_includes/`: estructura compartida, tarjetas, navegación y metadatos.
 - `_sass/` y `assets/css/main.scss`: estilos editoriales, compilados en un único archivo CSS.
-- `assets/js/`: interacciones nativas del navegador, archivo de artículos y generador.
-- `_pages/`: archivo, temas, perfil y herramienta.
+- `assets/js/`: interacciones nativas del navegador, archivo de artículos y herramientas.
+- `_pages/`: archivo, temas, perfil y páginas de herramientas.
 - `_data/topics.yml`: las tres familias editoriales y sus descripciones.
 - `_projects/`: fichas de proyectos, con su propia colección y URLs.
 - `_data/clients.yml` y `_data/tools.yml`: marcas del bloque de clientes y catálogo de herramientas.
 - `_data/certifications.yml`: credenciales de Acerca de y la destacada en la cabecera de inicio.
 - `_plugins/related-posts.rb`: selección de artículos por tecnologías compartidas, tema y fecha.
 - `_posts/` e `images/`: artículos y medios.
-- `scripts/` y `tests/`: auditoría del sitio generado y pruebas del generador.
+- `scripts/` y `tests/`: auditoría del sitio generado y pruebas de las herramientas.
 - `assets/examples/`: ejemplos descargables que acompañan a los artículos; no se ejecutan como workflows de este blog.
 
 La portada muestra los seis artículos más recientes. `/articulos/` permite buscar y combinar tema principal, tecnología y año, ordenar por fecha y paginar de doce en doce. `/tags/` es un directorio breve con recuentos y accesos al archivo. Las tecnologías y años se obtienen automáticamente de los artículos. Sin JavaScript, todo el archivo sigue disponible. Los enlaces antiguos con `?tema=Azure` siguen funcionando y se normalizan a `?tecnologia=Azure`.
@@ -94,6 +94,7 @@ Usa `relative_url` para los recursos locales. Las canónicas y los datos sociale
 JEKYLL_ENV=production bundle exec jekyll build
 python3 scripts/audit_site.py _site
 node --test tests/*.test.mjs
+python3 tests/ip_reference_test.py
 ```
 
 Las pruebas de JavaScript requieren Node.js 22 o superior. La auditoría revisa títulos y descripciones únicos, una canónica y un H1 por página, jerarquía de encabezados, identificadores, alt y dimensiones de imágenes, enlaces y anclas internos, JSON-LD, índice de búsqueda, sitemap y feed. No sustituye la revisión editorial ni la comprobación de servicios externos.
@@ -147,7 +148,7 @@ El catálogo de herramientas está en `_data/tools.yml`; cada entrada define su 
 - VLSM admite 1–32 demandas IPv4, asigna de mayor a menor y devuelve el espacio libre como CIDR exactos. El mínimo estándar es /30 para LAN; los enlaces /31 se calculan en la primera pestaña.
 - La comparación acepta hasta 128 redes, separa familias y muestra hasta 100 pares solapados. La agregación conserva exactamente el espacio de entrada, sin incluir huecos.
 
-Los CSV incluyen los datos calculados y neutralizan los nombres que podrían interpretarse como fórmulas. Las pruebas de `tests/ip-core.test.mjs` cubren límites, máscaras inválidas, IPv6, reservas cloud, paginación, VLSM, agregación y exportación. GitHub Actions ejecuta todas las pruebas de herramientas antes de publicar.
+Los CSV incluyen los datos calculados y neutralizan los nombres que podrían interpretarse como fórmulas. Las filas de espacio libre no indican hosts asignables hasta que se conviertan en subredes. Las pruebas de `tests/ip-core.test.mjs` cubren límites, máscaras inválidas, IPv6, reservas cloud, paginación, VLSM, agregación y exportación. `tests/ip_reference_test.py` contrasta además 2.684 casos reproducibles con la biblioteca independiente `ipaddress` de Python. GitHub Actions ejecuta ambas comprobaciones antes de publicar.
 
 ## Imagen para compartir la portada
 
